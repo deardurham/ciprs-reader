@@ -1,0 +1,3 @@
+pdfrw==0.4
+jupyterlab==0.35.4
+flake8==3.7.7
