@@ -9,17 +9,10 @@ class PDFToTextReader:
     report = {
         'General': {},
         'Case Information': {},
-        'Case Officials': {},
-        'Arrest and Release Information': {},
-        'Violation of Court Orders': {},
         'Defendant': {},
-        'Witnesses': {},
-        'Citation Information': {},
-        'Consolidation for Judgment': {},
         'Offense Record': {
             'Records': [],
         },
-        'DMV Notification Events': {},
     }
     document_parsers = (
         parsers.CaseDetails(report),
