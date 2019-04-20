@@ -1,3 +1,6 @@
 pdfrw==0.4
 jupyterlab==0.35.4
 flake8==3.7.7
+pdfrw==0.4
+pdfminer.six==20181108
+pytest==4.4.1
