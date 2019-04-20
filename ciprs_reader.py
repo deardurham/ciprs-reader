@@ -1,6 +1,4 @@
 import sys
-sys.path.append('.')
-
 from ciprs.reader import PDFToTextReader
 
 

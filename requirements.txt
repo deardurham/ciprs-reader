@@ -4,3 +4,4 @@ flake8==3.7.7
 pdfrw==0.4
 pdfminer.six==20181108
 pytest==4.4.1
+pytest-pylint==0.14.0

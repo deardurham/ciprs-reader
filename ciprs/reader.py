@@ -4,7 +4,7 @@ import subprocess
 from ciprs import parsers
 
 
-class PDFToTextReader(object):
+class PDFToTextReader:
 
     report = {
         'General': {},
@@ -33,6 +33,7 @@ class PDFToTextReader(object):
 
     def __init__(self, path):
         self.path = path
+        self.text = ''
 
     def convert_to_text(self):
         run = subprocess.run(
@@ -55,10 +56,11 @@ class PDFToTextReader(object):
         return json.dumps(self.report, indent=4)
 
 
-class Reader(object):
+class Reader:
 
     def __init__(self, source):
         self.source = source
+        self.current = None
 
     def next(self):
         self.current = next(self.source, None)

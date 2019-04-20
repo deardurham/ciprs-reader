@@ -3,7 +3,7 @@
 import re
 
 
-class Parser(object):
+class Parser:
     """Base parsing object to search and extract data into report"""
 
     # Regular expression search pattern
@@ -13,11 +13,13 @@ class Parser(object):
     #   ("Case Information", "Case Status")
     #   will save to:
     #   report['Case Information']['Case Status']
-    section = None
+    section = []
 
     def __init__(self, report=None):
         self.re = re.compile(self.pattern)
         self.report = report
+        self.matches = None
+        self.document = None
 
     def match(self, document):
         """Search for match in document"""
@@ -62,9 +64,13 @@ class CaseStatus(Parser):
 
 
 class OffenseRecordRow(Parser):
-    """Extract offense row like: CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450"""
+    """
+    Extract offense row like:
+        CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
+    """
 
-    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)[ ]{2,}(?P<code>\d+)"  # noqa
+    # pylint: disable=line-too-long
+    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)[ ]{2,}(?P<code>\d+)"
 
     def extract(self, matches, report):
         record = {
