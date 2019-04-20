@@ -89,6 +89,24 @@ class OffenseRecordRow(Parser):
         report['Offense Record']['Records'].append(record)
 
 
+class OffenseDisposedDate(Parser):
+
+    pattern = r"\s*Disposed on:\s*(?P<value>[\d/:]+)"
+    section = ("Offense Record", "Disposed On")
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y').date()
+        matches['value'] = date.isoformat()
+        return matches
+
+
+class OffenseDispositionMethod(Parser):
+
+    pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)[ ]{2,}"
+    section = ("Offense Record", "Disposition Method")
+
+
 class OffenseDateTime(Parser):
 
     pattern = r"\s*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"

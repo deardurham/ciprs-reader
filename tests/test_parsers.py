@@ -75,3 +75,17 @@ def test_defendent_sex():
     matches = parsers.DefendentSex().match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "MALE"
+
+
+def test_offense_disposed_date():
+    string = "      Disposed on: 01/01/2000   "
+    matches = parsers.OffenseDisposedDate().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2000-01-01"
+
+
+def test_offense_disposition_method():
+    string = "    Disposition Method: DISPOSED BY JUDGE      Verdict "
+    matches = parsers.OffenseDispositionMethod().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "DISPOSED BY JUDGE"

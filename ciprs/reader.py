@@ -18,10 +18,6 @@ class PDFToTextReader:
         'Consolidation for Judgment': {},
         'Offense Record': {
             'Records': [],
-            'Court Officials': {},
-            'Violation of Court Orders': {},
-            'Transfers or Appeals': {},
-            'Monies': {},
         },
         'DMV Notification Events': {},
     }
@@ -30,6 +26,8 @@ class PDFToTextReader:
         parsers.CaseStatus(report),
         parsers.OffenseRecordRow(report),
         parsers.OffenseDateTime(report),
+        parsers.OffenseDisposedDate(report),
+        parsers.OffenseDispositionMethod(report),
         parsers.DefendentName(report),
         parsers.DefendentRace(report),
         parsers.DefendentSex(report),
