@@ -36,6 +36,7 @@ class Parser:
         return self.matches
 
     def clean(self, matches):
+        """Overridable hook to clean matches"""
         return matches
 
     def find(self, document):
