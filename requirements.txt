@@ -5,3 +5,4 @@ pdfrw==0.4
 pdfminer.six==20181108
 pytest==4.4.1
 pytest-pylint==0.14.0
+ipdb==0.12

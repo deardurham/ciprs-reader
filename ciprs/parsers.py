@@ -9,6 +9,7 @@ class Parser:
 
     # Regular expression search pattern
     pattern = None
+    re_method = 'match'
     # Default location in report to save match, expressed as tuple
     # For example:
     #   ("Case Information", "Case Status")
@@ -26,7 +27,10 @@ class Parser:
         """Search for match in document"""
         self.matches = None
         self.document = document
-        matches = self.re.match(str(document))
+        if self.re_method == 'match':
+            matches = self.re.match(str(document))
+        else:
+            matches = self.re.search(str(document))
         if matches:
             matches = matches.groupdict()
             # strip whitespace on any values
@@ -135,3 +139,24 @@ class DefendentSex(Parser):
 
     pattern = r"\s*Sex: \s*(?P<value>\w+)"
     section = ("Defendant", "Sex")
+
+
+class DefendentDOB(Parser):
+
+    pattern = r"\s*Date of Birth/Estimated Age:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    re_method = 'search'
+    section = ("Defendant", "Date of Birth/Estimated Age")
+
+    def match(self, document):
+        """DOB is split across two lines so the entire document is searched"""
+        # TODO: clean this up?
+        from ciprs.reader import Reader
+        if isinstance(document, Reader):
+            return super().match(document.source)
+        return super().match(document)
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y').date()
+        matches['value'] = date.isoformat()
+        return matches

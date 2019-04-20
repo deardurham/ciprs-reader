@@ -77,6 +77,15 @@ def test_defendent_sex():
     assert matches["value"] == "MALE"
 
 
+def test_defendent_dob():
+    string = """     Date of Birth/Estimated Age:     Driver License Information  \n
+       01/01/2000       • License State: NC
+    """
+    matches = parsers.DefendentDOB().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2000-01-01"
+
+
 def test_offense_disposed_date():
     string = "      Disposed on: 01/01/2000   "
     matches = parsers.OffenseDisposedDate().match(string)
