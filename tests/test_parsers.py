@@ -47,3 +47,10 @@ def test_offense_record_convicted():
     assert matches["severity"] == "INFRACTION"
     assert matches["law"] == "G.S. 20-123.2"
     assert matches["code"] == "4418"
+
+
+def test_offense_date_time():
+    string = "    Offense Date/Time: 05/17/2015 09:59 PM   "
+    matches = parsers.OffenseDateTime().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2015-05-17T21:59:00"

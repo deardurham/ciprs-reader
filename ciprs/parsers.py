@@ -1,5 +1,6 @@
 """Parsing classes to extract text from CIPRS Detailed PDF"""
 
+import datetime as dt
 import re
 
 
@@ -27,11 +28,15 @@ class Parser:
         self.document = document
         matches = self.re.match(str(document))
         if matches:
-            self.matches = matches.groupdict()
+            matches = matches.groupdict()
             # strip whitespace on any values
-            for key, val in self.matches.items():
-                self.matches[key] = val.strip()
+            for key, val in matches.items():
+                matches[key] = val.strip()
+            self.matches = self.clean(matches)
         return self.matches
+
+    def clean(self, matches):
+        return matches
 
     def find(self, document):
         """Look for match and run extract() if found"""
@@ -81,3 +86,15 @@ class OffenseRecordRow(Parser):
             'Code': matches['code'],
         }
         report['Offense Record']['Records'].append(record)
+
+
+class OffenseDateTime(Parser):
+
+    pattern = r"\s*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
+    section = ("Case Information", "Offense Date")
+
+    def clean(self, matches):
+        """Parse and convert to the date and time in ISO 8601 format"""
+        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y %I:%M %p')
+        matches['value'] = date.isoformat()
+        return matches
