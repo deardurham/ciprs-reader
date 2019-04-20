@@ -149,7 +149,6 @@ class DefendentDOB(Parser):
 
     def match(self, document):
         """DOB is split across two lines so the entire document is searched"""
-        # TODO: clean this up?
         from ciprs.reader import Reader
         if isinstance(document, Reader):
             return super().match(document.source)
