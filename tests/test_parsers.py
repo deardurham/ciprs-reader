@@ -54,3 +54,24 @@ def test_offense_date_time():
     matches = parsers.OffenseDateTime().match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "2015-05-17T21:59:00"
+
+
+def test_defendent_name():
+    string = "   Defendant:   DOE,JON,BOJACK   "
+    matches = parsers.DefendentName().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "DOE,JON,BOJACK"
+
+
+def test_defendent_race():
+    string = "   Race: WHITE   "
+    matches = parsers.DefendentRace().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "WHITE"
+
+
+def test_defendent_sex():
+    string = "   Sex: MALE   "
+    matches = parsers.DefendentSex().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "MALE"

@@ -30,6 +30,9 @@ class PDFToTextReader:
         parsers.CaseStatus(report),
         parsers.OffenseRecordRow(report),
         parsers.OffenseDateTime(report),
+        parsers.DefendentName(report),
+        parsers.DefendentRace(report),
+        parsers.DefendentSex(report),
     )
 
     def __init__(self, path):

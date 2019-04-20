@@ -99,3 +99,21 @@ class OffenseDateTime(Parser):
         date = dt.datetime.strptime(matches['value'], '%m/%d/%Y %I:%M %p')
         matches['value'] = date.isoformat()
         return matches
+
+
+class DefendentName(Parser):
+
+    pattern = r"\s*Defendant: \s*(?P<value>[\w,/]+)"
+    section = ("Defendant", "Name")
+
+
+class DefendentRace(Parser):
+
+    pattern = r"\s*Race: \s*(?P<value>\w+)"
+    section = ("Defendant", "Race")
+
+
+class DefendentSex(Parser):
+
+    pattern = r"\s*Sex: \s*(?P<value>\w+)"
+    section = ("Defendant", "Sex")
