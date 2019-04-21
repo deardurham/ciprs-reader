@@ -1,5 +1,11 @@
 # CIPRS Reader
 
+Pre-requisites:
+
+```
+brew cask install pdftotext
+```
+
 Setup:
 
 ```bash
