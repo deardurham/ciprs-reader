@@ -1,0 +1,33 @@
+County: ['General', 'County']
+# File No
+ConsJdgmntFileNum: ['General', 'File No']
+# Checkboxes: In The General Court of Justice
+District: ''  # Yes == checked
+Superior: ''
+# Name and Address of Petitioner
+NamePetitioner: ['Defendant', 'Name']
+StreetAddr: ''
+MailAddr: ''
+City: ''
+State: ''
+ZipCode: ''
+# Drivers License Number
+DLNo: ''
+DLState: ''
+# Race
+Race: ['Defendant', 'Race']
+Sex: ['Defendant', 'Sex']
+# Date of Birth
+DOB: ['Defendant', 'Date of Birth/Estimated Age']
+# Full Social Security Number
+SNN: ''
+# Age At Time of Offense
+Age: '' # Calculate this?
+# Name and Address of Petitioners Attorney
+NameAtty: ''
+StAddrAtty: ''
+MailAddrAtty: ''
+CityAtty: ''
+StateAtty: ''
+ZipCodeAtty: ''
+
