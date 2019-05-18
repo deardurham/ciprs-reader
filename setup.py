@@ -1,3 +1,9 @@
 from setuptools import setup, find_packages
 
-setup(name="ciprs_reader", packages=find_packages())
+import ciprs
+
+setup(
+    name="ciprs_reader",
+    version=ciprs.VERSION,
+    packages=find_packages(),
+)
