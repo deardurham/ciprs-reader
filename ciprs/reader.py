@@ -6,14 +6,6 @@ from ciprs import parsers
 
 class PDFToTextReader:
 
-    report = {
-        'General': {},
-        'Case Information': {},
-        'Defendant': {},
-        'Offense Record': {
-            'Records': [],
-        },
-    }
     document_parsers = (
         parsers.CaseDetails(report),
         parsers.CaseStatus(report),
@@ -29,6 +21,14 @@ class PDFToTextReader:
 
     def __init__(self, path):
         self.path = path
+        self.report = {
+            'General': {},
+            'Case Information': {},
+            'Defendant': {},
+            'Offense Record': {
+                'Records': [],
+            },
+        }
 
     def convert_to_text(self):
         run = subprocess.run(
