@@ -33,9 +33,10 @@ class PDFToTextReader:
     def convert_to_text(self):
         run = subprocess.run(
             f"pdftotext -layout -enc UTF-8 {self.path} -",
-            capture_output=True,
             check=True,
             shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
         return run.stdout.decode("utf-8")
 
