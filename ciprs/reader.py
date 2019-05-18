@@ -17,16 +17,16 @@ class PDFToTextReader:
             },
         }
         self.document_parsers = (
-            parsers.CaseDetails(report),
-            parsers.CaseStatus(report),
-            parsers.OffenseRecordRow(report),
-            parsers.OffenseDateTime(report),
-            parsers.OffenseDisposedDate(report),
-            parsers.OffenseDispositionMethod(report),
-            parsers.DefendentName(report),
-            parsers.DefendentRace(report),
-            parsers.DefendentSex(report),
-            parsers.DefendentDOB(report),
+            parsers.CaseDetails(self.report),
+            parsers.CaseStatus(self.report),
+            parsers.OffenseRecordRow(self.report),
+            parsers.OffenseDateTime(self.report),
+            parsers.OffenseDisposedDate(self.report),
+            parsers.OffenseDispositionMethod(self.report),
+            parsers.DefendentName(self.report),
+            parsers.DefendentRace(self.report),
+            parsers.DefendentSex(self.report),
+            parsers.DefendentDOB(self.report),
         )
 
     def convert_to_text(self):
