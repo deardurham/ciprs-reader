@@ -128,6 +128,14 @@ class DefendentName(Parser):
     pattern = r"\s*Defendant: \s*(?P<value>[\w,/]+)"
     section = ("Defendant", "Name")
 
+    def clean(self,matches):
+        #Change name from last,first,middle to FIRST MIDDLE LAST
+        name = matches['value']
+        name_list = name.split(',') 
+        name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
+        matches['value'] = name.upper()
+        return matches
+
 
 class DefendentRace(Parser):
 
