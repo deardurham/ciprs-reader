@@ -9,7 +9,7 @@ class Parser:
 
     # Regular expression search pattern
     pattern = None
-    re_method = 'match'
+    re_method = "match"
     # Default location in report to save match, expressed as tuple
     # For example:
     #   ("Case Information", "Case Status")
@@ -27,7 +27,7 @@ class Parser:
         """Search for match in document"""
         self.matches = None
         self.document = document
-        if self.re_method == 'match':
+        if self.re_method == "match":
             matches = self.re.match(str(document))
         else:
             matches = self.re.search(str(document))
@@ -63,8 +63,8 @@ class CaseDetails(Parser):
     pattern = r"\s*Case Details for Court Case (?P<county>\w+) (?P<fileno>\w+)"
 
     def extract(self, matches, report):
-        report['General']['County'] = matches['county']
-        report['General']['File No'] = matches['fileno']
+        report["General"]["County"] = matches["county"]
+        report["General"]["File No"] = matches["fileno"]
 
 
 class CaseStatus(Parser):
@@ -84,13 +84,13 @@ class OffenseRecordRow(Parser):
 
     def extract(self, matches, report):
         record = {
-            'Action': matches['action'],
-            'Description': matches['desc'],
-            'Severity': matches['severity'],
-            'Law': matches['law'],
-            'Code': matches['code'],
+            "Action": matches["action"],
+            "Description": matches["desc"],
+            "Severity": matches["severity"],
+            "Law": matches["law"],
+            "Code": matches["code"],
         }
-        report['Offense Record']['Records'].append(record)
+        report["Offense Record"]["Records"].append(record)
 
 
 class OffenseDisposedDate(Parser):
@@ -100,8 +100,8 @@ class OffenseDisposedDate(Parser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y').date()
-        matches['value'] = date.isoformat()
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        matches["value"] = date.isoformat()
         return matches
 
 
@@ -118,8 +118,8 @@ class OffenseDateTime(Parser):
 
     def clean(self, matches):
         """Parse and convert to the date and time in ISO 8601 format"""
-        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y %I:%M %p')
-        matches['value'] = date.isoformat()
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
+        matches["value"] = date.isoformat()
         return matches
 
 
@@ -128,12 +128,18 @@ class DefendentName(Parser):
     pattern = r"\s*Defendant: \s*(?P<value>[\w,/]+)"
     section = ("Defendant", "Name")
 
-    def clean(self,matches):
-        #Change name from last,first,middle to FIRST MIDDLE LAST
-        name = matches['value']
-        name_list = name.split(',') 
-        name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
-        matches['value'] = name.upper()
+    def clean(self, matches):
+        # Change name from last,first,middle to FIRST MIDDLE LAST
+        name = matches["value"]
+        name_list = name.split(",")
+        try:
+            if len(name_list) == 2:
+                name = "{} {}".format(name_list[1], name_list[0])
+            elif len(name_list) == 3:
+                name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
+        except:
+            name = ""
+        matches["value"] = name.upper()
         return matches
 
 
@@ -152,18 +158,19 @@ class DefendentSex(Parser):
 class DefendentDOB(Parser):
 
     pattern = r"\s*Date of Birth/Estimated Age:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
-    re_method = 'search'
+    re_method = "search"
     section = ("Defendant", "Date of Birth/Estimated Age")
 
     def match(self, document):
         """DOB is split across two lines so the entire document is searched"""
         from ciprs.reader import Reader
+
         if isinstance(document, Reader):
             return super().match(document.source)
         return super().match(document)
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches['value'], '%m/%d/%Y').date()
-        matches['value'] = date.isoformat()
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        matches["value"] = date.isoformat()
         return matches

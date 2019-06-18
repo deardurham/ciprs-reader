@@ -60,7 +60,14 @@ def test_defendent_name():
     string = "   Defendant:   DOE,JON,BOJACK   "
     matches = parsers.DefendentName().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DOE,JON,BOJACK"
+    assert matches["value"] == "JON BOJACK DOE"
+
+
+def test_defendent_name_no_middle():
+    string = "  Defendant: DOE,JON   "
+    matches = parsers.DefendentName().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "JON DOE"
 
 
 def test_defendent_race():
