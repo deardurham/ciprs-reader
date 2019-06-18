@@ -6,3 +6,4 @@ pdfminer.six==20181108
 pytest==4.4.1
 pytest-pylint==0.14.0
 ipdb==0.12
+pre-commit==1.17.0
