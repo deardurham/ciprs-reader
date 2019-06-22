@@ -15,8 +15,9 @@ class PDFToTextReader:
             'Offense Record': {
                 'Records': [],
             },
+            "_meta": {},
         }
-        self.document_parsers = (
+        self.line_parsers = (
             parsers.CaseDetails(self.report),
             parsers.CaseStatus(self.report),
             parsers.OffenseRecordRow(self.report),
@@ -26,6 +27,8 @@ class PDFToTextReader:
             parsers.DefendentName(self.report),
             parsers.DefendentRace(self.report),
             parsers.DefendentSex(self.report),
+        )
+        self.document_parsers = (
             parsers.DefendentDOB(self.report),
         )
 
@@ -42,9 +45,13 @@ class PDFToTextReader:
     def parse(self):
         text = self.convert_to_text()
         reader = Reader(text)
+        # save output of pdftotext for later inspection, if needed
+        # self.report["_meta"]["source"] = reader.source
         while reader.next() is not None:
-            for parser in self.document_parsers:
+            for parser in self.line_parsers:
                 parser.find(reader)
+        for parser in self.document_parsers:
+            parser.find(reader.source)
 
     def json(self):
         return json.dumps(self.report, indent=4)
