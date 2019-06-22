@@ -1,24 +1,13 @@
 # CIPRS Reader
 
-Pre-requisites:
 
-```
-brew cask install pdftotext
-```
+## Setup and Run:
 
-Setup:
+Add pdf file to parse in /ignore folder then run:
 
 ```bash
-pyenv virtualenv 3.7.2 ciprs-reader
-pyenv shell ciprs-reader
-pip install -r requirements.txt
-pip install -e .
-```
-
-Read CIPRS PDF:
-
-```
-python ciprs_reader.py ./cypress-example.pdf
+docker build -t ciprs-reader .
+docker run -v "${PWD}:/usr/src/app" ciprs-reader python ciprs_reader.py ignore/cypress-example.pdf
 ```
 
 Example output:
