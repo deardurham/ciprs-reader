@@ -5,17 +5,13 @@ from ciprs import parsers
 
 
 class PDFToTextReader:
-
     def __init__(self, path):
         self.path = path
         self.report = {
-            'General': {},
-            'Case Information': {},
-            'Defendant': {},
-            'Offense Record': {
-                'Records': [],
-            },
-            "_meta": {},
+            "General": {},
+            "Case Information": {},
+            "Defendant": {},
+            "Offense Record": {"Records": []},
         }
         self.line_parsers = (
             parsers.CaseDetails(self.report),
@@ -58,7 +54,6 @@ class PDFToTextReader:
 
 
 class Reader:
-
     def __init__(self, source):
         self.source = source
         self.lines = iter(source.splitlines())
@@ -69,4 +64,4 @@ class Reader:
         return self.current
 
     def __str__(self):
-        return self.current or ''
+        return self.current or ""
