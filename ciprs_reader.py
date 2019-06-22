@@ -11,6 +11,8 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--verbose", dest="verbose_count",
                         action="count", default=0,
                         help="increases log verbosity for each occurence.")
+    parser.add_argument('--source', help='Include full source in JSON output',
+                        action='store_true')
 
     args = parser.parse_args()
     formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
@@ -22,5 +24,5 @@ if __name__ == "__main__":
 
     logger.info("Running ciprs-reader on %s", args.input)
     reader = PDFToTextReader(args.input)
-    reader.parse()
+    reader.parse(source=args.source)
     print(reader.json())

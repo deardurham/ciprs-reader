@@ -1,7 +1,11 @@
 import json
+import logging
 import subprocess
 
 from ciprs import parsers
+
+
+logger = logging.getLogger(__name__)
 
 
 class PDFToTextReader:
@@ -12,6 +16,7 @@ class PDFToTextReader:
             "Case Information": {},
             "Defendant": {},
             "Offense Record": {"Records": []},
+            "_meta": {},
         }
         self.line_parsers = (
             parsers.CaseDetails(self.report),
@@ -38,11 +43,13 @@ class PDFToTextReader:
         )
         return run.stdout.decode("utf-8")
 
-    def parse(self):
+    def parse(self, source=False):
         text = self.convert_to_text()
+        if source:
+            # save output of pdftotext for later inspection, if desired
+            self.report["_meta"]["source"] = text
+        logger.debug("pdftotext: %s", text)
         reader = Reader(text)
-        # save output of pdftotext for later inspection, if needed
-        # self.report["_meta"]["source"] = reader.source
         while reader.next() is not None:
             for parser in self.line_parsers:
                 parser.find(reader)
