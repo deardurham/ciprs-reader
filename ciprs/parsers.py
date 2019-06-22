@@ -44,15 +44,15 @@ class Parser:
             for key, val in matches.items():
                 matches[key] = val.strip()
             if self.is_line_parser:
-                self.logger.info(f"Matched: {matches} in {str(document).strip()}")
+                self.logger.info("Matched: %s in %s", matches, str(document).strip())
             else:
-                self.logger.info(f"Matched: {matches} in (document)")
+                self.logger.info("Matched: %s in (document)", matches)
             self.matches = self.clean(matches)
         else:
             if self.is_line_parser:
-                self.logger.debug(f"No match: {str(document).strip()}")
+                self.logger.debug("No match: %s", str(document).strip())
             else:
-                self.logger.info(f"Matched: {matches} in (document)")
+                self.logger.debug("No match: (document)")
         return self.matches
 
     def clean(self, matches):
