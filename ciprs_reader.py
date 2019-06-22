@@ -16,11 +16,11 @@ if __name__ == "__main__":
     formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)
-    logger = logging.getLogger()
+    logger = logging.getLogger('ciprs')
     logger.addHandler(handler)
     logger.setLevel(max(3 - args.verbose_count, 0) * 10)
 
-    logger.info("Running ciprs-reader")
+    logger.info("Running ciprs-reader on %s", args.input)
     reader = PDFToTextReader(args.input)
     reader.parse()
     print(reader.json())
