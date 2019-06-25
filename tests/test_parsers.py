@@ -77,11 +77,25 @@ def test_defendent_race():
     assert matches["value"] == "WHITE"
 
 
-def test_defendent_sex():
+def test_defendent_sex_male():
     string = "   Sex: MALE   "
     matches = parsers.DefendentSex().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "MALE"
+    assert matches["value"] == "M"
+
+
+def test_defendent_sex_female():
+    string = "   Sex: FEMALE   "
+    matches = parsers.DefendentSex().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "F"
+
+
+def test_defendent_sex_bad():
+    string = "   Sex: DUNNO   "
+    matches = parsers.DefendentSex().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == ""
 
 
 def test_defendent_dob():

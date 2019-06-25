@@ -171,6 +171,17 @@ class DefendentSex(Parser):
     pattern = r"\s*Sex: \s*(?P<value>\w+)"
     section = ("Defendant", "Sex")
 
+    def clean(self, matches):
+        """Parse and convert defendent sex to M or F"""
+        sex = matches['value'].lower()
+        if sex == 'female':
+            matches['value'] = 'F'
+        elif sex == 'male':
+            matches['value'] = 'M'
+        else:
+            matches['value'] = ''
+        return matches
+
 
 class DefendentDOB(Parser):
 
