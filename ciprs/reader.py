@@ -31,6 +31,7 @@ class PDFToTextReader:
         )
         self.document_parsers = (
             parsers.DefendentDOB(self.report),
+            parsers.DistrictSuperiorCourt(self.report)
         )
 
     def convert_to_text(self):

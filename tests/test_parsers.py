@@ -119,3 +119,28 @@ def test_offense_disposition_method():
     matches = parsers.OffenseDispositionMethod().match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "DISPOSED BY JUDGE"
+
+
+def test_court_type_other():
+    report = {'General': {'File No': '11IF777777'}}
+    matches = parsers.DistrictSuperiorCourt(report).match("")
+    assert matches is not None, "Regex match failed"
+    assert matches == {}
+
+
+def test_court_type_cr():
+    report = {'General': {'File No': '11CR777777'}}
+    parser = parsers.DistrictSuperiorCourt(report)
+    parser.find('')
+    assert parser.matches is not None, "Regex match failed"
+    assert parser.matches == {'District': 'Yes'}
+    assert report['General']['District'] == 'Yes'
+
+
+def test_court_type_crs():
+    report = {'General': {'File No': '11CRS777777'}}
+    parser = parsers.DistrictSuperiorCourt(report)
+    parser.find('')
+    assert parser.matches is not None, "Regex match failed"
+    assert parser.matches == {'Superior': 'Yes'}
+    assert report['General']['Superior'] == 'Yes'
