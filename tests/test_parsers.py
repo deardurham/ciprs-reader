@@ -1,12 +1,16 @@
+import pytest
+
 from ciprs import parsers
 
-
-def test_case_details():
-    string = "  Case Details for Court Case DURHAM 00GR000000  "
-    matches = parsers.CaseDetails().match(string)
+CASE_DETAIL_DATA = [
+    ({'county': 'DURHAM', 'fileno': '00GR000000'}, "  Case Details for Court Case DURHAM 00GR000000  "),
+    ({'county': "ORANGE", 'fileno': '99FN9999999'}, " Case Summary for Court Case ORANGE 99FN9999999"),
+]
+@pytest.mark.parametrize("expected, val", CASE_DETAIL_DATA)
+def test_case_details(expected, val):
+    matches = parsers.CaseDetails().match(val)
     assert matches is not None, "Regex match failed"
-    assert matches["county"] == "DURHAM"
-    assert matches["fileno"] == "00GR000000"
+    assert matches == expected
 
 
 def test_case_status():
