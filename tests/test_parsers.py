@@ -4,7 +4,7 @@ from ciprs import parsers
 
 CASE_DETAIL_DATA = [
     ({'county': 'DURHAM', 'fileno': '00GR000000'}, "  Case Details for Court Case DURHAM 00GR000000  "),
-    ({'county': "ORANGE", 'fileno': '99FN9999999'}, " Case Summary for Court Case ORANGE 99FN9999999"),
+    ({'county': "ORANGE", 'fileno': '99FN9999999'}, " Case Summary for Court Case: ORANGE 99FN9999999"),
 ]
 @pytest.mark.parametrize("expected, val", CASE_DETAIL_DATA)
 def test_case_details(expected, val):
