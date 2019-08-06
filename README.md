@@ -1,5 +1,5 @@
 # CIPRS Reader
-
+[![Build Status](https://travis-ci.org/deardurham/ciprs-reader.svg?branch=master)](https://travis-ci.org/deardurham/ciprs-reader)
 
 ## Setup and Run:
 
