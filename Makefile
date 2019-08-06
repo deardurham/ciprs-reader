@@ -1,2 +1,2 @@
 test:
-	pipenv install && pytest -v
+	pipenv install && pipenv run pytest -v --pylint
