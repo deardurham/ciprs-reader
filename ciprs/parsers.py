@@ -4,6 +4,7 @@ import datetime as dt
 import logging
 import re
 
+from ciprs import DISPOSITION_CODES
 
 logger = logging.getLogger(__name__)
 
@@ -126,6 +127,12 @@ class OffenseDispositionMethod(Parser):
 
     pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)[ ]{2,}"
     section = ("Offense Record", "Disposition Method")
+
+    def clean(self, matches):
+        """Replace disposition method with ASIC code"""
+        disposition_method = matches["value"]
+        matches["value"] = DISPOSITION_CODES.get(disposition_method,disposition_method)
+        return matches
 
 
 class OffenseDateTime(Parser):

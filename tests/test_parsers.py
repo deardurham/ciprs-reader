@@ -118,11 +118,17 @@ def test_offense_disposed_date():
     assert matches["value"] == "2000-01-01"
 
 
-def test_offense_disposition_method():
+def test_known_offense_disposition_method():
     string = "    Disposition Method: DISPOSED BY JUDGE      Verdict "
     matches = parsers.OffenseDispositionMethod().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED BY JUDGE"
+    assert matches["value"] == "JU"
+
+def test_unknown_offense_disposition_method():
+    string = "   Disposition Method: PROBATION OTHER     Verdict"
+    matches = parsers.OffenseDispositionMethod().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "PROBATION OTHER"
 
 
 def test_court_type_other():
