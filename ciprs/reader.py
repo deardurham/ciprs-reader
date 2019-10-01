@@ -2,17 +2,19 @@ import json
 import logging
 import subprocess
 
-from ciprs.parsers import (CaseDetails,
-                           CaseStatus,
-                           OffenseRecordRow,
-                           OffenseDateTime,
-                           OffenseDisposedDate,
-                           OffenseDispositionMethod,
-                           DefendentName,
-                           DefendentRace,
-                           DefendentSex,
-                           DefendentDOB,
-                           DistrictSuperiorCourt)
+from ciprs.parsers import (
+    CaseDetails,
+    CaseStatus,
+    OffenseRecordRow,
+    OffenseDateTime,
+    OffenseDisposedDate,
+    OffenseDispositionMethod,
+    DefendentName,
+    DefendentRace,
+    DefendentSex,
+    DefendentDOB,
+    DistrictSuperiorCourt,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -41,7 +43,7 @@ class PDFToTextReader:
         )
         self.document_parsers = (
             DefendentDOB(self.report),
-            DistrictSuperiorCourt(self.report)
+            DistrictSuperiorCourt(self.report),
         )
 
     def convert_to_text(self):
