@@ -77,7 +77,9 @@ class Parser:
 class CaseDetails(Parser):
     """Extract County and File No from header on top of first page"""
 
-    pattern = r"\s*Case (Details|Summary) for Court Case[\s:]+(?P<county>\w+) (?P<fileno>\w+)"
+    pattern = (
+        r"\s*Case (Details|Summary) for Court Case[\s:]+(?P<county>\w+) (?P<fileno>\w+)"
+    )
 
     def extract(self, matches, report):
         report["General"]["County"] = matches["county"]
@@ -114,6 +116,18 @@ class OffenseDisposedDate(Parser):
 
     pattern = r"\s*Disposed on:\s*(?P<value>[\d/:]+)"
     section = ("Offense Record", "Disposed On")
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        matches["value"] = date.isoformat()
+        return matches
+
+
+class CaseWasServedOnDate(Parser):
+
+    pattern = r"\s*Case Was Served on:\s*(?P<value>[\d/:]+)"
+    section = ("Offense Record", "Arrest Date")
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
@@ -173,13 +187,13 @@ class DefendentSex(Parser):
 
     def clean(self, matches):
         """Parse and convert defendent sex to M or F"""
-        sex = matches['value'].lower()
-        if sex == 'female':
-            matches['value'] = 'F'
-        elif sex == 'male':
-            matches['value'] = 'M'
+        sex = matches["value"].lower()
+        if sex == "female":
+            matches["value"] = "F"
+        elif sex == "male":
+            matches["value"] = "M"
         else:
-            matches['value'] = ''
+            matches["value"] = ""
         return matches
 
 
@@ -210,14 +224,14 @@ class DistrictSuperiorCourt(Parser):
         If file number does not include "CR" at all, leave blank.
         """
         data = {}
-        fileno = self.report['General'].get('File No', '')
+        fileno = self.report["General"].get("File No", "")
         if fileno:
-            if 'CR' in fileno:
-                if 'CRS' in fileno:
-                    data['Superior'] = 'Yes'
+            if "CR" in fileno:
+                if "CRS" in fileno:
+                    data["Superior"] = "Yes"
                 else:
-                    data['District'] = 'Yes'
+                    data["District"] = "Yes"
         return data
 
     def extract(self, matches, report):
-        report['General'].update(matches)
+        report["General"].update(matches)

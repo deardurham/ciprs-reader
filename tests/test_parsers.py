@@ -3,9 +3,17 @@ import pytest
 from ciprs import parsers
 
 CASE_DETAIL_DATA = [
-    ({'county': 'DURHAM', 'fileno': '00GR000000'}, "  Case Details for Court Case DURHAM 00GR000000  "),
-    ({'county': "ORANGE", 'fileno': '99FN9999999'}, " Case Summary for Court Case: ORANGE 99FN9999999"),
+    (
+        {"county": "DURHAM", "fileno": "00GR000000"},
+        "  Case Details for Court Case DURHAM 00GR000000  ",
+    ),
+    (
+        {"county": "ORANGE", "fileno": "99FN9999999"},
+        " Case Summary for Court Case: ORANGE 99FN9999999",
+    ),
 ]
+
+
 @pytest.mark.parametrize("expected, val", CASE_DETAIL_DATA)
 def test_case_details(expected, val):
     matches = parsers.CaseDetails().match(val)
@@ -118,6 +126,13 @@ def test_offense_disposed_date():
     assert matches["value"] == "2000-01-01"
 
 
+def test_case_was_served_on_date():
+    string = "    Case Was Served on: 09/09/2000   "
+    matches = parsers.CaseWasServedOnDate().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2000-09-09"
+
+
 def test_offense_disposition_method():
     string = "    Disposition Method: DISPOSED BY JUDGE      Verdict "
     matches = parsers.OffenseDispositionMethod().match(string)
@@ -126,25 +141,25 @@ def test_offense_disposition_method():
 
 
 def test_court_type_other():
-    report = {'General': {'File No': '11IF777777'}}
+    report = {"General": {"File No": "11IF777777"}}
     matches = parsers.DistrictSuperiorCourt(report).match("")
     assert matches is not None, "Regex match failed"
     assert matches == {}
 
 
 def test_court_type_cr():
-    report = {'General': {'File No': '11CR777777'}}
+    report = {"General": {"File No": "11CR777777"}}
     parser = parsers.DistrictSuperiorCourt(report)
-    parser.find('')
+    parser.find("")
     assert parser.matches is not None, "Regex match failed"
-    assert parser.matches == {'District': 'Yes'}
-    assert report['General']['District'] == 'Yes'
+    assert parser.matches == {"District": "Yes"}
+    assert report["General"]["District"] == "Yes"
 
 
 def test_court_type_crs():
-    report = {'General': {'File No': '11CRS777777'}}
+    report = {"General": {"File No": "11CRS777777"}}
     parser = parsers.DistrictSuperiorCourt(report)
-    parser.find('')
+    parser.find("")
     assert parser.matches is not None, "Regex match failed"
-    assert parser.matches == {'Superior': 'Yes'}
-    assert report['General']['Superior'] == 'Yes'
+    assert parser.matches == {"Superior": "Yes"}
+    assert report["General"]["Superior"] == "Yes"
