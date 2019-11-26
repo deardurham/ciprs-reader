@@ -126,7 +126,7 @@ class OffenseDisposedDate(Parser):
 
 class CaseWasServedOnDate(Parser):
 
-    pattern = r"\s*Case Was Served on:\s*(?P<value>[\d/:]+)"
+    pattern = r".*Case Was Served on:\s*(?P<value>[\d/:]+)"
     section = ("Offense Record", "Arrest Date")
 
     def clean(self, matches):

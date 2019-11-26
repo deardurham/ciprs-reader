@@ -126,11 +126,17 @@ def test_offense_disposed_date():
     assert matches["value"] == "2000-01-01"
 
 
-def test_case_was_served_on_date():
-    string = "    Case Was Served on: 09/09/2000   "
-    matches = parsers.CaseWasServedOnDate().match(string)
+@pytest.mark.parametrize(
+    "expected,val",
+    (
+        ("2000-09-09", "    Case Was Served on: 09/09/2000   "),
+        ("2015-05-17", "Case Was Reinstated: -    Case Was Served on: 05/17/2015"),
+    ),
+)
+def test_case_was_served_on_date(expected, val):
+    matches = parsers.CaseWasServedOnDate().match(val)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2000-09-09"
+    assert matches["value"] == expected
 
 
 def test_offense_disposition_method():
