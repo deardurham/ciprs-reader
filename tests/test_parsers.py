@@ -139,11 +139,18 @@ def test_case_was_served_on_date(expected, val):
     assert matches["value"] == expected
 
 
-def test_offense_disposition_method():
+def test_known_offense_disposition_method():
     string = "    Disposition Method: DISPOSED BY JUDGE      Verdict "
     matches = parsers.OffenseDispositionMethod().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED BY JUDGE"
+    assert matches["value"] == "JU"
+
+
+def test_unknown_offense_disposition_method():
+    string = "   Disposition Method: PROBATION OTHER     Verdict"
+    matches = parsers.OffenseDispositionMethod().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "PROBATION OTHER"
 
 
 def test_court_type_other():

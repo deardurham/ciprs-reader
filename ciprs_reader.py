@@ -21,6 +21,7 @@ if __name__ == "__main__":
         "--source", help="Include full source in JSON output", action="store_true"
     )
     parser.add_argument("--version", action="version", version="%(prog)s " + VERSION)
+
     args = parser.parse_args()
     formatter = logging.Formatter("%(levelname)s %(asctime)s %(name)s %(message)s")
     handler = logging.StreamHandler(sys.stdout)
