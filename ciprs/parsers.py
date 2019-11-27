@@ -125,6 +125,18 @@ class OffenseDisposedDate(Parser):
         return matches
 
 
+class CaseWasServedOnDate(Parser):
+
+    pattern = r".*Case Was Served on:\s*(?P<value>[\d/:]+)"
+    section = ("Offense Record", "Arrest Date")
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        matches["value"] = date.isoformat()
+        return matches
+
+
 class OffenseDispositionMethod(Parser):
 
     pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)[ ]{2,}"
