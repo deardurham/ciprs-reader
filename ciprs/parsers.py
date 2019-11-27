@@ -151,7 +151,7 @@ class OffenseDispositionMethod(Parser):
 
 class OffenseDateTime(Parser):
 
-    pattern = r"\s*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
+    pattern = r".*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
     section = ("Case Information", "Offense Date")
 
     def clean(self, matches):
