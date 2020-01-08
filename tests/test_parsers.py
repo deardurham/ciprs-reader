@@ -123,7 +123,10 @@ def test_defendent_dob():
     "expected,val",
     (
         ("2000-01-01", "      Disposed on: 01/01/2000   "),
-        ("2016-07-20", "    Plea: RESPONSIBLE                         Verdict: RESPONSIBLE             Disposed on: 07/20/2016   "),
+        (
+            "2016-07-20",
+            "    Plea: RESPONSIBLE                         Verdict: RESPONSIBLE             Disposed on: 07/20/2016   ",
+        ),
     ),
 )
 def test_offense_disposed_date(expected, val):
