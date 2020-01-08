@@ -115,7 +115,7 @@ class OffenseRecordRow(Parser):
 
 class OffenseDisposedDate(Parser):
 
-    pattern = r"\s*Disposed on:\s*(?P<value>[\d/:]+)"
+    pattern = r".*Disposed on:\s*(?P<value>[\d/:]+)"
     section = ("Offense Record", "Disposed On")
 
     def clean(self, matches):

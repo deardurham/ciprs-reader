@@ -119,11 +119,20 @@ def test_defendent_dob():
     assert matches["value"] == "2000-01-01"
 
 
-def test_offense_disposed_date():
-    string = "      Disposed on: 01/01/2000   "
-    matches = parsers.OffenseDisposedDate().match(string)
+@pytest.mark.parametrize(
+    "expected,val",
+    (
+        ("2000-01-01", "      Disposed on: 01/01/2000   "),
+        (
+            "2016-07-20",
+            "    Plea: RESPONSIBLE                         Verdict: RESPONSIBLE             Disposed on: 07/20/2016   ",
+        ),
+    ),
+)
+def test_offense_disposed_date(expected, val):
+    matches = parsers.OffenseDisposedDate().match(val)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2000-01-01"
+    assert matches["value"] == expected
 
 
 @pytest.mark.parametrize(
