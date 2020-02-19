@@ -113,6 +113,25 @@ class OffenseRecordRow(Parser):
         report["Offense Record"]["Records"].append(record)
 
 
+class OffenseRecordRowWithNumber(Parser):
+    """
+    Extract offense row like:
+        54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
+    """
+
+    # pylint: disable=line-too-long
+    pattern = r"(?:\d*)?\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+
+    def extract(self, matches, report):
+        record = {
+            "Action": matches["action"],
+            "Description": matches["desc"],
+            "Severity": matches["severity"],
+            "Law": matches["law"],
+        }
+        report["Offense Record"]["Records"].append(record)
+
+
 class OffenseDisposedDate(Parser):
 
     pattern = r".*Disposed on:\s*(?P<value>[\d/:]+)"
