@@ -39,9 +39,15 @@ def test_offense_record_charged():
     assert matches["code"] == "4450"
 
 
-def test_offense_record_charged_with_number():
-    string = "54  CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)"  # noqa
-    matches = parsers.OffenseRecordRowWithNumber().match(string)
+@pytest.mark.parametrize(
+    "line",
+    (
+        "54  CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)",
+        "  54  CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)   ",
+    ),
+)
+def test_offense_record_charged_with_number(line):
+    matches = parsers.OffenseRecordRowWithNumber().match(line)
     assert matches is not None, "Regex match failed"
     assert matches["action"] == "CHARGED"
     assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
