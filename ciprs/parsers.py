@@ -120,7 +120,7 @@ class OffenseRecordRowWithNumber(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"(?:\d*)?\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"(?:[\s\d]*)?\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def extract(self, matches, report):
         record = {
