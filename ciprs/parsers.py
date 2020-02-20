@@ -261,3 +261,15 @@ class DistrictSuperiorCourt(Parser):
 
     def extract(self, matches, report):
         report["General"].update(matches)
+
+
+class OffenseDate(Parser):
+
+    pattern = r".*Offense Date:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    section = ("Case Information", "Offense Date")
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        matches["value"] = date.isoformat()
+        return matches

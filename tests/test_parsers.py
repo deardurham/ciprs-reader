@@ -201,3 +201,10 @@ def test_court_type_crs():
     assert parser.matches is not None, "Regex match failed"
     assert parser.matches == {"Superior": "Yes"}
     assert report["General"]["Superior"] == "Yes"
+
+
+def test_offense_date():
+    string = "    Offense Date: 11/28/2005   • Date: 04/13/2006"
+    matches = parsers.OffenseDate().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2005-11-28"
