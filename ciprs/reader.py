@@ -41,8 +41,8 @@ class PDFToTextReader:
             section.DistrictCourtOffenseSection(self.report, state),
             # CaseDetails(self.report),
             # CaseStatus(self.report),
-            OffenseRecordRow(self.report),
-            OffenseRecordRowWithNumber(self.report),
+            OffenseRecordRow(self.report, state),
+            OffenseRecordRowWithNumber(self.report, state),
             # OffenseDate(self.report),
             # OffenseDateTime(self.report),
             # OffenseDisposedDate(self.report),
@@ -53,8 +53,8 @@ class PDFToTextReader:
             # DefendentSex(self.report),
         )
         self.document_parsers = (
-            DefendentDOB(self.report),
-            DistrictSuperiorCourt(self.report),
+            DefendentDOB(self.report, state),
+            DistrictSuperiorCourt(self.report, state),
         )
 
     def convert_to_text(self):
