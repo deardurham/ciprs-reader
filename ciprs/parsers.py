@@ -270,6 +270,6 @@ class OffenseDate(Parser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y")
         matches["value"] = date.isoformat()
         return matches
