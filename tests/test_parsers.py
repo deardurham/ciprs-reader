@@ -207,4 +207,4 @@ def test_offense_date():
     string = "    Offense Date: 11/28/2005   • Date: 04/13/2006"
     matches = parsers.OffenseDate().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2005-11-28"
+    assert matches["value"] == "2005-11-28T00:00:00"
