@@ -97,6 +97,16 @@ def test_defendent_name_no_middle():
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "JON DOE"
 
+def test_defendent_name_special_character():
+    string = " Defendant: DOE,JON'BO,JACK"
+    matches = parsers.DefendentName().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "JON'BO JACK DOE"
+    string2 = " Defendant: ZACHARY,ERIC-JAZZ,TEST"
+    matches = parsers.DefendentName().match(string2)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "ERIC-JAZZ TEST ZACHARY" 
+
 
 def test_defendent_race():
     string = "   Race: WHITE   "

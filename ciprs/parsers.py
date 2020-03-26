@@ -182,7 +182,7 @@ class OffenseDateTime(Parser):
 
 class DefendentName(Parser):
 
-    pattern = r"\s*Defendant: \s*(?P<value>[\w,/]+)"
+    pattern = r"\s*Defendant: \s*(?P<value>\S+)"
     section = ("Defendant", "Name")
 
     def clean(self, matches):
