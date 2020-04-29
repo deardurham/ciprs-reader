@@ -68,9 +68,9 @@ class Parser:
         """Look for match and run extract() if found"""
         self.match(document)
         if self.matches:
+            self.extract(self.matches, self.report)
             self.set_state(self.state)
             self.logger.info(f"State: {self.state}")
-            self.extract(self.matches, self.report)
 
     def extract(self, matches, report):
         """

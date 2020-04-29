@@ -20,9 +20,17 @@ from ciprs.parser.lines import (
 )
 
 from ciprs.parser import section
+from ciprs.parser.offense import Court
 
 
 logger = logging.getLogger(__name__)
+
+
+def json_default(obj):
+    try:
+        return obj.__json__()
+    except AttributeError:
+        raise TypeError("{} can not be JSON encoded".format(type(obj)))
 
 
 class PDFToTextReader:
@@ -33,6 +41,8 @@ class PDFToTextReader:
             "Case Information": {},
             "Defendant": {},
             "Offense Record": {"Records": []},
+            "District Court Offense Information": Court(),
+            "Superior Court Offense Information": Court(),
             "_meta": {},
         }
         state = {}
@@ -45,9 +55,9 @@ class PDFToTextReader:
             OffenseRecordRowWithNumber(self.report, state),
             # OffenseDate(self.report),
             # OffenseDateTime(self.report),
-            # OffenseDisposedDate(self.report),
+            OffenseDisposedDate(self.report, state),
             # CaseWasServedOnDate(self.report),
-            # OffenseDispositionMethod(self.report),
+            OffenseDispositionMethod(self.report, state),
             # DefendentName(self.report),
             # DefendentRace(self.report),
             # DefendentSex(self.report),
@@ -81,7 +91,7 @@ class PDFToTextReader:
             parser.find(reader.source)
 
     def json(self):
-        return json.dumps(self.report, indent=4)
+        return json.dumps(self.report, indent=4, default=json_default)
 
 
 class Reader:

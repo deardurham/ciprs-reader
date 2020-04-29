@@ -57,6 +57,11 @@ class OffenseRecordRowWithNumber(Parser):
     # pylint: disable=line-too-long
     pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
+    def set_state(self, state):
+        # if "num" not in state:
+        #     self.report[self.state["section"]].append({"Records": []})
+        state["num"] = self.matches["num"]
+
     def extract(self, matches, report):
         record = {
             "Action": matches["action"],
@@ -64,7 +69,11 @@ class OffenseRecordRowWithNumber(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        report["Offense Record"]["Records"].append(record)
+        report[self.state["section"]].add_record(record)
+        # if not report[self.state["section"]]:
+        #     report[self.state["section"]].append({"Records": []})
+        # report[self.state["section"]][-1]["Records"].append(record)
+        # report["Offense Record"]["Records"].append(record)
 
 
 class OffenseDisposedDate(Parser):
@@ -77,6 +86,10 @@ class OffenseDisposedDate(Parser):
         date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
         matches["value"] = date.isoformat()
         return matches
+
+    def extract(self, matches, report):
+        offenses = report[self.state["section"]]
+        offenses[-1]["Disposed On"] = matches["value"]
 
 
 class CaseWasServedOnDate(Parser):
@@ -93,14 +106,22 @@ class CaseWasServedOnDate(Parser):
 
 class OffenseDispositionMethod(Parser):
 
-    pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)[ ]{2,}"
+    pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)"
     section = ("Offense Record", "Disposition Method")
 
-    def clean(self, matches):
-        """Replace disposition method with ASIC code"""
-        disposition_method = matches["value"]
-        matches["value"] = DISPOSITION_CODES.get(disposition_method, disposition_method)
-        return matches
+    def set_state(self, state):
+        if "num" in state:
+            del state["num"]
+
+    # def clean(self, matches):
+    #     """Replace disposition method with ASIC code"""
+    #     disposition_method = matches["value"]
+    #     matches["value"] = DISPOSITION_CODES.get(disposition_method, disposition_method)
+    #     return matches
+
+    def extract(self, matches, report):
+        report[self.state["section"]].add_disposition_method(matches["value"])
+        # report[self.state["section"]][-1]["Disposition Method"] = matches["value"]
 
 
 class OffenseDateTime(Parser):
