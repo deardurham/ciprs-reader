@@ -55,6 +55,16 @@ def test_offense_record_charged_with_number(line):
     assert matches["law"] == "G.S. 20-141(B)"
 
 
+def test_offense_record_charged_with_number__ampersand():
+    string = "54  CHARGED       SPEEDING(80 & 65 mph zone)    INFRACTION    G.S. 20-141(B)"  # noqa
+    matches = parsers.OffenseRecordRowWithNumber().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["action"] == "CHARGED"
+    assert matches["desc"] == "SPEEDING(80 & 65 mph zone)"
+    assert matches["severity"] == "INFRACTION"
+    assert matches["law"] == "G.S. 20-141(B)"
+
+
 def test_offense_record_arrainged():
     string = "ARRAIGNED SPEEDING(80 mph in a 65 mph zone)        INFRACTION    G.S. 20-141(B)    4450"  # noqa
     matches = parsers.OffenseRecordRow().match(string)
