@@ -35,7 +35,11 @@ class OffenseRecordRow(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\-\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)[ ]{2,}(?P<code>\d+)"
+    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+
+    def in_state(self, state):
+        if "section" in self.state and "num" in self.state:
+            return self.state["section"] in ("District Court Offense Information",)
 
     def extract(self, matches, report):
         record = {
@@ -43,9 +47,8 @@ class OffenseRecordRow(Parser):
             "Description": matches["desc"],
             "Severity": matches["severity"],
             "Law": matches["law"],
-            "Code": matches["code"],
         }
-        report["Offense Record"]["Records"].append(record)
+        report[self.state["section"]].add_record(record)
 
 
 class OffenseRecordRowWithNumber(Parser):
@@ -55,7 +58,7 @@ class OffenseRecordRowWithNumber(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)[ ]{2,}(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def set_state(self, state):
         # if "num" not in state:
@@ -69,7 +72,7 @@ class OffenseRecordRowWithNumber(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        report[self.state["section"]].add_record(record)
+        report[self.state["section"]].add_record(record, new=True)
         # if not report[self.state["section"]]:
         #     report[self.state["section"]].append({"Records": []})
         # report[self.state["section"]][-1]["Records"].append(record)

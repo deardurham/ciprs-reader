@@ -2,10 +2,13 @@ import collections
 
 
 class Court(collections.UserList):
-    def add_record(self, record):
-        offense = Offense()
+    def add_record(self, record, new=False):
+        if new:
+            offense = Offense()
+            self.data.append(offense)
+        else:
+            offense = self.data[-1]
         offense.add_record(record)
-        self.data.append(offense)
 
     def add_disposition_method(self, method):
         self.data[-1]["Disposition Method"] = method
