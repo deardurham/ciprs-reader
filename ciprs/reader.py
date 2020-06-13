@@ -1,4 +1,5 @@
 import json
+import collections
 import logging
 import subprocess
 
@@ -45,7 +46,7 @@ class PDFToTextReader:
             "Superior Court Offense Information": Offenses(),
             "_meta": {},
         }
-        state = {}
+        state = collections.defaultdict(str)
         self.line_parsers = (
             section.CaseInformation(self.report, state),
             section.DistrictCourtOffenseSection(self.report, state),

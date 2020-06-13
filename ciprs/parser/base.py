@@ -61,7 +61,7 @@ class Parser:
         """Overridable hook to clean matches"""
         return matches
 
-    def in_state(self, state):
+    def in_state(self):
         return True
 
     def set_state(self, state):
@@ -69,7 +69,7 @@ class Parser:
 
     def find(self, document):
         """Look for match and run extract() if found"""
-        if not self.in_state(self.state):
+        if not self.in_state():
             return
         self.match(document)
         if self.matches:
