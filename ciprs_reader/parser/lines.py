@@ -28,7 +28,7 @@ class CaseDetails(HeaderParser):
         report["General"]["File No"] = matches["fileno"]
 
 
-class DefendentName(HeaderParser):
+class DefendantName(HeaderParser):
 
     pattern = r"\s*Defendant: \s*(?P<value>\S+)"
     section = ("Defendant", "Name")
@@ -206,7 +206,7 @@ class DefendantRace(DefendantParser):
     section = ("Defendant", "Race")
 
 
-class DefendentSex(Parser):
+class DefendantSex(DefendantParser):
 
     pattern = r"\s*Sex: \s*(?P<value>\w+)"
     section = ("Defendant", "Sex")

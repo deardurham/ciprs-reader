@@ -12,6 +12,7 @@ from ciprs_reader.parser import lines
         lines.OffenseDateTime,
         lines.CaseWasServedOnDate,
         lines.DefendantRace,
+        lines.DefendantSex,
         lines.OffenseRecordRowWithNumber,
         lines.OffenseRecordRow,
     ],
@@ -22,7 +23,7 @@ def test_parser__disabled_by_default(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.CaseDetails, lines.DefendentName,],
+    "Parser", [lines.CaseDetails, lines.DefendantName,],
 )
 def test_header_parsers__enabled(Parser, report, state):
     state.section = Section.HEADER
@@ -30,7 +31,7 @@ def test_header_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.CaseDetails, lines.DefendentName,],
+    "Parser", [lines.CaseDetails, lines.DefendantName,],
 )
 def test_header_parsers__disabled(Parser, report, state):
     state.section = "Not Header"
@@ -52,7 +53,7 @@ def test_case_information_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.DefendantRace,],
+    "Parser", [lines.DefendantRace, lines.DefendantSex],
 )
 def test_defendant_parsers__enabled(Parser, report, state):
     state.section = Section.DEFENDANT
