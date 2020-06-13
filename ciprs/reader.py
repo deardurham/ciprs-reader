@@ -51,7 +51,7 @@ class PDFToTextReader:
             CaseInformation(self.report, state),
             DistrictCourtOffenseSection(self.report, state),
             CaseDetails(self.report, state),
-            # CaseStatus(self.report),
+            CaseStatus(self.report, state),
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),
             # OffenseDate(self.report),

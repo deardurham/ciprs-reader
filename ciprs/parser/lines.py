@@ -32,6 +32,10 @@ class CaseStatus(Parser):
     pattern = r"\s*Case Status:\s*(?P<value>\w+)"
     section = ("Case Information", "Case Status")
 
+    def is_enabled(self):
+        """Only enabled when in Case Information section."""
+        return self.state.section == Section.CASE_INFORMATION
+
 
 class OffenseRecordRow(Parser):
     """
