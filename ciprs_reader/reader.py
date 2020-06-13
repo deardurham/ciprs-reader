@@ -25,6 +25,7 @@ from ciprs_reader.parser.state import (
     CaseInformation,
     DefendantSection,
     DistrictCourtOffenseSection,
+    SuperiorCourtOffenseSection,
 )
 
 
@@ -55,6 +56,7 @@ class PDFToTextReader:
             CaseInformation(self.report, state),
             DefendantSection(self.report, state),
             DistrictCourtOffenseSection(self.report, state),
+            SuperiorCourtOffenseSection(self.report, state),
             CaseDetails(self.report, state),
             DefendantRace(self.report, state),
             CaseStatus(self.report, state),

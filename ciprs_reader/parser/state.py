@@ -52,3 +52,11 @@ class DistrictCourtOffenseSection(RecordSection):
 
     def clean(self, matches):
         return Section.DISTRICT_OFFENSE
+
+
+class SuperiorCourtOffenseSection(RecordSection):
+
+    pattern = r"^\s*Superior Court Offense Information\s*$"
+
+    def clean(self, matches):
+        return Section.SUPERIOR_OFFENSE
