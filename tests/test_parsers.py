@@ -108,7 +108,7 @@ def test_defendent_name_special_character(report, state):
 
 def test_defendent_race(report, state):
     string = "   Race: WHITE   "
-    matches = parsers.DefendentRace(report, state).match(string)
+    matches = parsers.DefendantRace(report, state).match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "WHITE"
 

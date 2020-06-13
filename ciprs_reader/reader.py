@@ -56,7 +56,7 @@ class PDFToTextReader:
             DefendantSection(self.report, state),
             DistrictCourtOffenseSection(self.report, state),
             CaseDetails(self.report, state),
-            DefendentName(self.report, state),
+            DefendantRace(self.report, state),
             CaseStatus(self.report, state),
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),
@@ -65,7 +65,7 @@ class PDFToTextReader:
             OffenseDisposedDate(self.report, state),
             CaseWasServedOnDate(self.report, state),
             OffenseDispositionMethod(self.report, state),
-            # DefendentRace(self.report),
+            DefendentRace(self.report, state),
             # DefendentSex(self.report),
         )
         self.document_parsers = (

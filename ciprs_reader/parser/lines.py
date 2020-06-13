@@ -193,7 +193,14 @@ class OffenseDispositionMethod(Parser):
         # report[self.state["section"]][-1]["Disposition Method"] = matches["value"]
 
 
-class DefendentRace(Parser):
+class DefendantParser(Parser):
+    """Only enabled when in Defendant section."""
+
+    def is_enabled(self):
+        return self.state.section == Section.DEFENDANT
+
+
+class DefendantRace(DefendantParser):
 
     pattern = r"\s*Race: \s*(?P<value>\w+)"
     section = ("Defendant", "Race")
