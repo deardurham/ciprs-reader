@@ -98,6 +98,17 @@ def test_defendent_name_no_middle():
     assert matches["value"] == "JON DOE"
 
 
+def test_defendent_name_special_character():
+    string = " Defendant: DOE,JON'BO,JACK"
+    matches = parsers.DefendentName().match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "JON'BO JACK DOE"
+    string2 = " Defendant: ZACHARY,ERIC-JAZZ,TEST"
+    matches = parsers.DefendentName().match(string2)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "ERIC-JAZZ TEST ZACHARY"
+
+
 def test_defendent_race():
     string = "   Race: WHITE   "
     matches = parsers.DefendentRace().match(string)
@@ -165,17 +176,10 @@ def test_case_was_served_on_date(expected, val):
 
 
 def test_known_offense_disposition_method():
-    string = "    Disposition Method: DISPOSED BY JUDGE      Verdict "
+    string = "    Disposition Method: DISPOSED BY JUDGE"
     matches = parsers.OffenseDispositionMethod().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "JU"
-
-
-def test_unknown_offense_disposition_method():
-    string = "   Disposition Method: PROBATION OTHER     Verdict"
-    matches = parsers.OffenseDispositionMethod().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "PROBATION OTHER"
+    assert matches["value"] == "DISPOSED BY JUDGE"
 
 
 def test_court_type_other():
@@ -207,4 +211,4 @@ def test_offense_date():
     string = "    Offense Date: 11/28/2005   • Date: 04/13/2006"
     matches = parsers.OffenseDate().match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2005-11-28"
+    assert matches["value"] == "2005-11-28T00:00:00"

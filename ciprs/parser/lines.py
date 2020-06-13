@@ -4,7 +4,6 @@ import datetime as dt
 import logging
 import re
 
-from ciprs import DISPOSITION_CODES
 from ciprs.parser.base import Parser
 from ciprs.const import Section
 
@@ -80,7 +79,7 @@ class OffenseRecordRow(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def is_enabled(self):
         return self.state.offense_num and self.state.section in (
@@ -159,7 +158,7 @@ class OffenseDateTime(Parser):
 
 class DefendentName(Parser):
 
-    pattern = r"\s*Defendant: \s*(?P<value>[\w,/]+)"
+    pattern = r"\s*Defendant: \s*(?P<value>\S+)"
     section = ("Defendant", "Name")
 
     def clean(self, matches):
@@ -247,6 +246,6 @@ class OffenseDate(Parser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y")
         matches["value"] = date.isoformat()
         return matches
