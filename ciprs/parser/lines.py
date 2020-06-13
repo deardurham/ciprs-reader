@@ -19,6 +19,7 @@ class CaseDetails(Parser):
     )
 
     def is_enabled(self):
+        """Only enabled when in intro header section."""
         return self.state.section == Section.HEADER
 
     def extract(self, matches, report):
