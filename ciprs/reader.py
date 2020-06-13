@@ -50,7 +50,7 @@ class PDFToTextReader:
         self.line_parsers = (
             CaseInformation(self.report, state),
             DistrictCourtOffenseSection(self.report, state),
-            # CaseDetails(self.report),
+            CaseDetails(self.report, state),
             # CaseStatus(self.report),
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),

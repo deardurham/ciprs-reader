@@ -6,6 +6,7 @@ import re
 
 from ciprs import DISPOSITION_CODES
 from ciprs.parser.base import Parser
+from ciprs.const import Section
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +17,9 @@ class CaseDetails(Parser):
     pattern = (
         r"\s*Case (Details|Summary) for Court Case[\s:]+(?P<county>\w+) (?P<fileno>\w+)"
     )
+
+    def in_state(self):
+        return self.state.section == Section.HEADER
 
     def extract(self, matches, report):
         report["General"]["County"] = matches["county"]

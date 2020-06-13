@@ -15,8 +15,15 @@ def state():
     return ParserState()
 
 
-def test_offense_record_row__in_state(report, state):
-    parser = lines.OffenseRecordRow(report, state)
+@pytest.mark.parametrize("Parser", [lines.OffenseRecordRow])
+def test_parser__not_in_state(Parser, report, state):
+    parser = Parser(report, state)
+    assert not parser.in_state()
+
+
+def test_case_details__not_in_state(report, state):
+    state.section = "Not Header"
+    parser = lines.CaseDetails(report, state)
     assert not parser.in_state()
 
 
