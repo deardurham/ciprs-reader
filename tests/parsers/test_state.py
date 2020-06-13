@@ -20,10 +20,20 @@ def test_parser__disabled_by_default(Parser, report, state):
     assert not parser.is_enabled()
 
 
-def test_case_details__disabled(report, state):
+@pytest.mark.parametrize(
+    "Parser", [lines.CaseDetails, lines.DefendentName,],
+)
+def test_header_parsers__enabled(Parser, report, state):
+    state.section = Section.HEADER
+    assert Parser(report, state).is_enabled()
+
+
+@pytest.mark.parametrize(
+    "Parser", [lines.CaseDetails, lines.DefendentName,],
+)
+def test_header_parsers__disabled(Parser, report, state):
     state.section = "Not Header"
-    parser = lines.CaseDetails(report, state)
-    assert not parser.is_enabled()
+    assert not Parser(report, state).is_enabled()
 
 
 @pytest.mark.parametrize(

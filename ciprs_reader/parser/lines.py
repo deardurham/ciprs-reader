@@ -9,20 +9,43 @@ from ciprs_reader.const import Section
 logger = logging.getLogger(__name__)
 
 
-class CaseDetails(Parser):
+class HeaderParser(Parser):
+    """Only enabled when in intro header section."""
+
+    def is_enabled(self):
+        return self.state.section == Section.HEADER
+
+
+class CaseDetails(HeaderParser):
     """Extract County and File No from header on top of first page"""
 
     pattern = (
         r"\s*Case (Details|Summary) for Court Case[\s:]+(?P<county>\w+) (?P<fileno>\w+)"
     )
 
-    def is_enabled(self):
-        """Only enabled when in intro header section."""
-        return self.state.section == Section.HEADER
-
     def extract(self, matches, report):
         report["General"]["County"] = matches["county"]
         report["General"]["File No"] = matches["fileno"]
+
+
+class DefendentName(HeaderParser):
+
+    pattern = r"\s*Defendant: \s*(?P<value>\S+)"
+    section = ("Defendant", "Name")
+
+    def clean(self, matches):
+        # Change name from last,first,middle to FIRST MIDDLE LAST
+        name = matches["value"]
+        name_list = name.split(",")
+        try:
+            if len(name_list) == 2:
+                name = "{} {}".format(name_list[1], name_list[0])
+            elif len(name_list) == 3:
+                name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
+        except:
+            name = ""
+        matches["value"] = name.upper()
+        return matches
 
 
 class CaseInformationParser(Parser):
@@ -168,26 +191,6 @@ class OffenseDispositionMethod(Parser):
     def extract(self, matches, report):
         report[self.state.section].add_disposition_method(matches["value"])
         # report[self.state["section"]][-1]["Disposition Method"] = matches["value"]
-
-
-class DefendentName(Parser):
-
-    pattern = r"\s*Defendant: \s*(?P<value>\S+)"
-    section = ("Defendant", "Name")
-
-    def clean(self, matches):
-        # Change name from last,first,middle to FIRST MIDDLE LAST
-        name = matches["value"]
-        name_list = name.split(",")
-        try:
-            if len(name_list) == 2:
-                name = "{} {}".format(name_list[1], name_list[0])
-            elif len(name_list) == 3:
-                name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
-        except:
-            name = ""
-        matches["value"] = name.upper()
-        return matches
 
 
 class DefendentRace(Parser):

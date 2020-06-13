@@ -38,6 +38,14 @@ class CaseInformation(RecordSection):
         return Section.CASE_INFORMATION
 
 
+class DefendantSection(RecordSection):
+
+    pattern = r"^\s*Defendant\s*$"
+
+    def clean(self, matches):
+        return Section.DEFENDANT
+
+
 class DistrictCourtOffenseSection(RecordSection):
 
     pattern = r"^\s*District Court Offense Information\s*$"

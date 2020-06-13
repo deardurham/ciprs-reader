@@ -23,6 +23,7 @@ from ciprs_reader.parser.offense import Offenses
 from ciprs_reader.parser.state import (
     ParserState,
     CaseInformation,
+    DefendantSection,
     DistrictCourtOffenseSection,
 )
 
@@ -52,8 +53,10 @@ class PDFToTextReader:
         state = ParserState()
         self.line_parsers = (
             CaseInformation(self.report, state),
+            DefendantSection(self.report, state),
             DistrictCourtOffenseSection(self.report, state),
             CaseDetails(self.report, state),
+            DefendentName(self.report, state),
             CaseStatus(self.report, state),
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),
@@ -62,7 +65,6 @@ class PDFToTextReader:
             OffenseDisposedDate(self.report, state),
             CaseWasServedOnDate(self.report, state),
             OffenseDispositionMethod(self.report, state),
-            # DefendentName(self.report),
             # DefendentRace(self.report),
             # DefendentSex(self.report),
         )
