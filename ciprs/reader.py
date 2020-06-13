@@ -20,9 +20,8 @@ from ciprs.parser.lines import (
     DistrictSuperiorCourt,
 )
 
-from ciprs.parser import section
 from ciprs.parser.offense import Offenses
-from ciprs.parser.base import ParserState
+from ciprs.parser.state import ParserState, CaseInformation, DistrictCourtOffenseSection
 
 
 logger = logging.getLogger(__name__)
@@ -49,8 +48,8 @@ class PDFToTextReader:
         }
         state = ParserState()
         self.line_parsers = (
-            section.CaseInformation(self.report, state),
-            section.DistrictCourtOffenseSection(self.report, state),
+            CaseInformation(self.report, state),
+            DistrictCourtOffenseSection(self.report, state),
             # CaseDetails(self.report),
             # CaseStatus(self.report),
             OffenseRecordRow(self.report, state),

@@ -1,8 +1,8 @@
-import collections
-
 import pytest
 
+from ciprs.const import Section
 from ciprs.parser import lines
+from ciprs.parser.state import ParserState
 
 
 @pytest.fixture
@@ -12,7 +12,7 @@ def report():
 
 @pytest.fixture
 def state():
-    return collections.defaultdict(str)
+    return ParserState()
 
 
 def test_offense_record_row__in_state(report, state):
@@ -21,6 +21,6 @@ def test_offense_record_row__in_state(report, state):
 
 
 def test_offense_record_row__not_in_state(report, state):
-    state["num"] = 1
-    state["section"] = "District Court Offense Information"
+    state.offense_num = 1
+    state.section = Section.DISTRICT_OFFENSE
     assert lines.OffenseRecordRow(report, state).in_state()
