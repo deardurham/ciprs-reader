@@ -37,6 +37,42 @@ class CaseStatus(Parser):
         return self.state.section == Section.CASE_INFORMATION
 
 
+class OffenseRecordRowWithNumber(Parser):
+    """
+    Extract offense row like:
+        54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
+    """
+
+    # pylint: disable=line-too-long
+    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)[ ]{2,}(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+
+    def is_enabled(self):
+        """Only enabled when in offense-related sections."""
+        return self.state.section in (
+            Section.DISTRICT_OFFENSE,
+            Section.SUPERIOR_OFFENSE,
+        )
+
+    def set_state(self, state):
+        """
+        Update offense_num in state so other parsers, like OffenseRecordRow,
+        can use it.
+        """
+        state.offense_num = self.matches["num"]
+
+    def extract(self, matches, report):
+        record = {
+            "Action": matches["action"],
+            "Description": matches["desc"],
+            "Severity": matches["severity"],
+            "Law": matches["law"],
+        }
+        offenses = report[self.state.section]
+        # Whenever a row with number is encountered, it indicates a new
+        # offense record, so we always add a NEW offense below.
+        offenses.new().add_record(record)
+
+
 class OffenseRecordRow(Parser):
     """
     Extract offense row like:
@@ -60,36 +96,6 @@ class OffenseRecordRow(Parser):
         }
         offenses = report[self.state.section]
         offenses.current.add_record(record)
-
-
-class OffenseRecordRowWithNumber(Parser):
-    """
-    Extract offense row like:
-        54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
-    """
-
-    # pylint: disable=line-too-long
-    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)[ ]{2,}(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
-
-    def set_state(self, state):
-        # if "num" not in state:
-        #     self.report[self.state["section"]].append({"Records": []})
-        state.offense_num = self.matches["num"]
-
-    def extract(self, matches, report):
-        record = {
-            "Action": matches["action"],
-            "Description": matches["desc"],
-            "Severity": matches["severity"],
-            "Law": matches["law"],
-        }
-        offenses = report[self.state.section]
-        offenses.new().add_record(record)
-        # report[self.state["section"]].new_offense(record)
-        # if not report[self.state["section"]]:
-        #     report[self.state["section"]].append({"Records": []})
-        # report[self.state["section"]][-1]["Records"].append(record)
-        # report["Offense Record"]["Records"].append(record)
 
 
 class OffenseDisposedDate(Parser):

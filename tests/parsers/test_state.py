@@ -15,8 +15,11 @@ def state():
     return ParserState()
 
 
-@pytest.mark.parametrize("Parser", [lines.CaseStatus, lines.OffenseRecordRow])
-def test_parser__disabled(Parser, report, state):
+@pytest.mark.parametrize(
+    "Parser",
+    [lines.CaseStatus, lines.OffenseRecordRowWithNumber, lines.OffenseRecordRow],
+)
+def test_parser__disabled_by_default(Parser, report, state):
     parser = Parser(report, state)
     assert not parser.is_enabled()
 
@@ -30,6 +33,14 @@ def test_case_details__disabled(report, state):
 def test_case_status__enabled(report, state):
     state.section = Section.CASE_INFORMATION
     assert lines.CaseStatus(report, state).is_enabled()
+
+
+@pytest.mark.parametrize(
+    "section", [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
+)
+def test_offense_record_row_with_number__enabled(section, report, state):
+    state.section = section
+    assert lines.OffenseRecordRowWithNumber(report, state).is_enabled()
 
 
 def test_offense_record_row__enabled(report, state):
