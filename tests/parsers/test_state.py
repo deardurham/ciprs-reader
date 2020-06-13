@@ -16,18 +16,18 @@ def state():
 
 
 @pytest.mark.parametrize("Parser", [lines.OffenseRecordRow])
-def test_parser__not_in_state(Parser, report, state):
+def test_parser__disabled(Parser, report, state):
     parser = Parser(report, state)
-    assert not parser.in_state()
+    assert not parser.is_enabled()
 
 
-def test_case_details__not_in_state(report, state):
+def test_case_details__disabled(report, state):
     state.section = "Not Header"
     parser = lines.CaseDetails(report, state)
-    assert not parser.in_state()
+    assert not parser.is_enabled()
 
 
-def test_offense_record_row__not_in_state(report, state):
+def test_offense_record_row__enabled(report, state):
     state.offense_num = 1
     state.section = Section.DISTRICT_OFFENSE
-    assert lines.OffenseRecordRow(report, state).in_state()
+    assert lines.OffenseRecordRow(report, state).is_enabled()

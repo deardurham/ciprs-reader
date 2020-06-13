@@ -61,7 +61,11 @@ class Parser:
         """Overridable hook to clean matches"""
         return matches
 
-    def in_state(self):
+    def is_enabled(self):
+        """
+        Parsers only run when enabled. Override this method to
+        toggle is_enabled based on parser state.
+        """
         return True
 
     def set_state(self, state):
@@ -69,7 +73,7 @@ class Parser:
 
     def find(self, document):
         """Look for match and run extract() if found"""
-        if not self.in_state():
+        if not self.is_enabled():
             return
         self.match(document)
         if self.matches:

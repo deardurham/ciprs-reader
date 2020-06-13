@@ -18,7 +18,7 @@ class CaseDetails(Parser):
         r"\s*Case (Details|Summary) for Court Case[\s:]+(?P<county>\w+) (?P<fileno>\w+)"
     )
 
-    def in_state(self):
+    def is_enabled(self):
         return self.state.section == Section.HEADER
 
     def extract(self, matches, report):
@@ -41,7 +41,7 @@ class OffenseRecordRow(Parser):
     # pylint: disable=line-too-long
     pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
-    def in_state(self):
+    def is_enabled(self):
         return self.state.offense_num and self.state.section in (
             "District Court Offense Information",
         )
