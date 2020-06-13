@@ -1,8 +1,8 @@
 import pytest
 
-from ciprs.const import Section
-from ciprs.parser import lines
-from ciprs.parser.state import ParserState
+from ciprs_reader.const import Section
+from ciprs_reader.parser import lines
+from ciprs_reader.parser.state import ParserState
 
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 import pytest
 
-from ciprs.parser.offense import Offenses, Offense
+from ciprs_reader.parser.offense import Offenses, Offense
 
 
 @pytest.fixture

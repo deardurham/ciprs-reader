@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from ciprs.const import Section
-from ciprs.parser.base import Parser
+from ciprs_reader.const import Section
+from ciprs_reader.parser.base import Parser
 
 
 @dataclass

@@ -1,6 +1,6 @@
 import pytest
 
-from ciprs import parsers
+from ciprs_reader.parser import lines as parsers
 
 CASE_DETAIL_DATA = [
     (
