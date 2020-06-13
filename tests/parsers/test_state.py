@@ -6,7 +6,12 @@ from ciprs_reader.parser import lines
 
 @pytest.mark.parametrize(
     "Parser",
-    [lines.CaseStatus, lines.OffenseRecordRowWithNumber, lines.OffenseRecordRow],
+    [
+        lines.CaseStatus,
+        lines.OffenseDate,
+        lines.OffenseRecordRowWithNumber,
+        lines.OffenseRecordRow,
+    ],
 )
 def test_parser__disabled_by_default(Parser, report, state):
     parser = Parser(report, state)
@@ -19,9 +24,12 @@ def test_case_details__disabled(report, state):
     assert not parser.is_enabled()
 
 
-def test_case_status__enabled(report, state):
+@pytest.mark.parametrize(
+    "Parser", [lines.CaseStatus, lines.OffenseDate,],
+)
+def test_case_information_parsers__enabled(Parser, report, state):
     state.section = Section.CASE_INFORMATION
-    assert lines.CaseStatus(report, state).is_enabled()
+    assert Parser(report, state).is_enabled()
 
 
 @pytest.mark.parametrize(

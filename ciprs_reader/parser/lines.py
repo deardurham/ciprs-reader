@@ -25,14 +25,29 @@ class CaseDetails(Parser):
         report["General"]["File No"] = matches["fileno"]
 
 
-class CaseStatus(Parser):
+class CaseInformationParser(Parser):
+    """Only enabled when in Case Information section."""
+
+    def is_enabled(self):
+        return self.state.section == Section.CASE_INFORMATION
+
+
+class CaseStatus(CaseInformationParser):
 
     pattern = r"\s*Case Status:\s*(?P<value>\w+)"
     section = ("Case Information", "Case Status")
 
-    def is_enabled(self):
-        """Only enabled when in Case Information section."""
-        return self.state.section == Section.CASE_INFORMATION
+
+class OffenseDate(CaseInformationParser):
+
+    pattern = r".*Offense Date:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    section = ("Case Information", "Offense Date")
+
+    def clean(self, matches):
+        """Parse and convert the date to ISO 8601 format"""
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y")
+        matches["value"] = date.isoformat()
+        return matches
 
 
 class OffenseRecordRowWithNumber(Parser):
@@ -236,15 +251,3 @@ class DistrictSuperiorCourt(Parser):
 
     def extract(self, matches, report):
         report["General"].update(matches)
-
-
-class OffenseDate(Parser):
-
-    pattern = r".*Offense Date:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
-    section = ("Case Information", "Offense Date")
-
-    def clean(self, matches):
-        """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y")
-        matches["value"] = date.isoformat()
-        return matches
