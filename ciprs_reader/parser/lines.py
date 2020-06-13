@@ -2,7 +2,6 @@
 
 import datetime as dt
 import logging
-import re
 
 from ciprs_reader.parser.base import Parser
 from ciprs_reader.const import Section

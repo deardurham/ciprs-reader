@@ -1,9 +1,8 @@
 import json
-import collections
 import logging
 import subprocess
 
-from ciprs.parser.lines import (
+from ciprs_reader.parser.lines import (
     CaseDetails,
     CaseStatus,
     OffenseRecordRow,
@@ -20,8 +19,12 @@ from ciprs.parser.lines import (
     DistrictSuperiorCourt,
 )
 
-from ciprs.parser.offense import Offenses
-from ciprs.parser.state import ParserState, CaseInformation, DistrictCourtOffenseSection
+from ciprs_reader.parser.offense import Offenses
+from ciprs_reader.parser.state import (
+    ParserState,
+    CaseInformation,
+    DistrictCourtOffenseSection,
+)
 
 
 logger = logging.getLogger(__name__)

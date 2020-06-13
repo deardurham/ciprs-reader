@@ -1,18 +1,3 @@
-import pytest
-
-from ciprs_reader.parser.offense import Offenses, Offense
-
-
-@pytest.fixture
-def offense():
-    return Offense()
-
-
-@pytest.fixture
-def offenses():
-    return Offenses()
-
-
 def test_offenses_starts_empty(offenses):
     assert len(offenses) == 0
 

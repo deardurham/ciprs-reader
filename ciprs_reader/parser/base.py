@@ -1,6 +1,5 @@
 """Parsing classes to extract text from CIPRS Detailed PDF"""
 
-import datetime as dt
 import logging
 import re
 
