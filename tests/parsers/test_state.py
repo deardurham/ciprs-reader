@@ -2,17 +2,6 @@ import pytest
 
 from ciprs_reader.const import Section
 from ciprs_reader.parser import lines
-from ciprs_reader.parser.state import ParserState
-
-
-@pytest.fixture
-def report():
-    return {}
-
-
-@pytest.fixture
-def state():
-    return ParserState()
 
 
 @pytest.mark.parametrize(
