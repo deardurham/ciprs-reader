@@ -4,8 +4,6 @@ import datetime as dt
 import logging
 import re
 
-from ciprs import DISPOSITION_CODES
-
 logger = logging.getLogger(__name__)
 
 
