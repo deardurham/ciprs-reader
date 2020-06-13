@@ -43,7 +43,7 @@ class OffenseRecordRowWithNumber(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)[ ]{2,}(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)\s+(?P<desc>.+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def is_enabled(self):
         """Only enabled when in offense-related sections."""
@@ -79,7 +79,7 @@ class OffenseRecordRow(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def is_enabled(self):
         return self.state.offense_num and self.state.section in (
