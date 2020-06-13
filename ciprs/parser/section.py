@@ -3,7 +3,7 @@ from .base import Parser
 
 class Section(Parser):
     def set_state(self, state):
-        state["section"] = self.matches
+        state.section = self.matches
 
     def extract(self, matches, report):
         pass

@@ -9,6 +9,15 @@ from ciprs import DISPOSITION_CODES
 logger = logging.getLogger(__name__)
 
 
+class ParserState:
+    """
+    Object that maintains state while parsing CIPRS record.
+    """
+
+    section = "Header"  # defaults to top of document
+    offense_num = 0
+
+
 class Parser:
     """Base parsing object to search and extract data into report"""
 

@@ -38,7 +38,7 @@ class OffenseRecordRow(Parser):
     pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def in_state(self):
-        return self.state["num"] and self.state["section"] in (
+        return self.state.offense_num and self.state.section in (
             "District Court Offense Information",
         )
 
@@ -49,7 +49,7 @@ class OffenseRecordRow(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        offenses = report[self.state["section"]]
+        offenses = report[self.state.section]
         offenses.current.add_record(record)
 
 
@@ -65,7 +65,7 @@ class OffenseRecordRowWithNumber(Parser):
     def set_state(self, state):
         # if "num" not in state:
         #     self.report[self.state["section"]].append({"Records": []})
-        state["num"] = self.matches["num"]
+        state.offense_num = self.matches["num"]
 
     def extract(self, matches, report):
         record = {
@@ -74,7 +74,7 @@ class OffenseRecordRowWithNumber(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        offenses = report[self.state["section"]]
+        offenses = report[self.state.section]
         offenses.new().add_record(record)
         # report[self.state["section"]].new_offense(record)
         # if not report[self.state["section"]]:
@@ -95,7 +95,7 @@ class OffenseDisposedDate(Parser):
         return matches
 
     def extract(self, matches, report):
-        offenses = report[self.state["section"]]
+        offenses = report[self.state.section]
         offenses.current["Disposed On"] = matches["value"]
 
 
@@ -117,8 +117,7 @@ class OffenseDispositionMethod(Parser):
     section = ("Offense Record", "Disposition Method")
 
     def set_state(self, state):
-        if "num" in state:
-            del state["num"]
+        state.offense_num = 0
 
     # def clean(self, matches):
     #     """Replace disposition method with ASIC code"""
@@ -127,7 +126,7 @@ class OffenseDispositionMethod(Parser):
     #     return matches
 
     def extract(self, matches, report):
-        report[self.state["section"]].add_disposition_method(matches["value"])
+        report[self.state.section].add_disposition_method(matches["value"])
         # report[self.state["section"]][-1]["Disposition Method"] = matches["value"]
 
 
