@@ -48,7 +48,8 @@ class OffenseRecordRow(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        report[self.state["section"]].add_record(record)
+        offenses = report[self.state["section"]]
+        offenses.current.add_record(record)
 
 
 class OffenseRecordRowWithNumber(Parser):
@@ -72,7 +73,9 @@ class OffenseRecordRowWithNumber(Parser):
             "Severity": matches["severity"],
             "Law": matches["law"],
         }
-        report[self.state["section"]].add_record(record, new=True)
+        offenses = report[self.state["section"]]
+        offenses.new().add_record(record)
+        # report[self.state["section"]].new_offense(record)
         # if not report[self.state["section"]]:
         #     report[self.state["section"]].append({"Records": []})
         # report[self.state["section"]][-1]["Records"].append(record)
@@ -92,7 +95,7 @@ class OffenseDisposedDate(Parser):
 
     def extract(self, matches, report):
         offenses = report[self.state["section"]]
-        offenses[-1]["Disposed On"] = matches["value"]
+        offenses.current["Disposed On"] = matches["value"]
 
 
 class CaseWasServedOnDate(Parser):

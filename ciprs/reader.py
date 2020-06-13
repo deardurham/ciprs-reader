@@ -20,7 +20,7 @@ from ciprs.parser.lines import (
 )
 
 from ciprs.parser import section
-from ciprs.parser.offense import Court
+from ciprs.parser.offense import Offenses
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +41,8 @@ class PDFToTextReader:
             "Case Information": {},
             "Defendant": {},
             "Offense Record": {"Records": []},
-            "District Court Offense Information": Court(),
-            "Superior Court Offense Information": Court(),
+            "District Court Offense Information": Offenses(),
+            "Superior Court Offense Information": Offenses(),
             "_meta": {},
         }
         state = {}

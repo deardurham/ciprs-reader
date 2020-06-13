@@ -1,14 +1,18 @@
 import collections
 
 
-class Court(collections.UserList):
-    def add_record(self, record, new=False):
-        if new:
-            offense = Offense()
-            self.data.append(offense)
-        else:
-            offense = self.data[-1]
-        offense.add_record(record)
+class Offenses(collections.UserList):
+    """Simple list wrapper to manage Offense objects more easily."""
+
+    @property
+    def current(self):
+        if not self.data:
+            self.new()
+        return self.data[-1]
+
+    def new(self):
+        self.data.append(Offense())
+        return self.current
 
     def add_disposition_method(self, method):
         self.data[-1]["Disposition Method"] = method
@@ -18,10 +22,12 @@ class Court(collections.UserList):
 
 
 class Offense(collections.UserDict):
+    """Offense wrapper to easily add new records."""
+
     def add_record(self, record):
-        if "records" not in self.data:
-            self.data["records"] = []
-        self.data["records"].append(record)
+        if "Records" not in self.data:
+            self.data["Records"] = []
+        self.data["Records"].append(record)
 
     def __json__(self):
         return self.data
