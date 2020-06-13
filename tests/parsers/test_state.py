@@ -9,6 +9,7 @@ from ciprs_reader.parser import lines
     [
         lines.CaseStatus,
         lines.OffenseDate,
+        lines.OffenseDateTime,
         lines.OffenseRecordRowWithNumber,
         lines.OffenseRecordRow,
     ],
@@ -25,7 +26,7 @@ def test_case_details__disabled(report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.CaseStatus, lines.OffenseDate,],
+    "Parser", [lines.CaseStatus, lines.OffenseDate, lines.OffenseDateTime],
 )
 def test_case_information_parsers__enabled(Parser, report, state):
     state.section = Section.CASE_INFORMATION

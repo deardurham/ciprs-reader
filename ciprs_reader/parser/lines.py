@@ -50,6 +50,18 @@ class OffenseDate(CaseInformationParser):
         return matches
 
 
+class OffenseDateTime(CaseInformationParser):
+
+    pattern = r".*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
+    section = ("Case Information", "Offense Date")
+
+    def clean(self, matches):
+        """Parse and convert to the date and time in ISO 8601 format"""
+        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
+        matches["value"] = date.isoformat()
+        return matches
+
+
 class OffenseRecordRowWithNumber(Parser):
     """
     Extract offense row like:
@@ -156,18 +168,6 @@ class OffenseDispositionMethod(Parser):
     def extract(self, matches, report):
         report[self.state.section].add_disposition_method(matches["value"])
         # report[self.state["section"]][-1]["Disposition Method"] = matches["value"]
-
-
-class OffenseDateTime(Parser):
-
-    pattern = r".*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
-    section = ("Case Information", "Offense Date")
-
-    def clean(self, matches):
-        """Parse and convert to the date and time in ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
-        matches["value"] = date.isoformat()
-        return matches
 
 
 class DefendentName(Parser):

@@ -58,7 +58,7 @@ class PDFToTextReader:
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),
             OffenseDate(self.report, state),
-            # OffenseDateTime(self.report),
+            OffenseDateTime(self.report, state),
             OffenseDisposedDate(self.report, state),
             # CaseWasServedOnDate(self.report),
             OffenseDispositionMethod(self.report, state),
