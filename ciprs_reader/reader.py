@@ -3,20 +3,16 @@ import logging
 import subprocess
 
 from ciprs_reader.parser.lines import (
-    CaseStatus,
     OffenseRecordRow,
     OffenseRecordRowWithNumber,
-    OffenseDateTime,
-    OffenseDate,
     OffenseDisposedDate,
-    CaseWasServedOnDate,
     OffenseDispositionMethod,
     DefendantRace,
     DefendantSex,
     DefendentDOB,
     DistrictSuperiorCourt,
 )
-from ciprs_reader.parser.section import header
+from ciprs_reader.parser.section import header, case_information
 
 from ciprs_reader.parser.offense import Offenses
 from ciprs_reader.parser.state import (
@@ -58,13 +54,13 @@ class PDFToTextReader:
             SuperiorCourtOffenseSection(self.report, state),
             header.CaseDetails(self.report, state),
             header.DefendantName(self.report, state),
-            CaseStatus(self.report, state),
+            case_information.CaseStatus(self.report, state),
+            case_information.OffenseDate(self.report, state),
+            case_information.OffenseDateTime(self.report, state),
+            case_information.CaseWasServedOnDate(self.report, state),
             OffenseRecordRow(self.report, state),
             OffenseRecordRowWithNumber(self.report, state),
-            OffenseDate(self.report, state),
-            OffenseDateTime(self.report, state),
             OffenseDisposedDate(self.report, state),
-            CaseWasServedOnDate(self.report, state),
             OffenseDispositionMethod(self.report, state),
             DefendantRace(self.report, state),
             DefendantSex(self.report, state),

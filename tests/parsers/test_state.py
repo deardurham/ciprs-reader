@@ -2,16 +2,16 @@ import pytest
 
 from ciprs_reader.const import Section
 from ciprs_reader.parser import lines
-from ciprs_reader.parser.section import header
+from ciprs_reader.parser.section import header, case_information
 
 
 @pytest.mark.parametrize(
     "Parser",
     [
-        lines.CaseStatus,
-        lines.OffenseDate,
-        lines.OffenseDateTime,
-        lines.CaseWasServedOnDate,
+        case_information.CaseStatus,
+        case_information.OffenseDate,
+        case_information.OffenseDateTime,
+        case_information.CaseWasServedOnDate,
         lines.DefendantRace,
         lines.DefendantSex,
         lines.OffenseRecordRowWithNumber,
@@ -42,10 +42,10 @@ def test_header_parsers__disabled(Parser, report, state):
 @pytest.mark.parametrize(
     "Parser",
     [
-        lines.CaseStatus,
-        lines.OffenseDate,
-        lines.OffenseDateTime,
-        lines.CaseWasServedOnDate,
+        case_information.CaseStatus,
+        case_information.OffenseDate,
+        case_information.OffenseDateTime,
+        case_information.CaseWasServedOnDate,
     ],
 )
 def test_case_information_parsers__enabled(Parser, report, state):

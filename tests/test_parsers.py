@@ -3,13 +3,6 @@ import pytest
 from ciprs_reader.parser import lines as parsers
 
 
-def test_case_status(report, state):
-    string = "  Case Status: DISPOSED  "
-    matches = parsers.CaseStatus(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED"
-
-
 def test_offense_record_charged(report, state):
     string = "CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)"  # noqa
     matches = parsers.OffenseRecordRow(report, state).match(string)
@@ -54,13 +47,6 @@ def test_offense_record_convicted(report, state):
     assert matches["desc"] == "IMPROPER EQUIP - SPEEDOMETER"
     assert matches["severity"] == "INFRACTION"
     assert matches["law"] == "G.S. 20-123.2"
-
-
-def test_offense_date_time(report, state):
-    string = "    Offense Date/Time: 05/17/2015 09:59 PM   "
-    matches = parsers.OffenseDateTime(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2015-05-17T21:59:00"
 
 
 def test_defendent_race(report, state):
@@ -116,19 +102,6 @@ def test_offense_disposed_date(expected, val, report, state):
     assert matches["value"] == expected
 
 
-@pytest.mark.parametrize(
-    "expected,val",
-    (
-        ("2000-09-09", "    Case Was Served on: 09/09/2000   "),
-        ("2015-05-17", "Case Was Reinstated: -    Case Was Served on: 05/17/2015"),
-    ),
-)
-def test_case_was_served_on_date(expected, val, report, state):
-    matches = parsers.CaseWasServedOnDate(report, state).match(val)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == expected
-
-
 def test_known_offense_disposition_method(report, state):
     string = "    Disposition Method: DISPOSED BY JUDGE"
     matches = parsers.OffenseDispositionMethod(report, state).match(string)
@@ -159,10 +132,3 @@ def test_court_type_crs(report, state):
     assert parser.matches is not None, "Regex match failed"
     assert parser.matches == {"Superior": "Yes"}
     assert report["General"]["Superior"] == "Yes"
-
-
-def test_offense_date(report, state):
-    string = "    Offense Date: 11/28/2005   • Date: 04/13/2006"
-    matches = parsers.OffenseDate(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2005-11-28T00:00:00"
