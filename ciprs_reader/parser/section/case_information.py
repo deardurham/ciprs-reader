@@ -44,7 +44,7 @@ class OffenseDateTime(CaseInformationParser):
 class CaseWasServedOnDate(CaseInformationParser):
 
     pattern = r".*Case Was Served on:\s*(?P<value>[\d/:]+)"
-    section = ("Offense Record", "Arrest Date")
+    section = ("Case Information", "Arrest Date")
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""

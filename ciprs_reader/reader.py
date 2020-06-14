@@ -35,7 +35,6 @@ class PDFToTextReader:
             "General": {},
             "Case Information": {},
             "Defendant": {},
-            "Offense Record": {"Records": []},
             "District Court Offense Information": Offenses(),
             "Superior Court Offense Information": Offenses(),
             "_meta": {},
