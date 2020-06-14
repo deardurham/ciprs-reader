@@ -1,5 +1,5 @@
 def test_offenses_starts_empty(offenses):
-    assert len(offenses) == 0
+    assert not offenses
 
 
 def test_offenses_new(offenses):
