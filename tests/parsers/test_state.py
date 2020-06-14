@@ -2,7 +2,7 @@ import pytest
 
 from ciprs_reader.const import Section
 from ciprs_reader.parser import lines
-from ciprs_reader.parser.section import case_information, defendant, header
+from ciprs_reader.parser.section import case_information, defendant, header, offense
 
 
 @pytest.mark.parametrize(
@@ -14,8 +14,10 @@ from ciprs_reader.parser.section import case_information, defendant, header
         case_information.CaseWasServedOnDate,
         defendant.DefendantRace,
         defendant.DefendantSex,
-        lines.OffenseRecordRowWithNumber,
-        lines.OffenseRecordRow,
+        offense.OffenseRecordRowWithNumber,
+        offense.OffenseRecordRow,
+        offense.OffenseDisposedDate,
+        offense.OffenseDispositionMethod,
     ],
 )
 def test_parser__disabled_by_default(Parser, report, state):
@@ -62,14 +64,25 @@ def test_defendant_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
+    "Parser",
+    [
+        offense.OffenseRecordRowWithNumber,
+        offense.OffenseDisposedDate,
+        offense.OffenseDispositionMethod,
+    ],
+)
+@pytest.mark.parametrize(
     "section", [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
 )
-def test_offense_record_row_with_number__enabled(section, report, state):
+def test_offense_parsers__enabled(Parser, section, report, state):
     state.section = section
-    assert lines.OffenseRecordRowWithNumber(report, state).is_enabled()
+    assert Parser(report, state).is_enabled()
 
 
-def test_offense_record_row__enabled(report, state):
+@pytest.mark.parametrize(
+    "section", [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
+)
+def test_offense_record_row__enabled(section, report, state):
     state.offense_num = 1
-    state.section = Section.DISTRICT_OFFENSE
-    assert lines.OffenseRecordRow(report, state).is_enabled()
+    state.section = section
+    assert offense.OffenseRecordRow(report, state).is_enabled()
