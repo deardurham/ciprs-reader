@@ -49,34 +49,6 @@ def test_offense_record_convicted(report, state):
     assert matches["law"] == "G.S. 20-123.2"
 
 
-def test_defendent_race(report, state):
-    string = "   Race: WHITE   "
-    matches = parsers.DefendantRace(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "WHITE"
-
-
-def test_defendent_sex_male(report, state):
-    string = "   Sex: MALE   "
-    matches = parsers.DefendantSex(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "M"
-
-
-def test_defendent_sex_female(report, state):
-    string = "   Sex: FEMALE   "
-    matches = parsers.DefendantSex(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "F"
-
-
-def test_defendent_sex_bad(report, state):
-    string = "   Sex: DUNNO   "
-    matches = parsers.DefendantSex(report, state).match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == ""
-
-
 def test_defendent_dob(report, state):
     string = """     Date of Birth/Estimated Age:     Driver License Information  \n
        01/01/2000       • License State: NC
