@@ -2,6 +2,7 @@ import pytest
 
 from ciprs_reader.const import Section
 from ciprs_reader.parser import lines
+from ciprs_reader.parser.section import header
 
 
 @pytest.mark.parametrize(
@@ -23,7 +24,7 @@ def test_parser__disabled_by_default(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.CaseDetails, lines.DefendantName,],
+    "Parser", [header.CaseDetails, header.DefendantName,],
 )
 def test_header_parsers__enabled(Parser, report, state):
     state.section = Section.HEADER
@@ -31,7 +32,7 @@ def test_header_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [lines.CaseDetails, lines.DefendantName,],
+    "Parser", [header.CaseDetails, header.DefendantName,],
 )
 def test_header_parsers__disabled(Parser, report, state):
     state.section = "Not Header"
