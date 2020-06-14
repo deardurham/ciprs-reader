@@ -1,7 +1,6 @@
 import pytest
 
 from ciprs_reader.const import Section
-from ciprs_reader.parser import lines
 from ciprs_reader.parser.section import case_information, defendant, header, offense
 
 

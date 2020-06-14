@@ -81,6 +81,7 @@ class PDFToTextReader:
             self.report["_meta"]["source"] = text
         logger.debug("pdftotext: %s", text)
         reader = Reader(text)
+        # pylint: disable=not-callable
         while reader.next() is not None:
             for parser in self.line_parsers:
                 parser.find(reader)

@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 class Section:
     """Section headers within a CIPRS record."""
 

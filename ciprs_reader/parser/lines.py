@@ -4,7 +4,6 @@ import datetime as dt
 import logging
 
 from ciprs_reader.parser.base import Parser
-from ciprs_reader.const import Section
 
 logger = logging.getLogger(__name__)
 

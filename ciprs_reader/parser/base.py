@@ -76,6 +76,7 @@ class Parser:
         if self.matches:
             self.extract(self.matches, self.report)
             self.set_state(self.state)
+            # pylint: disable=logging-fstring-interpolation
             self.logger.info(f"State: {self.state}")
 
     def extract(self, matches, report):
