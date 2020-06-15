@@ -7,8 +7,7 @@ from ciprs_reader.parser.lines import (
     DistrictSuperiorCourt,
 )
 from ciprs_reader.parser.section import case_information, defendant, header, offense
-
-from ciprs_reader.parser.offense import Offenses
+from ciprs_reader.parser.models import Offenses
 from ciprs_reader.parser.state import (
     ParserState,
     CaseInformation,

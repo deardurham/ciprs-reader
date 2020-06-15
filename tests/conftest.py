@@ -1,7 +1,7 @@
 import pytest
 
 from ciprs_reader.parser.state import ParserState
-from ciprs_reader.parser.offense import Offenses, Offense
+from ciprs_reader.parser.models import Offenses, Offense
 
 
 @pytest.fixture
