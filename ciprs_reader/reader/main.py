@@ -2,19 +2,9 @@ import json
 import logging
 import subprocess
 
-from ciprs_reader.parser.lines import (
-    DefendentDOB,
-    DistrictSuperiorCourt,
-)
-from ciprs_reader.parser.section import case_information, defendant, header, offense
+from ciprs_reader.parser.state import ParserState
 from ciprs_reader.parser.models import Offenses
-from ciprs_reader.parser.state import (
-    ParserState,
-    CaseInformation,
-    DefendantSection,
-    DistrictCourtOffenseSection,
-    SuperiorCourtOffenseSection,
-)
+from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS
 
 
 logger = logging.getLogger(__name__)
@@ -39,28 +29,12 @@ class PDFToTextReader:
             "_meta": {},
         }
         state = ParserState()
-        self.line_parsers = (
-            CaseInformation(self.report, state),
-            DefendantSection(self.report, state),
-            DistrictCourtOffenseSection(self.report, state),
-            SuperiorCourtOffenseSection(self.report, state),
-            header.CaseDetails(self.report, state),
-            header.DefendantName(self.report, state),
-            case_information.CaseStatus(self.report, state),
-            case_information.OffenseDate(self.report, state),
-            case_information.OffenseDateTime(self.report, state),
-            case_information.CaseWasServedOnDate(self.report, state),
-            defendant.DefendantRace(self.report, state),
-            defendant.DefendantSex(self.report, state),
-            offense.OffenseRecordRow(self.report, state),
-            offense.OffenseRecordRowWithNumber(self.report, state),
-            offense.OffenseDisposedDate(self.report, state),
-            offense.OffenseDispositionMethod(self.report, state),
-        )
-        self.document_parsers = (
-            DefendentDOB(self.report, state),
-            DistrictSuperiorCourt(self.report, state),
-        )
+        self.line_parsers = []
+        for parser in LINE_PARSERS:
+            self.line_parsers.append(parser(self.report, state))
+        self.document_parsers = []
+        for parser in DOCUMENT_PARSERS:
+            self.document_parsers.append(parser(self.report, state))
 
     def convert_to_text(self):
         run = subprocess.run(
