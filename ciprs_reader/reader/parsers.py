@@ -7,7 +7,7 @@ from ciprs_reader.parser.section import case_information, defendant, header, off
 
 
 LINE_PARSERS = (
-    #
+    # Start with parsers that only set state
     state.CaseInformation,
     state.DefendantSection,
     state.DistrictCourtOffenseSection,
