@@ -5,16 +5,10 @@ import subprocess
 from ciprs_reader.parser.state import ParserState
 from ciprs_reader.parser.models import Offenses
 from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS
+from ciprs_reader.reader.util import json_default, Reader
 
 
 logger = logging.getLogger(__name__)
-
-
-def json_default(obj):
-    try:
-        return obj.__json__()
-    except AttributeError:
-        raise TypeError("{} can not be JSON encoded".format(type(obj)))
 
 
 class PDFToTextReader:
@@ -62,17 +56,3 @@ class PDFToTextReader:
 
     def json(self):
         return json.dumps(self.report, indent=4, default=json_default)
-
-
-class Reader:
-    def __init__(self, source):
-        self.source = source
-        self.lines = iter(source.splitlines())
-        self.current = None
-
-    def next(self):
-        self.current = next(self.lines, None)
-        return self.current
-
-    def __str__(self):
-        return self.current or ""
