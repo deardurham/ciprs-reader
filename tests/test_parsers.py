@@ -1,224 +1,35 @@
-import pytest
-
-from ciprs import parsers
-
-CASE_DETAIL_DATA = [
-    (
-        {"county": "DURHAM", "fileno": "00GR000000"},
-        "  Case Details for Court Case DURHAM 00GR000000  ",
-    ),
-    (
-        {"county": "ORANGE", "fileno": "99FN9999999"},
-        " Case Summary for Court Case: ORANGE 99FN9999999",
-    ),
-]
+from ciprs_reader.parser import lines as parsers
 
 
-@pytest.mark.parametrize("expected, val", CASE_DETAIL_DATA)
-def test_case_details(expected, val):
-    matches = parsers.CaseDetails().match(val)
-    assert matches is not None, "Regex match failed"
-    assert matches == expected
-
-
-def test_case_status():
-    string = "  Case Status: DISPOSED  "
-    matches = parsers.CaseStatus().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED"
-
-
-def test_offense_record_charged():
-    string = "CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)    4450"  # noqa
-    matches = parsers.OffenseRecordRow().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["action"] == "CHARGED"
-    assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
-    assert matches["severity"] == "INFRACTION"
-    assert matches["law"] == "G.S. 20-141(B)"
-    assert matches["code"] == "4450"
-
-
-@pytest.mark.parametrize(
-    "line",
-    (
-        "54  CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)",
-        "  54  CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)   ",
-    ),
-)
-def test_offense_record_charged_with_number(line):
-    matches = parsers.OffenseRecordRowWithNumber().match(line)
-    assert matches is not None, "Regex match failed"
-    assert matches["action"] == "CHARGED"
-    assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
-    assert matches["severity"] == "INFRACTION"
-    assert matches["law"] == "G.S. 20-141(B)"
-
-
-def test_offense_record_charged_with_number__ampersand():
-    string = "54  CHARGED       SPEEDING(80 & 65 mph zone)    INFRACTION    G.S. 20-141(B)"  # noqa
-    matches = parsers.OffenseRecordRowWithNumber().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["action"] == "CHARGED"
-    assert matches["desc"] == "SPEEDING(80 & 65 mph zone)"
-    assert matches["severity"] == "INFRACTION"
-    assert matches["law"] == "G.S. 20-141(B)"
-
-
-def test_offense_record_arrainged():
-    string = "ARRAIGNED SPEEDING(80 mph in a 65 mph zone)        INFRACTION    G.S. 20-141(B)    4450"  # noqa
-    matches = parsers.OffenseRecordRow().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["action"] == "ARRAIGNED"
-    assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
-    assert matches["severity"] == "INFRACTION"
-    assert matches["law"] == "G.S. 20-141(B)"
-    assert matches["code"] == "4450"
-
-
-def test_offense_record_convicted():
-    string = "CONVICTED IMPROPER EQUIP - SPEEDOMETER             INFRACTION    G.S. 20-123.2     4418"  # noqa
-    matches = parsers.OffenseRecordRow().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["action"] == "CONVICTED"
-    assert matches["desc"] == "IMPROPER EQUIP - SPEEDOMETER"
-    assert matches["severity"] == "INFRACTION"
-    assert matches["law"] == "G.S. 20-123.2"
-    assert matches["code"] == "4418"
-
-
-def test_offense_date_time():
-    string = "    Offense Date/Time: 05/17/2015 09:59 PM   "
-    matches = parsers.OffenseDateTime().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2015-05-17T21:59:00"
-
-
-def test_defendent_name():
-    string = "   Defendant:   DOE,JON,BOJACK   "
-    matches = parsers.DefendentName().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "JON BOJACK DOE"
-
-
-def test_defendent_name_no_middle():
-    string = "  Defendant: DOE,JON   "
-    matches = parsers.DefendentName().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "JON DOE"
-
-
-def test_defendent_name_special_character():
-    string = " Defendant: DOE,JON'BO,JACK"
-    matches = parsers.DefendentName().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "JON'BO JACK DOE"
-    string2 = " Defendant: ZACHARY,ERIC-JAZZ,TEST"
-    matches = parsers.DefendentName().match(string2)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "ERIC-JAZZ TEST ZACHARY"
-
-
-def test_defendent_race():
-    string = "   Race: WHITE   "
-    matches = parsers.DefendentRace().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "WHITE"
-
-
-def test_defendent_sex_male():
-    string = "   Sex: MALE   "
-    matches = parsers.DefendentSex().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "M"
-
-
-def test_defendent_sex_female():
-    string = "   Sex: FEMALE   "
-    matches = parsers.DefendentSex().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "F"
-
-
-def test_defendent_sex_bad():
-    string = "   Sex: DUNNO   "
-    matches = parsers.DefendentSex().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == ""
-
-
-def test_defendent_dob():
+def test_defendent_dob(report, state):
     string = """     Date of Birth/Estimated Age:     Driver License Information  \n
        01/01/2000       • License State: NC
     """
-    matches = parsers.DefendentDOB().match(string)
+    matches = parsers.DefendentDOB(report, state).match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "2000-01-01"
 
 
-@pytest.mark.parametrize(
-    "expected,val",
-    (
-        ("2000-01-01", "      Disposed on: 01/01/2000   "),
-        (
-            "2016-07-20",
-            "    Plea: RESPONSIBLE                         Verdict: RESPONSIBLE             Disposed on: 07/20/2016   ",
-        ),
-    ),
-)
-def test_offense_disposed_date(expected, val):
-    matches = parsers.OffenseDisposedDate().match(val)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == expected
-
-
-@pytest.mark.parametrize(
-    "expected,val",
-    (
-        ("2000-09-09", "    Case Was Served on: 09/09/2000   "),
-        ("2015-05-17", "Case Was Reinstated: -    Case Was Served on: 05/17/2015"),
-    ),
-)
-def test_case_was_served_on_date(expected, val):
-    matches = parsers.CaseWasServedOnDate().match(val)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == expected
-
-
-def test_known_offense_disposition_method():
-    string = "    Disposition Method: DISPOSED BY JUDGE"
-    matches = parsers.OffenseDispositionMethod().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED BY JUDGE"
-
-
-def test_court_type_other():
+def test_court_type_other(report, state):
     report = {"General": {"File No": "11IF777777"}}
-    matches = parsers.DistrictSuperiorCourt(report).match("")
+    matches = parsers.DistrictSuperiorCourt(report, state).match("")
     assert matches is not None, "Regex match failed"
     assert matches == {}
 
 
-def test_court_type_cr():
+def test_court_type_cr(report, state):
     report = {"General": {"File No": "11CR777777"}}
-    parser = parsers.DistrictSuperiorCourt(report)
+    parser = parsers.DistrictSuperiorCourt(report, state)
     parser.find("")
     assert parser.matches is not None, "Regex match failed"
     assert parser.matches == {"District": "Yes"}
     assert report["General"]["District"] == "Yes"
 
 
-def test_court_type_crs():
+def test_court_type_crs(report, state):
     report = {"General": {"File No": "11CRS777777"}}
-    parser = parsers.DistrictSuperiorCourt(report)
+    parser = parsers.DistrictSuperiorCourt(report, state)
     parser.find("")
     assert parser.matches is not None, "Regex match failed"
     assert parser.matches == {"Superior": "Yes"}
     assert report["General"]["Superior"] == "Yes"
-
-
-def test_offense_date():
-    string = "    Offense Date: 11/28/2005   • Date: 04/13/2006"
-    matches = parsers.OffenseDate().match(string)
-    assert matches is not None, "Regex match failed"
-    assert matches["value"] == "2005-11-28T00:00:00"
