@@ -1,21 +1,37 @@
 import json
 import logging
-import subprocess
 
 from ciprs_reader.parser.state import ParserState
 from ciprs_reader.parser.models import Offenses
 from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS
-from ciprs_reader.reader.util import json_default, Reader
+from ciprs_reader.reader import util
 
 
 logger = logging.getLogger(__name__)
 
 
 class PDFToTextReader:
-    """Read PDF and perform entity extraction using parsers."""
+    """Prase CIPRS Summary records into entity-extract JSON."""
 
     def __init__(self, path):
         self.path = path
+        self.records = []
+
+    def parse(self, save_source=False):
+        for source in util.multi_summary_record_reader(self.path):
+            reader = SummaryRecordReader(source)
+            record = reader.parse(save_source)
+            self.records.append(record)
+
+    def json(self):
+        return json.dumps(self.records, indent=4, default=util.json_default)
+
+
+class SummaryRecordReader:
+    """Read through Summary record and perform entity extraction using parsers."""
+
+    def __init__(self, text):
+        self.text = text
         # skelton JSON structure for parser-extracted entities
         self.report = {
             "General": {},
@@ -36,29 +52,16 @@ class PDFToTextReader:
         for parser in DOCUMENT_PARSERS:
             self.document_parsers.append(parser(self.report, self.state))
 
-    def convert_to_text(self):
-        run = subprocess.run(
-            f"pdftotext -layout -enc UTF-8 {self.path} -",
-            check=True,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        return run.stdout.decode("utf-8")
-
-    def parse(self, source=False):
-        text = self.convert_to_text()
-        if source:
+    def parse(self, save_source=False):
+        logger.debug("pdftotext: %s", self.text)
+        if save_source:
             # save output of pdftotext for later inspection, if desired
-            self.report["_meta"]["source"] = text
-        logger.debug("pdftotext: %s", text)
-        reader = Reader(text)
+            self.report["_meta"]["source"] = self.text
+        reader = util.LineReader(self.text)
         # pylint: disable=not-callable
         while reader.next() is not None:
             for parser in self.line_parsers:
                 parser.find(reader)
         for parser in self.document_parsers:
             parser.find(reader.source)
-
-    def json(self):
-        return json.dumps(self.report, indent=4, default=json_default)
+        return self.report

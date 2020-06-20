@@ -32,5 +32,5 @@ if __name__ == "__main__":
 
     logger.info("Running ciprs-reader on %s", args.input)
     reader = PDFToTextReader(args.input)
-    reader.parse(source=args.source)
+    reader.parse(save_source=args.source)
     print(reader.json())
