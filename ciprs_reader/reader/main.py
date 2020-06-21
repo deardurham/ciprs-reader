@@ -27,6 +27,7 @@ class PDFToTextReader:
         return json.dumps(self.records, indent=4, default=util.json_default)
 
 
+# pylint: disable=too-few-public-methods
 class SummaryRecordReader:
     """Read through Summary record and perform entity extraction using parsers."""
 
