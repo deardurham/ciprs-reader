@@ -1,4 +1,32 @@
-"""Utilities for PDFToTextReader"""
+import subprocess
+
+
+def convert_to_text(path):
+    """Convert PDF to text using pdftotext library."""
+    run = subprocess.run(
+        f"pdftotext -layout -enc UTF-8 {path} -",
+        check=True,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return run.stdout.decode("utf-8")
+
+
+def multi_summary_record_reader(path):
+    """
+    Sometimes multiple Summary CIPRS records are combined into a
+    single PDF for easier document management by the attorney. This
+    method splits records up for individual processing.
+    """
+    text = convert_to_text(path)
+    records = text.split("Case Summary for Court Case")
+    # trim any short records (probably just header text)
+    records = [x for x in records if len(x) > 1000]
+    # re-add text that was used to split to each record
+    records = ["Case Summary for Court Case" + x for x in records]
+    for record in records:
+        yield record
 
 
 def json_default(obj):
@@ -9,7 +37,7 @@ def json_default(obj):
         raise TypeError("{} can not be JSON encoded".format(type(obj)))
 
 
-class Reader:
+class LineReader:
     """Wrapper class to iterate over lines in a string."""
 
     def __init__(self, source):
