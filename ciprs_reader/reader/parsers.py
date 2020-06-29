@@ -28,6 +28,8 @@ LINE_PARSERS = (
     offense.OffenseRecordRowWithNumber,
     offense.OffenseDisposedDate,
     offense.OffenseDispositionMethod,
+    offense.OffensePlea,
+    offense.OffenseVerdict,
 )
 
 DOCUMENT_PARSERS = (

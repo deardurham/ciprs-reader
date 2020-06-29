@@ -95,3 +95,21 @@ class OffenseDispositionMethod(OffenseSectionParser):
     def extract(self, matches, report):
         offenses = report[self.state.section]
         offenses.current["Disposition Method"] = matches["value"]
+
+
+class OffensePlea(OffenseSectionParser):
+    pattern = r"\s*Plea:\s*(?P<value>[\w ]+)Verdict:"
+    section = ("Offense Record", "Plea")
+
+    def extract(self, matches, report):
+        offenses = report[self.state.section]
+        offenses.current["Plea"] = matches["value"]
+
+
+class OffenseVerdict(OffenseSectionParser):
+    pattern = r".*Verdict:\s*(?P<value>[\w ]+)Disposed on:"
+    section = ("Offense Record", "Verdict")
+
+    def extract(self, matches, report):
+        offenses = report[self.state.section]
+        offenses.current["Verdict"] = matches["value"]

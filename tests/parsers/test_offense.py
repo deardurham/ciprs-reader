@@ -70,3 +70,17 @@ def test_known_offense_disposition_method(report, state):
     matches = offense.OffenseDispositionMethod(report, state).match(string)
     assert matches is not None, "Regex match failed"
     assert matches["value"] == "DISPOSED BY JUDGE"
+
+
+def test_plea(report, state):
+    string = "Plea: NOT GUILTY                     Verdict:                             Disposed on: "
+    matches = offense.OffensePlea(report, state).match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "NOT GUILTY"
+
+
+def test_verdict(report, state):
+    string = "Plea: GUILTY                       Verdict: NOT GUILTY                       Disposed on: "
+    matches = offense.OffenseVerdict(report, state).match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "NOT GUILTY"
