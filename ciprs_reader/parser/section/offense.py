@@ -85,7 +85,7 @@ class OffenseDisposedDate(OffenseSectionParser):
 
 class OffenseDispositionMethod(OffenseSectionParser):
 
-    pattern = r"\s*Disposition Method:\s*(?P<value>[\w ]+)"
+    pattern = r"\s*Disposition Method:\s*(?P<value>[\w\- ]+)"
     section = ("Offense Record", "Disposition Method")
 
     def set_state(self, state):

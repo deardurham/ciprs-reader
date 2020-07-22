@@ -66,10 +66,10 @@ def test_offense_disposed_date(expected, val, report, state):
 
 
 def test_known_offense_disposition_method(report, state):
-    string = "    Disposition Method: DISPOSED BY JUDGE"
+    string = "    Disposition Method: WAIVER - MAGISTRATE"
     matches = offense.OffenseDispositionMethod(report, state).match(string)
     assert matches is not None, "Regex match failed"
-    assert matches["value"] == "DISPOSED BY JUDGE"
+    assert matches["value"] == "WAIVER - MAGISTRATE"
 
 
 def test_plea(report, state):
