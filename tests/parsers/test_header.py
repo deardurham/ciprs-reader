@@ -20,6 +20,10 @@ CASE_DETAIL_DATA = [
         {"county": "OLD HANOVER", "fileno": "99FN9999999"},
         " Case Summary for Court Case: OLD HANOVER 99FN9999999",
     ),
+    (
+        {"county": "GUILFORD-GR", "fileno": "15CR000000"},
+        " Case Summary for Court Case: GUILFORD-GR 15CR000000",
+    ),
 ]
 
 
