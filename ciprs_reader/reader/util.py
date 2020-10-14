@@ -33,8 +33,8 @@ def json_default(obj):
     """Helper function to JSON serialize objects when using dumps()."""
     try:
         return obj.__json__()
-    except AttributeError:
-        raise TypeError("{} can not be JSON encoded".format(type(obj)))
+    except AttributeError as invaild_object_type:
+        raise TypeError("{} can not be JSON encoded".format(type(obj))) from invaild_object_type
 
 
 class LineReader:
