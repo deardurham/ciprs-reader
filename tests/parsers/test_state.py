@@ -25,7 +25,11 @@ def test_parser__disabled_by_default(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [header.CaseDetails, header.DefendantName,],
+    "Parser",
+    [
+        header.CaseDetails,
+        header.DefendantName,
+    ],
 )
 def test_header_parsers__enabled(Parser, report, state):
     state.section = Section.HEADER
@@ -33,7 +37,11 @@ def test_header_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [header.CaseDetails, header.DefendantName,],
+    "Parser",
+    [
+        header.CaseDetails,
+        header.DefendantName,
+    ],
 )
 def test_header_parsers__disabled(Parser, report, state):
     state.section = "Not Header"
@@ -55,7 +63,8 @@ def test_case_information_parsers__enabled(Parser, report, state):
 
 
 @pytest.mark.parametrize(
-    "Parser", [defendant.DefendantRace, defendant.DefendantSex],
+    "Parser",
+    [defendant.DefendantRace, defendant.DefendantSex],
 )
 def test_defendant_parsers__enabled(Parser, report, state):
     state.section = Section.DEFENDANT
@@ -71,7 +80,8 @@ def test_defendant_parsers__enabled(Parser, report, state):
     ],
 )
 @pytest.mark.parametrize(
-    "section", [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
+    "section",
+    [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
 )
 def test_offense_parsers__enabled(Parser, section, report, state):
     state.section = section
@@ -79,7 +89,8 @@ def test_offense_parsers__enabled(Parser, section, report, state):
 
 
 @pytest.mark.parametrize(
-    "section", [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
+    "section",
+    [Section.DISTRICT_OFFENSE, Section.SUPERIOR_OFFENSE],
 )
 def test_offense_record_row__enabled(section, report, state):
     state.offense_num = 1
