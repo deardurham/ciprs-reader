@@ -1,9 +1,4 @@
-pdfrw==0.4
-jupyterlab==0.35.4
-flake8==3.7.7
-pdfrw==0.4
-pdfminer.six==20181108
-pytest==4.4.1
-pytest-pylint==0.14.0
-ipdb==0.12
-pre-commit==1.17.0
+pytest==6.2.2
+pytest-cov==2.11.1
+pytest-pylint==0.18.0
+pre-commit==2.11.1

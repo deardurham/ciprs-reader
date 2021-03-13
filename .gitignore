@@ -5,3 +5,7 @@ __pycache__
 .DS_Store
 ignore/
 .pytest_cache
+.direnv
+.envrc
+.coverage
+htmlcov

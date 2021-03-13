@@ -59,8 +59,6 @@ brew cask install pdftotext
 Setup:
 
 ```bash
-pyenv virtualenv 3.7.2 ciprs-reader
-pyenv shell ciprs-reader
 pip install -r requirements.txt
 pip install -e .
 ```
