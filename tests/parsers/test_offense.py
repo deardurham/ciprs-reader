@@ -39,6 +39,13 @@ def test_offense_record_arrainged(report, state):
     assert matches["law"] == "G.S. 20-141(B)"
 
 
+def test_offense_record_with_slashes(report, state):
+    string = "CONVICTED  CITY/TOWN VIOLATION (I)  INFRACTION  LOCAL ORDINANCE"
+    matches = offense.OffenseRecordRow(report, state).match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["desc"] == "CITY/TOWN VIOLATION (I)"
+
+
 def test_offense_record_convicted(report, state):
     string = "CONVICTED IMPROPER EQUIP - SPEEDOMETER             INFRACTION    G.S. 20-123.2"  # noqa
     matches = offense.OffenseRecordRow(report, state).match(string)
