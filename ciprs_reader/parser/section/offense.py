@@ -50,7 +50,7 @@ class OffenseRecordRow(OffenseSectionParser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>[\w \-\(\)]+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
+    pattern = r"\s*(?P<action>\w+)\s+(?P<desc>.+)[ ]{2,}(?P<severity>\w+)[ ]{2,}(?P<law>[\w. \-\(\)]+)"
 
     def is_enabled(self):
         in_offense_section = super().is_enabled()
