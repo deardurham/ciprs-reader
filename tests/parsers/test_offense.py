@@ -46,6 +46,13 @@ def test_offense_record_with_slashes(report, state):
     assert matches["desc"] == "CITY/TOWN VIOLATION (I)"
 
 
+def test_offense_record_with_multiline(report, state):
+    string = "OPEN  CONT AFTER CONS    ALC 1ST(Blood Alcohol =\n01 CHARGED    NOT REQUIRED)    TRAFFIC    G.S. 20-138.7(A)"
+    matches = offense.OffenseRecordRow(report, state).match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["desc"] == "OPEN CONT AFTER CONS ALC 1ST(Blood Alcohol =NOT REQUIRED)"
+
+
 def test_offense_record_convicted(report, state):
     string = "CONVICTED IMPROPER EQUIP - SPEEDOMETER             INFRACTION    G.S. 20-123.2"  # noqa
     matches = offense.OffenseRecordRow(report, state).match(string)
