@@ -1,3 +1,4 @@
+import re
 import pytest
 
 from ciprs_reader.parser.section import offense
@@ -5,7 +6,7 @@ from ciprs_reader.parser.section import offense
 
 def test_offense_record_charged(report, state):
     string = "CHARGED       SPEEDING(80 mph in a 65 mph zone)    INFRACTION    G.S. 20-141(B)"  # noqa
-    matches = offense.OffenseRecordRow(report, state).match(string)
+    matches = offense.OffenseRecordRow(report, state, multiline=True).match(string)
     assert matches is not None, "Regex match failed"
     assert matches["action"] == "CHARGED"
     assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
@@ -30,7 +31,7 @@ def test_offense_record_charged_with_number(line, report, state):
 
 
 def test_offense_record_arrainged(report, state):
-    string = "ARRAIGNED SPEEDING(80 mph in a 65 mph zone)        INFRACTION    G.S. 20-141(B)"  # noqa
+    string = "    ARRAIGNED SPEEDING(80 mph in a 65 mph zone)        INFRACTION    G.S. 20-141(B)"  # noqa
     matches = offense.OffenseRecordRow(report, state).match(string)
     assert matches is not None, "Regex match failed"
     assert matches["action"] == "ARRAIGNED"
@@ -47,10 +48,13 @@ def test_offense_record_with_slashes(report, state):
 
 
 def test_offense_record_with_multiline(report, state):
-    string = "OPEN  CONT AFTER CONS    ALC 1ST(Blood Alcohol =\n01 CHARGED    NOT REQUIRED)    TRAFFIC    G.S. 20-138.7(A)"
-    matches = offense.OffenseRecordRow(report, state).match(string)
+    # pylint: disable=line-too-long
+    string = "\n    01 CHARGED   OPEN  CONT AFTER CONS    ALC 1ST(Blood Alcohol =    TRAFFIC    G.S. 20-138.7(A)\n NOT REQUIRED)  \n TEST         \n    CONVICTED"
+    matches = offense.OffenseRecordRowWithNumber(report, state, multiline=True).match(string)
+    test = re.sub(r'\s+', ' ', matches["desc_ext"].strip())
     assert matches is not None, "Regex match failed"
-    assert matches["desc"] == "OPEN CONT AFTER CONS ALC 1ST(Blood Alcohol =NOT REQUIRED)"
+    assert matches["desc"] == "OPEN  CONT AFTER CONS    ALC 1ST(Blood Alcohol ="
+    assert test == "NOT REQUIRED) TEST"
 
 
 def test_offense_record_convicted(report, state):
