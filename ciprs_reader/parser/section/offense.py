@@ -22,12 +22,16 @@ class OffenseRecordRowWithNumber(Parser):
         state.offense_num = self.matches["num"]
 
     def extract(self, matches, report):
+        description_strings = [
+            re.sub(r' +', ' ', matches["desc"].strip()),
+            re.sub(r' +', ' ', matches["desc_ext"].strip()),
+        ]
+
         record = {
             "Action": matches["action"],
-            "Description": re.sub(r' +', ' ', matches["desc"].strip()),
+            "Description": " ".join(description_strings),
             "Severity": matches["severity"],
             "Law": re.sub(r' +', ' ', matches["law"].strip()),
-            "Description_extended": re.sub(r'\s+', ' ', matches["desc_ext"].strip()),
         }
         offenses = report[self.state.section]
         # Whenever a row with number is encountered, it indicates a new
@@ -49,12 +53,16 @@ class OffenseRecordRow(Parser):
         return in_offense_section and self.state.offense_num
 
     def extract(self, matches, report):
+        description_strings = [
+            re.sub(r' +', ' ', matches["desc"].strip()),
+            re.sub(r' +', ' ', matches["desc_ext"].strip()),
+        ]
+
         record = {
             "Action": matches["action"],
-            "Description": re.sub(r' +', ' ', matches["desc"].strip()),
+            "Description": " ".join(description_strings),
             "Severity": matches["severity"],
             "Law": re.sub(r' +', ' ', matches["law"].strip()),
-            "Description_extended": re.sub(r' +', ' ', matches["desc_ext"].strip()),
         }
         offenses = report[self.state.section]
         offenses.current.add_record(record)
