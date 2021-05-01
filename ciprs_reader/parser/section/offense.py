@@ -12,8 +12,7 @@ class OffenseRecordRowWithNumber(Parser):
     """
 
     # pylint: disable=line-too-long
-    #pattern = r"^\s*(?P<num>[\d]+)\s*(?P<action>CHARGED)\s*(?P<desc>.+)\s*(?P<severity>.+)\s*(?P<law>.+)(?P<desc_ext>(?:(?!\s*CONVICTED)\s*.+)*)"
-    pattern = r"^.*?(?P<num>[\d]+)\s+CHARGED\s+(?P<desc>[\S ]+)\s+(?P<severity>(MISDEMEANOR|TRAFFIC|INFRACTION))\s+(?P<law>[\w. \-\(\)]+)(?P<desc_ext>(?:(?!\s+CONVICTED)\s*.+?)*)"
+    pattern = r"^.*?(?P<num>[\d]+)\s+CHARGED\s+(?P<desc>[\S ]+)\s+(?P<severity>(MISDEMEANOR|TRAFFIC|INFRACTION|FELONY))\s+(?P<law>[\w. \-\(\)]+)(?P<desc_ext>(?:(?!\s+CONVICTED)\s+\S+)*)"
 
     def set_state(self, state):
         """
@@ -26,9 +25,9 @@ class OffenseRecordRowWithNumber(Parser):
         record = {
             "Action": "CHARGED",
             "Description": re.sub(' +', ' ', matches["desc"].strip()),
-            "Severity": matches["severity"].strip(),
-            "Law": matches["law"].strip(),
-            "Description_extended": matches["desc_ext"].strip(),
+            "Severity": matches["severity"],
+            "Law": re.sub(' +', ' ', matches["law"].strip()),
+            "Description_extended": re.sub(' +', ' ', matches["desc_ext"].strip()),
         }
         offenses = report[self.state.section]
         # Whenever a row with number is encountered, it indicates a new
@@ -43,7 +42,7 @@ class OffenseRecordRow(Parser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"^\s*(?P<num>[\d]+)\s*(?P<action>CHARGED)\s*(?P<desc>.+)\s*(?P<severity>.+)\s*(?P<law>.+)(?P<desc_ext>(?:(?!\s*Plea)\s*.+)*)"
+    pattern = r"^.*?CONVICTED\s+(?P<desc>[\S ]+)\s+(?P<severity>(MISDEMEANOR|TRAFFIC|INFRACTION|FELONY|-))\s+(?P<law>[\w. \-\(\)]+)(?P<desc_ext>(?:(?!\s+Plea)\s*.+?)*)"
 
     def is_enabled(self):
         in_offense_section = super().is_enabled()
@@ -51,10 +50,11 @@ class OffenseRecordRow(Parser):
 
     def extract(self, matches, report):
         record = {
-            "Action": matches["action"],
-            "Description": matches["desc"],
+            "Action": "CONVICTED",
+            "Description": re.sub(' +', ' ', matches["desc"].strip()),
             "Severity": matches["severity"],
-            "Law": matches["law"],
+            "Law": re.sub(' +', ' ', matches["law"].strip()),
+            "Description_extended": re.sub(' +', ' ', matches["desc_ext"].strip()),
         }
         offenses = report[self.state.section]
         offenses.current.add_record(record)
@@ -78,7 +78,7 @@ class OffenseDisposedDate(Parser):
 
 class OffenseDispositionMethod(Parser):
 
-    pattern = r"^\s*Disposition\s*Method:\s*(?P<value>[\w\- ]+)"
+    pattern = r"^.*?Disposition\s+Method:\s*(?P<value>[\w\- ]+)\s*$"
     section = ("Offense Record", "Disposition Method")
 
     def set_state(self, state):
@@ -87,11 +87,11 @@ class OffenseDispositionMethod(Parser):
 
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Disposition Method"] = matches["value"]
+        offenses.current["Disposition Method"] = re.sub(" +", " ", matches["value"].strip())
 
 
 class OffensePlea(Parser):
-    pattern = r"^\s*Plea:\s*(?P<value>.+?)\s*Verdict:"
+    pattern = r"^.*?Plea:\s*(?P<value>\S+?)\s*Verdict:"
     section = ("Offense Record", "Plea")
 
     def extract(self, matches, report):
@@ -105,7 +105,7 @@ class OffenseVerdict(Parser):
 
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Verdict"] = matches["value"]
+        offenses.current["Verdict"] = re.sub(" +", " ", matches["value"].strip())
 
 
 OFFENSE_SECTION_PARSERS = (
