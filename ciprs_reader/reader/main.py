@@ -1,9 +1,10 @@
 import json
 import logging
 
+from ciprs_reader.const import Section
 from ciprs_reader.parser.state import ParserState
 from ciprs_reader.parser.models import Offenses
-from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS
+from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS, SECTION_PARSERS
 from ciprs_reader.reader import util
 
 
@@ -48,6 +49,11 @@ class SummaryRecordReader:
         self.line_parsers = []
         for parser in LINE_PARSERS:
             self.line_parsers.append(parser(self.report, self.state))
+
+        self.section_parsers = []
+        for parser in SECTION_PARSERS:
+            self.section_parsers.append(parser(self.report, self.state))
+
         self.document_parsers = []
         # document parsers are run once against an entire document
         for parser in DOCUMENT_PARSERS:
@@ -63,6 +69,11 @@ class SummaryRecordReader:
         while reader.next() is not None:
             for parser in self.line_parsers:
                 parser.find(reader)
+            for parser in self.section_parsers:
+                if parser.is_enabled():
+                    parser.section_lines.append(str(reader))
+        for parser in self.section_parsers:
+            parser.parse_section()
         for parser in self.document_parsers:
             parser.find(reader.source)
         return self.report

@@ -4,7 +4,7 @@ import subprocess
 def convert_to_text(path):
     """Convert PDF to text using pdftotext library."""
     run = subprocess.run(
-        f"pdftotext -layout -enc UTF-8 {path} -",
+        f"pdftotext -table -enc UTF-8 {path} -",
         check=True,
         shell=True,
         stdout=subprocess.PIPE,
