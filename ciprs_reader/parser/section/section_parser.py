@@ -5,12 +5,10 @@ from ciprs_reader.parser.section.offense import OFFENSE_SECTION_PARSERS
 class OffenseSectionParser:
     """Only enabled when in offense-related sections."""
 
-    section_lines = []
-    parsers = []
-    state = None
-
     def __init__(self, report, state):
+        self.parsers = []
         self.state = state
+        self.section_lines = []
         for parser in OFFENSE_SECTION_PARSERS:
             self.parsers.append(parser(report, state, multiline=True))
 
@@ -33,5 +31,5 @@ class SuperiorCourtOffenseSection(OffenseSectionParser):
         return self.state.section == Section.SUPERIOR_OFFENSE
 
     def parse_section(self):
-        self.state.section = Section.DISTRICT_OFFENSE
+        self.state.section = Section.SUPERIOR_OFFENSE
         super().parse_section()
