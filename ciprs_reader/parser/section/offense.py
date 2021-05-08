@@ -93,7 +93,7 @@ class OffenseDispositionMethod(Parser):
 
 
 class OffensePlea(Parser):
-    pattern = r"^.*?Plea:\s*(?P<value>[\S ]+?)\s*Verdict:"
+    pattern = r"^.*?Plea:\s*(?P<value>[\w ]+?)\s*Verdict:"
     section = ("Offense Record", "Plea")
 
     def extract(self, matches, report):
@@ -102,7 +102,7 @@ class OffensePlea(Parser):
 
 
 class OffenseVerdict(Parser):
-    pattern = r"^.*Verdict:\s*(?P<value>.+?)\s*Disposed"
+    pattern = r"^.*Verdict:\s*(?P<value>[\w ]+?)\s*Disposed"
     section = ("Offense Record", "Verdict")
 
     def extract(self, matches, report):
