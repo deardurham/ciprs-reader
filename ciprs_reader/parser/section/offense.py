@@ -21,25 +21,29 @@ class OffenseRecordRowWithNumber(Parser):
         """
         state.offense_num = self.matches["num"]
 
-    def extract(self, matches, report):
+    def get_record(self, matches):
         description_strings = [
             re.sub(r' +', ' ', matches["desc"].strip()),
-            re.sub(r' +', ' ', matches["desc_ext"].strip()),
         ]
+        if matches["desc_ext"]:
+            description_strings.append(re.sub(r' +', ' ', matches["desc_ext"].strip()))
 
-        record = {
+        return {
             "Action": matches["action"],
             "Description": " ".join(description_strings),
             "Severity": matches["severity"],
             "Law": re.sub(r' +', ' ', matches["law"].strip()),
         }
+
+    def extract(self, matches, report):
         offenses = report[self.state.section]
         # Whenever a row with number is encountered, it indicates a new
         # offense record, so we always add a NEW offense below.
+        record = self.get_record(matches)
         offenses.new().add_record(record)
 
 
-class OffenseRecordRow(Parser):
+class OffenseRecordRow(OffenseRecordRowWithNumber):
     """
     Extract offense row like:
         CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
@@ -53,18 +57,8 @@ class OffenseRecordRow(Parser):
         return in_offense_section and self.state.offense_num
 
     def extract(self, matches, report):
-        description_strings = [
-            re.sub(r' +', ' ', matches["desc"].strip()),
-            re.sub(r' +', ' ', matches["desc_ext"].strip()),
-        ]
-
-        record = {
-            "Action": matches["action"],
-            "Description": " ".join(description_strings),
-            "Severity": matches["severity"],
-            "Law": re.sub(r' +', ' ', matches["law"].strip()),
-        }
         offenses = report[self.state.section]
+        record = super().get_record(matches)
         offenses.current.add_record(record)
 
 
