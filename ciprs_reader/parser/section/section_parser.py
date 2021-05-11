@@ -10,37 +10,38 @@ class OffenseSectionParser:
         self.state = state
         self.section_lines = []
         self.parser = Lark(r"""
-            section      : (disposition_method | jurisdiction | info | records | garbage | _NEWLINE)*
+            section      : (disposition_method | jurisdiction | _info | records | _ignore | _NEWLINE)*
 
             disposition_method : "Disposition" "Method:" TEXT+
             jurisdiction : "Current" "Jurisdiction:" WORD+
-            info         : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on
-            records      : record ~ 2
-            record       : record_num? action description severity law _NEWLINE (description_ext _NEWLINE)*
-            garbage      : TEXT+ _NEWLINE
+            _ignore      : _IGNORE+ _NEWLINE
 
-            plea: "-" | WORD+
-            verdict: "-" | WORD+
-            disposed_on: "-" | TEXT+
+            _info       : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on
+            plea        : "-" | WORD+
+            verdict     : "-" | WORD+
+            disposed_on : "-" | TEXT+
 
-            record_num   : INT
-            action       : ACTION
-            description  : "-" | TEXT+
-            description_ext : (/(?!Plea:)\S+/)+
-            severity     : "-" | SEVERITY
-            law          : "-" | /\S[\S ]+\S/
+            records         : record ~ 2
+            record          : record_num? action description severity law _NEWLINE (description_ext _NEWLINE)*
+            record_num      : INT
+            action          : ACTION
+            description     : "-" | TEXT+
+            severity        : "-" | SEVERITY
+            law             : "-" | /\S[\S ]+\S/
+            description_ext : (/(?!(?:Plea:|CONVICTED))\S+/)+
 
-            ACTION       : "CHARGED"
-                            | "CONVICTED"
-                            | "ARRAIGNED"
+            ACTION  : "CHARGED"
+                    | "CONVICTED"
+                    | "ARRAIGNED"
 
-            SEVERITY     : "TRAFFIC"
-                            | "INFRACTION"
-                            | "MISDEMEANOR"
-                            | "FELONY"
+            SEVERITY    : "TRAFFIC"
+                        | "INFRACTION"
+                        | "MISDEMEANOR"
+                        | "FELONY"
 
-            TEXT         : (/\S+/)+
-            _NEWLINE     : NEWLINE
+            TEXT        : (/\S+/)+
+            _IGNORE     : TEXT
+            _NEWLINE    : NEWLINE
 
             %import common.INT
             %import common.WORD
