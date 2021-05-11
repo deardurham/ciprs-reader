@@ -73,6 +73,7 @@ class SummaryRecordReader:
                 if parser.is_enabled():
                     parser.section_lines.append(str(reader))
         for parser in self.section_parsers:
+            parser.section_lines.append("\n")
             parser.parse_section()
         for parser in self.document_parsers:
             parser.find(reader.source)
