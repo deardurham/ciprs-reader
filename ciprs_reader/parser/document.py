@@ -30,6 +30,17 @@ class MyTransformer(Transformer):
         return " ".join(items)
     def disposed_on(self, items):
         return " ".join(items)
+    def offense_line(self, items):
+        # action description severity law description_ext
+        (*fields, last_field) = items
+        offense_line_dict = dict(fields)
+        (key, value) = last_field
+        if key == 'Description Extended':
+            offense_line_dict['Description'] = " ".join([offense_line_dict['Description'], value])
+        else:
+            offense_line_dict[key] = value
+        return offense_line_dict
+
     def offense_section(self, items):
         if not items:
             return None
@@ -50,7 +61,6 @@ class MyTransformer(Transformer):
 
     document = dict
     offenses = list
-    offense_line = dict
 
 
 class OffenseSectionParser:
@@ -116,5 +126,7 @@ class OffenseSectionParser:
         self.extract(data)
 
     def extract(self, raw_data):
-        self.report['District Court Offense Information'] = raw_data['District']
-        self.report['District Court Offense Information'] = raw_data['Superior']
+        if 'District' in raw_data:
+            self.report['District Court Offense Information'] = raw_data['District']
+        if 'Superior' in raw_data:
+            self.report['Superior Court Offense Information'] = raw_data['Superior']
