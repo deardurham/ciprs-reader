@@ -7,9 +7,6 @@ import pprint
 class MyTransformer(Transformer):
     def jurisdiction(self, items):
         return " ".join(items)
-    def record_num(self, item):
-        (num,) = item
-        return "Record Number", int(num)
     def action(self, item):
         (action,) = item
         return "Action", str(action)
@@ -38,13 +35,18 @@ class MyTransformer(Transformer):
             return None
         return items[0], items[1]
     def offense(self, items):
-        return {
-            'Lines': [items[0], items[1]],
-            'Plea': items[2],
-            'Verdict': items[3],
+        offense_dict = {
+            'Records': [items[0]],
             'Disposed On': items[4],
             'Disposition Method': items[5],
         }
+        if items[1] and items[1]['Description']:
+            offense_dict['Records'].append(items[1])
+        if items[2]:
+            offense_dict['Plea'] = items[2]
+        if items[3]:
+            offense_dict['Verdict'] = items[3]
+        return offense_dict
 
     document = dict
     offenses = list
@@ -56,6 +58,7 @@ class OffenseSectionParser:
 
     def __init__(self, report, state):
         self.state = state
+        self.report = report
         self.parser = Lark(r"""
             document        : (offense_section | _ignore | _IGNORE+)*
 
@@ -63,7 +66,7 @@ class OffenseSectionParser:
 
             offense_section : jurisdiction _ignore? _ignore offenses
 
-            jurisdiction    : WORD ~ 2 "Offense" "Information" _NEWLINE
+            jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
 
             offenses        : offense+
             offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
@@ -75,13 +78,16 @@ class OffenseSectionParser:
 
             disposition_method  : "Disposition" "Method:" TEXT+
 
-            offense_line    : record_num? action description severity law _NEWLINE (description_ext _NEWLINE)*
-            record_num      : INT
+            offense_line    : _RECORD_NUM? action description severity law _NEWLINE (description_ext _NEWLINE)*
+            _RECORD_NUM     : INT
             action          : ACTION
             description     : TEXT+ | "-"
             severity        : SEVERITY | "-"
             law             : /\S[\S ]+\S/ | "-"
             description_ext : (/(?!(?:Plea:|CONVICTED))\S+/)+
+
+            JURISDICTION    : "District"
+                            | "Superior"
 
             ACTION  : "CHARGED"
                     | "CONVICTED"
@@ -106,7 +112,9 @@ class OffenseSectionParser:
 
     def find(self, document):
         tree = self.parser.parse(document)
-        print(tree.pretty())
-        stuff = MyTransformer().transform(tree)
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(stuff)
+        data = MyTransformer().transform(tree)
+        self.extract(data)
+
+    def extract(self, raw_data):
+        self.report['District Court Offense Information'] = raw_data['District']
+        self.report['District Court Offense Information'] = raw_data['Superior']
