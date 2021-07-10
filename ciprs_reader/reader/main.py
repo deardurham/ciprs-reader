@@ -19,7 +19,6 @@ class PDFToTextReader:
         self.records = []
 
     def parse(self, save_source=False):
-        myInt = 0
         for source in util.multi_summary_record_reader(self.path):
             reader = SummaryRecordReader(source)
             record = reader.parse(save_source)
