@@ -36,15 +36,10 @@ class MyTransformer(Transformer):
     def offense_section(self, items):
         if not items:
             return None
+        return items[0], items[1]
+    def offense(self, items):
         return {
-            'Jurisdiction': items[0],
-            'Offense Info': items[1:]
-        }
-    def offense_info(self, items):
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(items)
-        return {
-            'Records': [items[0], items[1]],
+            'Lines': [items[0], items[1]],
             'Plea': items[2],
             'Verdict': items[3],
             'Disposed On': items[4],
@@ -52,7 +47,8 @@ class MyTransformer(Transformer):
         }
 
     document = dict
-    record = dict
+    offenses = list
+    offense_line = dict
 
 
 class OffenseSectionParser:
@@ -62,19 +58,24 @@ class OffenseSectionParser:
         self.state = state
         self.parser = Lark(r"""
             document        : (offense_section | _ignore | _IGNORE+)*
-            offense_section : jurisdiction _ignore offense_info+
-            offense_info    : record ~ 2 _info disposition_method _NEWLINE
+
+            _ignore         : _IGNORE+ _NEWLINE
+
+            offense_section : jurisdiction _ignore? _ignore offenses
+
+            jurisdiction    : WORD ~ 2 "Offense" "Information" _NEWLINE
+
+            offenses        : offense+
+            offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
+
+            _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
+            plea            : WORD+ | "-"
+            verdict         : WORD+ | "-"
+            disposed_on     : TEXT+ | "-"
 
             disposition_method  : "Disposition" "Method:" TEXT+
-            jurisdiction        : "Current" "Jurisdiction:" WORD+ _NEWLINE
-            _ignore             : _IGNORE+ _NEWLINE
 
-            _info       : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
-            plea        : WORD+ | "-"
-            verdict     : WORD+ | "-"
-            disposed_on : TEXT+ | "-"
-
-            record          : record_num? action description severity law _NEWLINE (description_ext _NEWLINE)*
+            offense_line    : record_num? action description severity law _NEWLINE (description_ext _NEWLINE)*
             record_num      : INT
             action          : ACTION
             description     : TEXT+ | "-"
