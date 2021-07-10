@@ -21,6 +21,7 @@ class MyTransformer(Transformer):
         date = dt.datetime.strptime(value, "%m/%d/%Y").date()
         return date.isoformat()
     def offense_line(self, items):
+        # extract description_extended (if it exists) and combine with descritpion
         # action description severity law description_ext?
         (*fields, last_field) = items
         offense_line_dict = dict(fields)
