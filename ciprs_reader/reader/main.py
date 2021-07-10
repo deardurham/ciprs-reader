@@ -50,13 +50,12 @@ class SummaryRecordReader:
         for parser in LINE_PARSERS:
             self.line_parsers.append(parser(self.report, self.state))
 
-        self.section_parsers = []
-        for parser in SECTION_PARSERS:
-            self.section_parsers.append(parser(self.report, self.state))
-
         self.document_parsers = []
         # document parsers are run once against an entire document
         for parser in DOCUMENT_PARSERS:
+            self.document_parsers.append(parser(self.report, self.state))
+
+        for parser in SECTION_PARSERS:
             self.document_parsers.append(parser(self.report, self.state))
 
     def parse(self, save_source=False):
@@ -69,12 +68,6 @@ class SummaryRecordReader:
         while reader.next() is not None:
             for parser in self.line_parsers:
                 parser.find(reader)
-            for parser in self.section_parsers:
-                if parser.is_enabled():
-                    parser.section_lines.append(str(reader))
-        for parser in self.section_parsers:
-            parser.section_lines.append("\n")
-            parser.parse_section()
         for parser in self.document_parsers:
             parser.find(reader.source)
         return self.report

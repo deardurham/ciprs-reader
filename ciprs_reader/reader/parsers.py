@@ -2,8 +2,8 @@
 Parsers that PDFToTextReader will use to parse CIPRS records.
 """
 
-from ciprs_reader.parser import lines, state
-from ciprs_reader.parser.section import case_information, defendant, header, offense, section_parser
+from ciprs_reader.parser import document, lines, state
+from ciprs_reader.parser.section import case_information, defendant, header, offense
 
 
 LINE_PARSERS = (
@@ -28,8 +28,7 @@ LINE_PARSERS = (
 
 
 SECTION_PARSERS = (
-    section_parser.DistrictCourtOffenseSection,
-    section_parser.SuperiorCourtOffenseSection
+    document.OffenseSectionParser,
 )
 
 DOCUMENT_PARSERS = (
