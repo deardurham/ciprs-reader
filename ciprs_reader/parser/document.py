@@ -2,7 +2,7 @@ from ciprs_reader.parser.base import Parser
 from ciprs_reader.const import Section
 from ciprs_reader.parser.section.offense import OFFENSE_SECTION_PARSERS
 from lark import Lark, Transformer
-import pprint
+import datetime as dt
 
 class MyTransformer(Transformer):
     def jurisdiction(self, items):
@@ -29,9 +29,11 @@ class MyTransformer(Transformer):
     def verdict(self, items):
         return " ".join(items)
     def disposed_on(self, items):
-        return " ".join(items)
+        value = " ".join(items)
+        date = dt.datetime.strptime(value, "%m/%d/%Y").date()
+        return date.isoformat()
     def offense_line(self, items):
-        # action description severity law description_ext
+        # action description severity law description_ext?
         (*fields, last_field) = items
         offense_line_dict = dict(fields)
         (key, value) = last_field
@@ -61,6 +63,7 @@ class MyTransformer(Transformer):
 
     document = dict
     offenses = list
+    TEXT = str
 
 
 class OffenseSectionParser:
