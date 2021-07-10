@@ -4,30 +4,18 @@ from ciprs_reader.parser.section.offense import OFFENSE_SECTION_PARSERS
 from lark import Lark, Transformer
 import datetime as dt
 
+def key_string_tuple(key):
+    return lambda self, str_list: (key, " ".join(str_list))
+
+def list_to_string():
+    return lambda self, str_list: " ".join(str_list)
+
 class MyTransformer(Transformer):
-    def jurisdiction(self, items):
-        return " ".join(items)
-    def action(self, item):
-        (action,) = item
-        return "Action", str(action)
-    def description(self, items):
-        return "Description", " ".join(items)
-    def description_ext(self, items):
-        return "Description Extended", " ".join(items)
-    def severity(self, item):
-        (severity,) = item if item else ("",)
-        return "Severity", str(severity)
     def law(self, item):
         (law_string,) = item if item else ("",)
         # convert multiple spaces within law into single spaces
         law = ' '.join(law_string.split())
         return "Law", str(law)
-    def disposition_method(self, items):
-        return " ".join(items)
-    def plea(self, items):
-        return " ".join(items)
-    def verdict(self, items):
-        return " ".join(items)
     def disposed_on(self, items):
         value = " ".join(items)
         date = dt.datetime.strptime(value, "%m/%d/%Y").date()
@@ -42,7 +30,6 @@ class MyTransformer(Transformer):
         else:
             offense_line_dict[key] = value
         return offense_line_dict
-
     def offense_section(self, items):
         if not items:
             return None
@@ -63,6 +50,20 @@ class MyTransformer(Transformer):
 
     document = dict
     offenses = list
+
+    action = key_string_tuple("Action")
+    description = key_string_tuple("Description")
+    severity = key_string_tuple("Severity")
+    description_ext = key_string_tuple("Description Extended")
+
+    jurisdiction = list_to_string()
+    disposition_method = list_to_string()
+    plea = list_to_string()
+    verdict = list_to_string()
+
+    JURISDICTION = str
+    ACTION = str
+    SEVERITY = str
     TEXT = str
 
 
