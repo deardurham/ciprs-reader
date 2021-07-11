@@ -7,8 +7,7 @@ import datetime as dt
 def key_string_tuple(key):
     return lambda self, str_list: (key, " ".join(str_list))
 
-def list_to_string():
-    return lambda self, str_list: " ".join(str_list)
+list_to_string = lambda self, str_list: " ".join(str_list)
 
 class MyTransformer(Transformer):
     def law(self, item):
@@ -57,10 +56,12 @@ class MyTransformer(Transformer):
     severity = key_string_tuple("Severity")
     description_ext = key_string_tuple("Description Extended")
 
-    jurisdiction = list_to_string()
-    disposition_method = list_to_string()
-    plea = list_to_string()
-    verdict = list_to_string()
+    # some of these should probably just be `str`
+    # need to figure out how to get lark to store those as a string instead of list of strings
+    jurisdiction = list_to_string
+    disposition_method = list_to_string
+    plea = list_to_string
+    verdict = list_to_string
 
     JURISDICTION = str
     ACTION = str
@@ -86,13 +87,6 @@ class OffenseSectionParser:
             offenses        : offense+
             offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
 
-            _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
-            plea            : WORD+ | "-"
-            verdict         : WORD+ | "-"
-            disposed_on     : TEXT+ | "-"
-
-            disposition_method  : "Disposition" "Method:" TEXT+
-
             offense_line    : _RECORD_NUM? action description severity law _NEWLINE (description_ext _NEWLINE)*
             _RECORD_NUM     : INT
             action          : ACTION
@@ -100,6 +94,13 @@ class OffenseSectionParser:
             severity        : SEVERITY | "-"
             law             : /\S[\S ]+\S/ | "-"
             description_ext : (/(?!(?:Plea:|CONVICTED))\S+/)+
+
+            _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
+            plea            : WORD+ | "-"
+            verdict         : WORD+ | "-"
+            disposed_on     : TEXT+ | "-"
+
+            disposition_method  : "Disposition" "Method:" TEXT+
 
             JURISDICTION    : "District"
                             | "Superior"
