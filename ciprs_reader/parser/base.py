@@ -20,11 +20,8 @@ class Parser:
     section = []
     is_line_parser = True
 
-    def __init__(self, report, state, multiline=False):
-        mode = 0
-        if multiline:
-            mode = re.MULTILINE | re.DOTALL
-        self.re = re.compile(self.pattern, mode)
+    def __init__(self, report, state):
+        self.re = re.compile(self.pattern)
         self.report = report
         self.matches = None
         self.document = None

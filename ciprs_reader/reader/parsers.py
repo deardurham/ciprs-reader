@@ -26,8 +26,17 @@ LINE_PARSERS = (
     defendant.DefendantSex,
 )
 
+# v1 line parsers for district/superior offense sections
+OFFENSE_SECTION_PARSERS = (
+    offense.OffenseRecordRow,
+    offense.OffenseRecordRowWithNumber,
+    offense.OffenseDisposedDate,
+    offense.OffenseDispositionMethod,
+    offense.OffensePlea,
+    offense.OffenseVerdict,
+)
 
-SECTION_PARSERS = (
+LARK_PARSERS = (
     document.OffenseSectionParser,
 )
 

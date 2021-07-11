@@ -1,6 +1,5 @@
 from ciprs_reader.parser.base import Parser
 from ciprs_reader.const import Section
-from ciprs_reader.parser.section.offense import OFFENSE_SECTION_PARSERS
 from lark import Lark, Transformer
 import datetime as dt
 
