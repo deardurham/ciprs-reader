@@ -89,10 +89,10 @@ class OffenseSectionParser:
             offense_line    : _RECORD_NUM? action description severity law _NEWLINE (description_ext _NEWLINE)*
             _RECORD_NUM     : INT
             action          : ACTION
-            description     : TEXT+ | "-"
+            description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+ | "-"
             severity        : SEVERITY | "-"
             law             : /\S[\S ]+\S/ | "-"
-            description_ext : (/(?!(?:Plea:|CONVICTED))\S+/)+
+            description_ext : (/(?!Plea:|CONVICTED)\S+/)+
 
             _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
             plea            : WORD+ | "-"
