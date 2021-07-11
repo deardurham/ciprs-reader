@@ -13,6 +13,10 @@ from ciprs_reader.parser.section import case_information, defendant, header, off
         case_information.CaseWasServedOnDate,
         defendant.DefendantRace,
         defendant.DefendantSex,
+        offense.OffenseRecordRowWithNumber,
+        offense.OffenseRecordRow,
+        offense.OffenseDisposedDate,
+        offense.OffenseDispositionMethod,
     ],
 )
 def test_parser__disabled_by_default(Parser, report, state):
