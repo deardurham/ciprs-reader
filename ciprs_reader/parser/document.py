@@ -3,6 +3,57 @@ from ciprs_reader.const import Section
 from lark import Lark, Transformer
 import datetime as dt
 
+PARSER = Lark(r"""
+    document        : (offense_section | _ignore | _IGNORE+)*
+
+    _ignore         : _IGNORE+ _NEWLINE
+
+    offense_section : jurisdiction _ignore? _ignore offenses
+
+    jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
+
+    offenses        : offense+
+    offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
+
+    offense_line    : _RECORD_NUM? action description severity law _NEWLINE (description_ext _NEWLINE)*
+    _RECORD_NUM     : INT
+    action          : ACTION
+    description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+ | "-"
+    severity        : SEVERITY | "-"
+    law             : /\S[\S ]+\S/ | "-"
+    description_ext : (/(?!Plea:|CONVICTED)\S+/)+
+
+    _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
+    plea            : WORD+ | "-"
+    verdict         : WORD+ | "-"
+    disposed_on     : TEXT+ | "-"
+
+    disposition_method  : "Disposition" "Method:" TEXT+
+
+    JURISDICTION    : "District"
+                    | "Superior"
+
+    ACTION  : "CHARGED"
+            | "CONVICTED"
+            | "ARRAIGNED"
+
+    SEVERITY    : "TRAFFIC"
+                | "INFRACTION"
+                | "MISDEMEANOR"
+                | "FELONY"
+
+    TEXT        : /\S+/
+    _IGNORE     : TEXT | /\f/
+    _NEWLINE    : NEWLINE
+    _EOL        : /\f/
+
+    %import common.INT
+    %import common.WORD
+    %import common.WS_INLINE
+    %import common.NEWLINE
+    %ignore WS_INLINE
+""", start='document')
+
 def key_string_tuple(key):
     return lambda self, str_list: (key, " ".join(str_list))
 
@@ -74,59 +125,9 @@ class OffenseSectionParser:
     def __init__(self, report, state):
         self.state = state
         self.report = report
-        self.parser = Lark(r"""
-            document        : (offense_section | _ignore | _IGNORE+)*
-
-            _ignore         : _IGNORE+ _NEWLINE
-
-            offense_section : jurisdiction _ignore? _ignore offenses
-
-            jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
-
-            offenses        : offense+
-            offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
-
-            offense_line    : _RECORD_NUM? action description severity law _NEWLINE (description_ext _NEWLINE)*
-            _RECORD_NUM     : INT
-            action          : ACTION
-            description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+ | "-"
-            severity        : SEVERITY | "-"
-            law             : /\S[\S ]+\S/ | "-"
-            description_ext : (/(?!Plea:|CONVICTED)\S+/)+
-
-            _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
-            plea            : WORD+ | "-"
-            verdict         : WORD+ | "-"
-            disposed_on     : TEXT+ | "-"
-
-            disposition_method  : "Disposition" "Method:" TEXT+
-
-            JURISDICTION    : "District"
-                            | "Superior"
-
-            ACTION  : "CHARGED"
-                    | "CONVICTED"
-                    | "ARRAIGNED"
-
-            SEVERITY    : "TRAFFIC"
-                        | "INFRACTION"
-                        | "MISDEMEANOR"
-                        | "FELONY"
-
-            TEXT        : /\S+/
-            _IGNORE     : TEXT | /\f/
-            _NEWLINE    : NEWLINE
-            _EOL        : /\f/
-
-            %import common.INT
-            %import common.WORD
-            %import common.WS_INLINE
-            %import common.NEWLINE
-            %ignore WS_INLINE
-        """, start='document')
 
     def find(self, document):
-        tree = self.parser.parse(document)
+        tree = PARSER.parse(document)
         data = MyTransformer().transform(tree)
         self.extract(data)
 
