@@ -6,28 +6,31 @@ import datetime as dt
 PARSER = Lark(r"""
     document        : ((offense_section | _GARBAGE) | _NEWLINE)*
 
+    _GARBAGE.0      : (/[^\n]/)+
     _garbage_line   : _GARBAGE _NEWLINE
-    _GARBAGE.0        : (/[^\n]/)+
 
-    offense_section : jurisdiction ((_GARBAGE _NEWLINE)? (_GARBAGE _NEWLINE) offenses | _missing_offenses)
+    offense_section : jurisdiction (_garbage_line+ offenses | _missing_offenses)
     jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
     _missing_offenses : "This" "case" "does" "not" "have" "a" "record" "in" _JURISDICTION "Court"
 
     offenses        : offense+
     offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
 
-    offense_line    : _RECORD_NUM? action ((description severity law _NEWLINE (description_ext _NEWLINE)*) | "-"+ _NEWLINE)
+    offense_line    : _RECORD_NUM? action (_some_offense | _no_offense)
     _RECORD_NUM     : INT
     action          : ACTION
+    _no_offense     : _MINUS+ _NEWLINE
+
+    _some_offense   : description severity law _NEWLINE (description_ext _NEWLINE)*
     description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+
     severity        : SEVERITY
     law             : LAW_PRE TEXT+
     description_ext : (/(?!Plea:|CONVICTED)\S+/)+
 
     _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
-    plea            : (/(?!Verdict:)\S+/)+ | "-"
-    verdict         : (/(?!Disposed)\S+/)+ | "-"
-    disposed_on     : TEXT+ | "-"
+    plea            : (/(?!Verdict:)\S+/)+ | _MINUS
+    verdict         : (/(?!Disposed)\S+/)+ | _MINUS
+    disposed_on     : TEXT+ | _MINUS
 
     disposition_method  : "Disposition" "Method:" TEXT+
 
@@ -45,7 +48,9 @@ PARSER = Lark(r"""
                 | "FELONY"
 
     LAW_PRE     : "G.S."
-    TEXT.0        : /\S+/
+    TEXT.0      : /\S+/
+    _MINUS.0     : "-"
+
     _NEWLINE    : /[\f\r\n]/+
     _EOL        : /\f/
     IGNORE_INLINE : (" "|/\t/|/\f/)+
