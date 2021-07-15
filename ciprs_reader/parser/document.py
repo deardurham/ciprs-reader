@@ -4,13 +4,13 @@ from lark import Lark, Transformer
 import datetime as dt
 
 PARSER = Lark(r"""
-    document        : (offense_section | _ignore | _IGNORE+)*
+    document        : (offense_section | _IGNORE+ | _NEWLINE)*
 
     _ignore         : _IGNORE+ _NEWLINE
 
-    offense_section : jurisdiction _ignore? _ignore offenses
-
+    offense_section : _NEWLINE jurisdiction (_ignore_1? _ignore_2 offenses | _missing_offenses)
     jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
+    _missing_offenses : "This" "case" "does" "not" "have" "a" "record" "in" _JURISDICTION "Court"
 
     offenses        : offense+
     offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
@@ -20,7 +20,7 @@ PARSER = Lark(r"""
     action          : ACTION
     description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+ | "-"
     severity        : SEVERITY | "-"
-    law             : /\S[\S ]+\S/ | "-"
+    law             : LAW_PRE TEXT+ | "-"
     description_ext : (/(?!Plea:|CONVICTED)\S+/)+
 
     _offense_info   : "Plea:" plea "Verdict:" verdict "Disposed" "on:" disposed_on _NEWLINE
@@ -30,8 +30,12 @@ PARSER = Lark(r"""
 
     disposition_method  : "Disposition" "Method:" TEXT+
 
-    JURISDICTION    : "District"
-                    | "Superior"
+    _ignore_1: "Current" "Jurisdiction:" _JURISDICTION "COURT" _NEWLINE
+    _ignore_2: _IGNORE "Description" "Severity" "Law" _NEWLINE
+
+    JURISDICTION    : "District" | "DISTRICT"
+                    | "Superior" | "SUPERIOR"
+    _JURISDICTION   : JURISDICTION
 
     ACTION  : "CHARGED"
             | "CONVICTED"
@@ -42,17 +46,19 @@ PARSER = Lark(r"""
                 | "MISDEMEANOR"
                 | "FELONY"
 
-    TEXT        : /\S+/
-    _IGNORE     : TEXT | /\f/
-    _NEWLINE    : NEWLINE
+    LAW_PRE     : "G.S."
+    _IGNORE.0: TEXT
+    TEXT.0        : /\S+/
+    _NEWLINE    : /[\f\r\n]/+
     _EOL        : /\f/
+    IGNORE_INLINE : (" "|/\t/|/\f/)+
 
     %import common.INT
     %import common.WORD
     %import common.WS_INLINE
-    %import common.NEWLINE
-    %ignore WS_INLINE
-""", start='document')
+    %ignore IGNORE_INLINE
+    %ignore _EOL
+""", start='document', parser='lalr')
 
 def key_string_tuple(key):
     return lambda self, str_list: (key, " ".join(str_list))
@@ -60,11 +66,12 @@ def key_string_tuple(key):
 list_to_string = lambda self, str_list: " ".join(str_list)
 
 class MyTransformer(Transformer):
-    def law(self, item):
-        (law_string,) = item if item else ("",)
-        # convert multiple spaces within law into single spaces
-        law = ' '.join(law_string.split())
-        return "Law", str(law)
+    #def law(self, item):
+    #    print(item)
+    #    (law_string,) = item if item else ("",)
+    #    # convert multiple spaces within law into single spaces
+    #    law = ' '.join(law_string.split())
+    #    return "Law", str(law)
     def disposed_on(self, items):
         value = " ".join(items)
         date = dt.datetime.strptime(value, "%m/%d/%Y").date()
@@ -83,6 +90,8 @@ class MyTransformer(Transformer):
     def offense_section(self, items):
         if not items:
             return None
+        if len(items) < 2:
+            return items[0], {}
         return items[0], items[1]
     def offense(self, items):
         offense_dict = {
@@ -103,6 +112,7 @@ class MyTransformer(Transformer):
 
     action = key_string_tuple("Action")
     description = key_string_tuple("Description")
+    law = key_string_tuple("Law")
     severity = key_string_tuple("Severity")
     description_ext = key_string_tuple("Description Extended")
 
@@ -117,6 +127,7 @@ class MyTransformer(Transformer):
     ACTION = str
     SEVERITY = str
     TEXT = str
+    LAW_PRE = str
 
 
 class OffenseSectionParser:
@@ -128,6 +139,8 @@ class OffenseSectionParser:
 
     def find(self, document):
         tree = PARSER.parse(document)
+        print(tree.pretty())
+        #return
         data = MyTransformer().transform(tree)
         self.extract(data)
 
