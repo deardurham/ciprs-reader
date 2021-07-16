@@ -4,20 +4,20 @@ from lark import Lark, Transformer
 import datetime as dt
 
 PARSER = Lark(r"""
-    document        : ((offense_section | _GARBAGE) | _NEWLINE)*
+    document        : ((offense_section | _IGNORE) | _NEWLINE)*
 
-    _GARBAGE.0      : (/[^\n]/)+
-    _garbage_line   : _GARBAGE _NEWLINE
+    _IGNORE.-1      : (/[^\n]/)+
+    _ignore_line   : _IGNORE _NEWLINE
 
-    offense_section : jurisdiction (_garbage_line+ offenses | _missing_offenses)
+    offense_section : jurisdiction (_ignore_line+ offenses |_missing_offenses)
     jurisdiction    : JURISDICTION "Court" "Offense" "Information" _NEWLINE
-    _missing_offenses : "This" "case" "does" "not" "have" "a" "record" "in" _JURISDICTION "Court"
+    _missing_offenses : "This" "case" "does" "not" "have" "a" "record" _IGNORE
 
     offenses        : offense+
     offense         : offense_line ~ 2 _offense_info disposition_method _NEWLINE
 
     offense_line    : _RECORD_NUM? action (_some_offense | _no_offense)
-    _RECORD_NUM     : INT
+    _RECORD_NUM.0   : INT
     action          : ACTION
     _no_offense     : _MINUS+ _NEWLINE
 
@@ -32,11 +32,10 @@ PARSER = Lark(r"""
     verdict         : (/(?!Disposed)\S+/)+ | _MINUS
     disposed_on     : TEXT+ | _MINUS
 
-    disposition_method  : "Disposition" "Method:" TEXT+
+    disposition_method : "Disposition" "Method:" TEXT+
 
     JURISDICTION    : "District" | "DISTRICT"
                     | "Superior" | "SUPERIOR"
-    _JURISDICTION   : JURISDICTION
 
     ACTION  : "CHARGED"
             | "CONVICTED"
@@ -49,17 +48,13 @@ PARSER = Lark(r"""
 
     LAW_PRE     : "G.S."
     TEXT.0      : /\S+/
-    _MINUS.0     : "-"
+    _MINUS.0    : "-"
 
-    _NEWLINE    : /[\f\r\n]/+
-    _EOL        : /\f/
-    IGNORE_INLINE : (" "|/\t/|/\f/)+
+    _NEWLINE    : /[\r\n]/+
+    WS_INLINE   : (" "|/\t/|/\f/)+
 
     %import common.INT
-    %import common.WORD
-    %import common.WS_INLINE
-    %ignore IGNORE_INLINE
-    %ignore _EOL
+    %ignore WS_INLINE
 """, start='document', parser='lalr')
 
 def key_string_tuple(key):
