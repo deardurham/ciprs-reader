@@ -47,6 +47,7 @@ def test_offense_record_with_slashes(report, state):
     assert matches is not None, "Regex match failed"
     assert matches["desc"] == "CITY/TOWN VIOLATION (I)"
 
+
 @pytest.mark.xfail(reason="parser v1 known issue")
 def test_offense_record_with_multiline_description(report, state):
     string = """

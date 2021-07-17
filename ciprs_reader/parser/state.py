@@ -64,7 +64,7 @@ class SuperiorCourtOffenseSection(RecordSection):
 
 class DisclaimerSection(RecordSection):
 
-    pattern =r"^\s*Disclaimer\s*$"
+    pattern = r"^\s*Disclaimer\s*$"
 
     def clean(self, matches):
         return "Disclaimer"

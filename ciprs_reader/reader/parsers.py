@@ -39,9 +39,7 @@ OFFENSE_SECTION_PARSERS = (
 
 # v2 document parsers
 # TODO: Support extracting multiple data sections
-LARK_PARSERS = (
-    OffenseSectionParser,
-)
+LARK_PARSERS = (OffenseSectionParser,)
 
 DOCUMENT_PARSERS = (
     lines.DefendentDOB,

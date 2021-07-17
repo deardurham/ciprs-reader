@@ -2,7 +2,8 @@ from lark import Lark
 from .grammar import GRAMMAR
 from .transformer import OffenseSectionTransformer
 
-PARSER = Lark(GRAMMAR, start='document', parser='lalr')
+PARSER = Lark(GRAMMAR, start="document", parser="lalr")
+
 
 class OffenseSectionParser:
     """Parses entire document and outputs offense section info."""
@@ -17,7 +18,7 @@ class OffenseSectionParser:
         self.extract(data)
 
     def extract(self, raw_data):
-        if 'District' in raw_data:
-            self.report['District Court Offense Information'] = raw_data['District']
-        if 'Superior' in raw_data:
-            self.report['Superior Court Offense Information'] = raw_data['Superior']
+        if "District" in raw_data:
+            self.report["District Court Offense Information"] = raw_data["District"]
+        if "Superior" in raw_data:
+            self.report["Superior Court Offense Information"] = raw_data["Superior"]
