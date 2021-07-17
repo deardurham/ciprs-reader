@@ -3,7 +3,7 @@ from ciprs_reader.const import Section
 from lark import Lark, Transformer
 import datetime as dt
 
-PARSER = Lark(r"""
+GRAMMAR = r"""
     document        : ((offense_section | _IGNORE) | _NEWLINE)*
 
     _IGNORE.-1      : (/[^\n]/)+
@@ -55,7 +55,9 @@ PARSER = Lark(r"""
 
     %import common.INT
     %ignore WS_INLINE
-""", start='document', parser='lalr')
+"""
+
+PARSER = Lark(GRAMMAR, start='document', parser='lalr')
 
 def key_string_tuple(key):
     return lambda self, str_list: (key, " ".join(str_list))
