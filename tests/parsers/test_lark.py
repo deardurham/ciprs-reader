@@ -3,6 +3,7 @@ from ciprs_reader.parser.lark.parser import OffenseSectionParser
 DISTRICT_KEY = "District Court Offense Information"
 SUPERIOR_KEY = "Superior Court Offense Information"
 
+
 def test_lark_charged(report, state):
     string = """
         District Court Offense Information
@@ -30,18 +31,19 @@ def test_lark_charged(report, state):
     assert DISTRICT_KEY in report and len(report[DISTRICT_KEY]) == 1, "Expected one offense"
 
     offense_info = report[DISTRICT_KEY][0]
-    assert 'Records' in offense_info and len(offense_info['Records']) == 1, "Expected one offense line"
+    assert "Records" in offense_info and len(offense_info["Records"]) == 1, "Expected one offense line"
 
     assert offense_info["Disposed On"] == "3022-08-22"
     assert offense_info["Disposition Method"] == "DISMISSAL WITHOUT LEAVE BY DA"
-    assert 'Plea' not in offense_info
-    assert 'Verdict' not in offense_info
+    assert "Plea" not in offense_info
+    assert "Verdict" not in offense_info
 
-    offense_line = offense_info['Records'][0]
+    offense_line = offense_info["Records"][0]
     assert offense_line["Action"] == "CHARGED"
     assert offense_line["Description"] == "SPEEDING(80 mph in a 65 mph zone)"
     assert offense_line["Severity"] == "MISDEMEANOR"
     assert offense_line["Law"] == "G.S. 14-33(C)(2)"
+
 
 def test_lark_convicted(report, state):
     string = """
@@ -64,18 +66,19 @@ def test_lark_convicted(report, state):
     assert DISTRICT_KEY in report and len(report[DISTRICT_KEY]) == 1, "Expected one offense"
 
     offense_info = report[DISTRICT_KEY][0]
-    assert 'Records' in offense_info and len(offense_info['Records']) == 2, "Expected two offense lines"
+    assert "Records" in offense_info and len(offense_info["Records"]) == 2, "Expected two offense lines"
 
     assert offense_info["Disposed On"] == "2009-10-01"
     assert offense_info["Disposition Method"] == "DISPOSED BY JUDGE"
     assert offense_info["Plea"] == "GUILTY"
     assert offense_info["Verdict"] == "GUILTY"
 
-    for i, offense_line in enumerate(offense_info['Records']):
+    for i, offense_line in enumerate(offense_info["Records"]):
         assert offense_line["Action"] == "CHARGED" if i == 0 else "CONVICTED"
         assert offense_line["Description"] == "POS/CON F-WN/LQ/MXBV UNATH PR"
         assert offense_line["Severity"] == "TRAFFIC"
         assert offense_line["Law"] == "G.S. 20-130.1"
+
 
 def test_lark_superior(report, state):
     string = """
@@ -100,18 +103,19 @@ def test_lark_superior(report, state):
         assert jurisdiction in report and len(report[jurisdiction]) == 1, "Expected one offense"
 
         offense_info = report[jurisdiction][0]
-        assert 'Records' in offense_info and len(offense_info['Records']) == 2, "Expected two offense lines"
+        assert "Records" in offense_info and len(offense_info["Records"]) == 2, "Expected two offense lines"
 
         assert offense_info["Disposed On"] == "2000-12-31"
         assert offense_info["Disposition Method"] == "DISPOSED BY JUDGE"
         assert offense_info["Plea"] == "GUILTY"
         assert offense_info["Verdict"] == "PRAYER FOR JUDGMENT"
 
-        for i, offense_line in enumerate(offense_info['Records']):
+        for i, offense_line in enumerate(offense_info["Records"]):
             assert offense_line["Action"] == "CHARGED" if i == 0 else "CONVICTED"
             assert offense_line["Description"] == "ASSAULT ON A FEMALE"
             assert offense_line["Severity"] == "MISDEMEANOR"
             assert offense_line["Law"] == "G.S. 14-33(C)(2)"
+
 
 def test_lark_multiline(report, state):
     string = """
@@ -138,18 +142,19 @@ def test_lark_multiline(report, state):
     assert DISTRICT_KEY in report and len(report[DISTRICT_KEY]) == 1, "Expected one offense"
 
     offense_info = report[DISTRICT_KEY][0]
-    assert 'Records' in offense_info and len(offense_info['Records']) == 1, "Expected one offense line"
+    assert "Records" in offense_info and len(offense_info["Records"]) == 1, "Expected one offense line"
 
     assert offense_info["Disposed On"] == "2001-01-01"
     assert offense_info["Disposition Method"] == "DISMISSAL WITHOUT LEAVE BY DA"
-    assert 'Plea' not in offense_info
-    assert 'Verdict' not in offense_info
+    assert "Plea" not in offense_info
+    assert "Verdict" not in offense_info
 
-    offense_line = offense_info['Records'][0]
+    offense_line = offense_info["Records"][0]
     assert offense_line["Action"] == "CHARGED"
     assert offense_line["Description"] == "OPEN CONT AFTER CONS ALC 1ST(Blood Alcohol = NOT REQUIRED)"
     assert offense_line["Severity"] == "TRAFFIC"
     assert offense_line["Law"] == "G.S. 20-138.7(A)"
+
 
 def test_lark_no_data(report, state):
     string = """
