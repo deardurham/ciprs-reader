@@ -28,8 +28,6 @@ class OffenseSectionTransformer(Transformer):
         return offense_line_dict
 
     def offense_section(self, items):
-        if not items:
-            return None
         if len(items) < 2:
             return items[0], []
         return items[0], items[1]
