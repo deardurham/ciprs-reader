@@ -51,8 +51,9 @@ class OffenseSectionTransformer(Transformer):
     severity = key_string_tuple("Severity")
     description_ext = key_string_tuple("Description Extended")
 
-    # some of these should probably just be `str`
+    # TODO: some of these should probably just be `str`
     # need to figure out how to get lark to store those as a string instead of list of strings
+    # can likely use the `?` operator before rules in the grammar
     jurisdiction = list_to_string
     disposition_method = list_to_string
     plea = list_to_string
