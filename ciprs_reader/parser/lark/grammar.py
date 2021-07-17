@@ -17,7 +17,7 @@ GRAMMAR = r"""
     _no_offense     : _MINUS+ _NEWLINE
 
     _some_offense   : description severity law _NEWLINE (description_ext _NEWLINE)*
-    description     : (/(?!TRAFFIC|INFRACTION|MISDEMEANOR|FELONY)\S+/)+
+    description     : TEXT+
     severity        : SEVERITY
     law             : LAW_PRE TEXT+
     description_ext : (/(?!Plea:|CONVICTED)\S+/)+
