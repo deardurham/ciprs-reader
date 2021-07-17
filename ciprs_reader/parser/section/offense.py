@@ -1,6 +1,5 @@
-import datetime as dt
-
 from ciprs_reader.const import Section
+from ciprs_reader.parser import utils
 from ciprs_reader.parser.base import Parser
 
 
@@ -74,8 +73,7 @@ class OffenseDisposedDate(OffenseSectionParser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
-        matches["value"] = date.isoformat()
+        matches["value"] = utils.parse_date_isoformat(matches["value"], "%m/%d/%Y")
         return matches
 
     def extract(self, matches, report):

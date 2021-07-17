@@ -1,6 +1,5 @@
-import datetime as dt
-
 from ciprs_reader.const import Section
+from ciprs_reader.parser import utils
 from ciprs_reader.parser.base import Parser
 
 
@@ -24,8 +23,7 @@ class OffenseDate(CaseInformationParser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y")
-        matches["value"] = date.isoformat()
+        matches["value"] = utils.parse_date_isoformat(matches["value"], "%m/%d/%Y", include_time=True)
         return matches
 
 
@@ -36,8 +34,7 @@ class OffenseDateTime(CaseInformationParser):
 
     def clean(self, matches):
         """Parse and convert to the date and time in ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
-        matches["value"] = date.isoformat()
+        matches["value"] = utils.parse_date_isoformat(matches["value"], "%m/%d/%Y %I:%M %p", include_time=True)
         return matches
 
 
@@ -48,6 +45,5 @@ class CaseWasServedOnDate(CaseInformationParser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
-        matches["value"] = date.isoformat()
+        matches["value"] = utils.parse_date_isoformat(matches["value"], "%m/%d/%Y")
         return matches

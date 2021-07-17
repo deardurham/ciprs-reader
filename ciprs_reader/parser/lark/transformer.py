@@ -1,5 +1,6 @@
 from lark import Lark, Transformer
-import datetime as dt
+
+from ciprs_reader.parser import utils
 
 
 def key_string_tuple(key):
@@ -12,8 +13,7 @@ list_to_string = lambda self, str_list: " ".join(str_list)
 class OffenseSectionTransformer(Transformer):
     def disposed_on(self, items):
         value = " ".join(items)
-        date = dt.datetime.strptime(value, "%m/%d/%Y").date()
-        return date.isoformat()
+        return utils.parse_date_isoformat(value, "%m/%d/%Y")
 
     def offense_line(self, items):
         # extract description_extended (if it exists) and combine with descritpion

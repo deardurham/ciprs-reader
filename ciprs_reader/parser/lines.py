@@ -1,8 +1,8 @@
 """Parsing classes to extract text from CIPRS Detailed PDF"""
 
-import datetime as dt
 import logging
 
+from ciprs_reader.parser import utils
 from ciprs_reader.parser.base import Parser
 
 logger = logging.getLogger(__name__)
@@ -17,8 +17,7 @@ class DefendentDOB(Parser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
-        matches["value"] = date.isoformat()
+        matches["value"] = utils.parse_date_isoformat(matches["value"], "%m/%d/%Y")
         return matches
 
 
