@@ -14,24 +14,10 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-      - name: Cache pip
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-      - name: Cache pre-commit
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-precommit-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip wheel
-          pip install -r requirements.txt
+      - name: Build docker images
+        run: docker build -t ciprs_reader ./Dockerfile
       - uses: pre-commit/action@v2.0.0
+      - name: Run Pre-commit
+        run: docker run --rm -it -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
       - name: Run Tests
-        run: pytest
+        run: docker run --rm -it -v "${PWD}:/usr/src/app" ciprs-reader pytest
