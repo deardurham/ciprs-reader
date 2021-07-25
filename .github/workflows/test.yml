@@ -15,9 +15,9 @@ jobs:
         with:
           python-version: '3.8'
       - name: Build docker images
-        run: docker build -t ciprs_reader ./Dockerfile
+        run: docker build -t ciprs-reader .
       - uses: pre-commit/action@v2.0.0
       - name: Run Pre-commit
-        run: docker run --rm -it -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
+        run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
       - name: Run Tests
-        run: docker run --rm -it -v "${PWD}:/usr/src/app" ciprs-reader pytest
+        run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pytest
