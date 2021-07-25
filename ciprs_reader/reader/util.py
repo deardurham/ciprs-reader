@@ -1,10 +1,21 @@
 import subprocess
 
+from ciprs_reader.const import ParserMode
 
-def convert_to_text(path):
+
+MODE_MAP = {
+    ParserMode.V1: "-layout",
+    ParserMode.V2: "-table",
+}
+
+
+def convert_to_text(path, mode=ParserMode.V1):
     """Convert PDF to text using pdftotext library."""
+    cmd = ["pdftotext", "-enc", "UTF-8"]
+    cmd.append(MODE_MAP[mode])
+    cmd.extend([path, "-"])
     run = subprocess.run(
-        f"pdftotext -table -enc UTF-8 {path} -",
+        " ".join(cmd),
         check=True,
         shell=True,
         stdout=subprocess.PIPE,
@@ -13,7 +24,7 @@ def convert_to_text(path):
     return run.stdout.decode("utf-8")
 
 
-def multi_summary_record_reader(path):
+def multi_summary_record_reader(path, mode=ParserMode.V1):
     """
     Sometimes multiple Summary CIPRS records are combined into a
     single PDF for easier document management by the attorney. This
