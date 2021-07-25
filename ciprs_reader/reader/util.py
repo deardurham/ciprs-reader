@@ -30,7 +30,7 @@ def multi_summary_record_reader(path, mode=ParserMode.V1):
     single PDF for easier document management by the attorney. This
     method splits records up for individual processing.
     """
-    text = convert_to_text(path)
+    text = convert_to_text(path, mode)
     records = text.split("Case Summary for Court")
     # trim any short records (probably just header text)
     records = [x for x in records if len(x) > 1000]
