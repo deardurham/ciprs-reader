@@ -1,4 +1,7 @@
 import json
+import pytest
+
+from ciprs_reader.const import ParserMode
 from ciprs_reader.reader import PDFToTextReader
 
 EXPECTED_OUTPUT = [{
@@ -36,8 +39,12 @@ EXPECTED_OUTPUT = [{
     "_meta": {}
 }]
 
-def test_redacted_form():
-    reader = PDFToTextReader("tests/test_records/test_redacted.pdf")
+@pytest.mark.parametrize(
+    "parserMode",
+    (ParserMode.V1, ParserMode.V2),
+)
+def test_redacted_form(parserMode):
+    reader = PDFToTextReader("tests/test_records/test_redacted.pdf", mode=parserMode)
     reader.parse()
     output_json = json.loads(reader.json())
 

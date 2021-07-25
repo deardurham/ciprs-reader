@@ -28,12 +28,9 @@ class DefendantName(HeaderParser):
         # Change name from last,first,middle to FIRST MIDDLE LAST
         name = matches["value"]
         name_list = name.split(",")
-        try:
-            if len(name_list) == 2:
-                name = "{} {}".format(name_list[1], name_list[0])
-            elif len(name_list) == 3:
-                name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
-        except:
-            name = ""
+        if len(name_list) == 2:
+            name = "{} {}".format(name_list[1], name_list[0])
+        elif len(name_list) == 3:
+            name = "{} {} {}".format(name_list[1], name_list[2], name_list[0])
         matches["value"] = name.upper()
         return matches

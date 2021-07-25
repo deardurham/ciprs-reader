@@ -19,4 +19,4 @@ def parse_date_isoformat(value, fmt, include_time=False):
     datetime = parse_datetime(value, fmt)
     if datetime is None:
         return ""
-    return datetime.isoformat() if include_time else datetime.date().isoformat() 
+    return datetime.isoformat() if include_time else datetime.date().isoformat()

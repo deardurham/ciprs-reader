@@ -4,7 +4,7 @@ import logging
 from ciprs_reader.const import ParserMode
 from ciprs_reader.parser.state import ParserState
 from ciprs_reader.parser.models import Offenses
-from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS, LARK_PARSERS
+from ciprs_reader.reader.parsers import DOCUMENT_PARSERS, LINE_PARSERS, LARK_PARSERS, OFFENSE_SECTION_PARSERS
 from ciprs_reader.reader import util
 
 
@@ -57,8 +57,12 @@ class SummaryRecordReader:
             self.document_parsers.append(parser(self.report, self.state))
         self.mode = mode
 
-        for parser in LARK_PARSERS:
-            self.document_parsers.append(parser(self.report, self.state))
+        if mode == ParserMode.V2:
+            for parser in LARK_PARSERS:
+                self.document_parsers.append(parser(self.report, self.state))
+        else:
+            for parser in OFFENSE_SECTION_PARSERS:
+                self.line_parsers.append(parser(self.report, self.state))
 
     def parse(self, save_source=False):
         logger.debug("pdftotext: %s", self.text)

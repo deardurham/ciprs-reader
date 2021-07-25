@@ -40,7 +40,10 @@ class CaseInformation(RecordSection):
 
 class DefendantSection(RecordSection):
 
-    pattern = r"^\s*Defendant\s*$"
+    # Handles two cases of xpdfreader parsing
+    # 1: "Defendant Section being on a line with no other text
+    # 2: "First Alias" appearing after "Defendant" section header on same line
+    pattern = r"^\s*Defendant(?:\s|$)"
 
     def clean(self, matches):
         return Section.DEFENDANT

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class DefendentDOB(Parser):
 
-    pattern = r"\s*Date of Birth/Estimated Age:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    pattern = r"\s*Date of Birth\/Estimated Age:[\sa-zA-Z]*(?P<value>[\d\/]+)"
     re_method = "search"
     section = ("Defendant", "Date of Birth/Estimated Age")
     is_line_parser = False
