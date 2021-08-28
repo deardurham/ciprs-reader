@@ -28,6 +28,6 @@ jobs:
           cache-from: type=local,src=~/.cache/docker
           cache-to: type=local,dest=~/.cache/docker
       - name: Run Pre-commit
-        run: echo $PWD && docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
+        run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader which git && docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
       - name: Run Tests
         run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pytest
