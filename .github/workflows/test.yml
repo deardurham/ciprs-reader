@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile, requirements.txt, .pre-commit-config.yaml') }}
+          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile', 'requirements.txt', '.pre-commit-config.yaml') }}
           restore-keys: |
             ${{ runner.os }}-docker-
             ${{ runner.os }}-
