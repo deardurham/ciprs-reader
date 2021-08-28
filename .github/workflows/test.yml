@@ -15,7 +15,7 @@ jobs:
       - name: Cache Docker build
         uses: actions/cache@v2
         with:
-          path: ~/.cache/docker
+          path: /tmp/.buildx-cache
           key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile', 'requirements.txt', '.pre-commit-config.yaml') }}
           restore-keys: |
             ${{ runner.os }}-docker-
@@ -23,10 +23,11 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
-          tags: ciprs-reader
+          builder: ${{ steps.buildx.outputs.name }}
           load: true
-          cache-from: type=local,src=~/.cache/docker
-          cache-to: type=local,dest=~/.cache/docker
+          tags: ciprs-reader
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Run Pre-commit
         run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader which git && docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
       - name: Run Tests
