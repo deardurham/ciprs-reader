@@ -24,6 +24,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./Dockerfile
           tags: ciprs-reader
           load: true
           cache-from: type=local,src=~/.cache/docker
