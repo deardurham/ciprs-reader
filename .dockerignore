@@ -1,0 +1,12 @@
+**/*.DS_Store
+**/__pycache__
+**/*.pyc
+env
+venv
+.direnv
+.envrc
+.coverage
+.vscode
+htmlcov
+.pytest_cache
+.ipynb_checkpoints
