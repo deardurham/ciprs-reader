@@ -1,0 +1,1465 @@
+[
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "98CR023",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "1998-07-02T00:00:00",
+            "Arrest Date": "1998-07-02"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "PWISD CRACK COCAINE",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SIMPLE POSSESS SCH II CS (M)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 90-95(D)(2)"
+                    }
+                ],
+                "Disposed On": "1999-03-26",
+                "Plea": "GUILTY TO LESSER",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "99CR061",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "1999-04-25T00:00:00",
+            "Arrest Date": "1999-05-13"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ASSAULT ON A CHILD UNDER 12",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(3)"
+                    }
+                ],
+                "Disposed On": "1999-06-01",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "99CR061",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "1999-04-25T00:00:00",
+            "Arrest Date": "1999-05-13"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ASSAULT ON A CHILD UNDER 12",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(3)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "ASSAULT ON A CHILD UNDER 12",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(3)"
+                    }
+                ],
+                "Disposed On": "1999-06-01",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "00CR065",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2000-10-31T00:00:00",
+            "Arrest Date": "2000-10-31"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "COMMUNICATING THREATS",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-277.1"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "COMMUNICATING THREATS",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-277.1"
+                    }
+                ],
+                "Disposed On": "2002-05-30",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "00CRS06",
+            "Superior": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2000-10-06T00:00:00",
+            "Arrest Date": "2000-10-06"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "PWIMSD SCH II CS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(1)"
+                    }
+                ],
+                "Disposed On": "2001-05-14",
+                "Disposition Method": "SUPERSEDING INDICTMENT OR PROCESS"
+            }
+        ],
+        "Superior Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "PWIMSD SCH II CS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "PWIMSD SCH II CS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(1)"
+                    }
+                ],
+                "Disposed On": "2001-12-10",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "00CRS06",
+            "Superior": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2000-10-31T00:00:00",
+            "Arrest Date": "2000-10-31"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FELONY POSSESSION SCH II CS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(3)"
+                    }
+                ],
+                "Disposed On": "2001-05-14",
+                "Disposition Method": "SUPERSEDING INDICTMENT OR PROCESS"
+            }
+        ],
+        "Superior Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FELONY POSSESSION SCH II CS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-95(A)(3)"
+                    }
+                ],
+                "Disposed On": "2001-12-10",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "COMMUNICATING THREATS",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-277.1"
+                    }
+                ],
+                "Disposed On": "2001-12-10",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "01CR058",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2001-11-23T00:00:00",
+            "Arrest Date": "2001-11-24"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ASSAULT WITH A DEADLY WEAPON",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(1)"
+                    }
+                ],
+                "Disposed On": "2002-04-26",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "01CR058",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2001-11-24T00:00:00",
+            "Arrest Date": "2001-11-24"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "COMMUNICATING THREATS",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-277.1"
+                    }
+                ],
+                "Disposed On": "2002-04-26",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "03CR051",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2003-07-13T00:00:00",
+            "Arrest Date": "2003-11-23"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE ASSAULT",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(A)"
+                    }
+                ],
+                "Disposed On": "2004-04-06",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "03CR051",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2003-07-13T00:00:00",
+            "Arrest Date": "2003-11-23"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ASSAULT ON A CHILD UNDER 12",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(3)"
+                    }
+                ],
+                "Disposed On": "2004-04-06",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "06CR042",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2005-03-12T00:00:00",
+            "Arrest Date": "2006-03-01"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE WORTHLESS CHECK($198.35)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SIMPLE WORTHLESS CHECK($198.35)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    }
+                ],
+                "Disposed On": "2006-09-28",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "06CR042",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2004-08-16T00:00:00",
+            "Arrest Date": "2006-03-01"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE WORTHLESS CHECK($93.47)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SIMPLE WORTHLESS CHECK($93.47)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    }
+                ],
+                "Disposed On": "2006-09-28",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "07CR000",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2006-12-29T00:00:00",
+            "Arrest Date": "2006-12-29"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    }
+                ],
+                "Disposed On": "2007-05-17",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FICTITIOUS INFO TO OFFICER",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-29"
+                    }
+                ],
+                "Disposed On": "2007-05-17",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "07CR041",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2007-02-02T00:00:00",
+            "Arrest Date": "2007-02-02"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE POSSESS SCH VI CS (M)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 90-95(D)(4)"
+                    }
+                ],
+                "Disposed On": "2007-05-17",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "07CR041",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2007-02-06T00:00:00",
+            "Arrest Date": "2007-02-06"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "MAINTN VEH/DWELL/PLACE CS (F)",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 90-108(A)(7)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "MAINTN VEH/DWELL/PLACE CS (M)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 90-108(A)(7)"
+                    }
+                ],
+                "Disposed On": "2007-05-17",
+                "Plea": "GUILTY TO LESSER",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "08CRS04",
+            "Superior": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2008-04-18T00:00:00",
+            "Arrest Date": "2008-05-21"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "OBSTRUCTING JUSTICE",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "COMMON LAW"
+                    }
+                ],
+                "Disposed On": "2008-08-04",
+                "Disposition Method": "SUPERSEDING INDICTMENT OR PROCESS"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FELONY CONSPIRACY",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-2.4(A)"
+                    }
+                ],
+                "Disposed On": "2008-08-04",
+                "Disposition Method": "SUPERSEDING INDICTMENT OR PROCESS"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "INTIMIDATING WITNESS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-226"
+                    }
+                ],
+                "Disposed On": "2008-08-04",
+                "Disposition Method": "SUPERSEDING INDICTMENT OR PROCESS"
+            }
+        ],
+        "Superior Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ATTEMPTED CONSPIRACY TO COMMIT MURDER",
+                        "Severity": "FELONY",
+                        "Law": "COMMON LAW"
+                    }
+                ],
+                "Disposed On": "2009-04-08",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SOLICITATION TO COMMIT AWDWISI",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-2.4(A)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SOLICITATION TO COMMIT AWDWISI",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-2.4(A)"
+                    }
+                ],
+                "Disposed On": "2009-04-09",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "INTIMIDATING WITNESS",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-226"
+                    }
+                ],
+                "Disposed On": "2009-04-08",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "09CR008",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2009-07-25T09:17:00",
+            "Arrest Date": "2009-07-25"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SPEEDING(52 mph in a 35 mph zone)",
+                        "Severity": "TRAFFIC",
+                        "Law": "20-141(J1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SPEEDING(44 mph in a 35 mph zone)",
+                        "Severity": "INFRACTION",
+                        "Law": "G.S. 20-141(B)"
+                    }
+                ],
+                "Disposed On": "2009-11-30",
+                "Plea": "RESPONSIBLE TO LESSER",
+                "Verdict": "RESPONSIBLE",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "09CR053",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2009-12-17T00:01:00",
+            "Arrest Date": "2011-07-18"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "POSSESSION OF FIREARM BY FELON",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-415.1"
+                    }
+                ],
+                "Disposed On": "2011-12-21",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "09CRS05",
+            "Superior": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2009-07-19T00:01:00",
+            "Arrest Date": "2011-07-18"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FAIL TO RETURN RENTAL PROPERTY",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-167"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "FAIL TO RETURN RENTAL PROPERTY",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-167"
+                    }
+                ],
+                "Disposed On": "2011-12-12",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "MISDEMEANOR PROBATION VIOL",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 15A-1345"
+                    }
+                ],
+                "Disposed On": "2012-11-02",
+                "Disposition Method": "PROBATION OTHER"
+            }
+        ],
+        "Superior Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "MISDEMEANOR PROBATION VIOL",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 15A-1345"
+                    }
+                ],
+                "Disposed On": "2013-04-24",
+                "Disposition Method": "PROBATION OTHER"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "MISDEMEANOR PROBATION VIOL",
+                        "Severity": "R",
+                        "Law": "G.S. 15A-1345"
+                    }
+                ],
+                "Disposed On": "2013-09-23",
+                "Disposition Method": "PROBATION REVOKED"
+            }
+        ],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "11CR057",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2011-08-15T00:01:00",
+            "Arrest Date": "2011-12-28"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "HARASSING PHONE CALL",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-196(A)(3)"
+                    }
+                ],
+                "Disposed On": "2012-09-21",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "11CR708",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2011-07-18T09:45:00",
+            "Arrest Date": "2011-07-18"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "DRIVE/ALLOW MV NO REGISTRATION",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-111(1)"
+                    }
+                ],
+                "Disposed On": "2012-08-28",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "DWLR",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-28(A)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "DWLR",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-28(A)"
+                    }
+                ],
+                "Disposed On": "2012-08-28",
+                "Plea": "GUILTY",
+                "Verdict": "PRAYER FOR JUDGMENT",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "11CR708",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2011-07-18T09:45:00",
+            "Arrest Date": "2011-07-18"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FICTITIOUS INFO TO OFFICER",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-29"
+                    }
+                ],
+                "Disposed On": "2012-05-07",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    }
+                ],
+                "Disposed On": "2012-05-07",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "13CR006",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2013-11-25T15:43:00",
+            "Arrest Date": "2013-11-25"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "DWLR",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-28(A)"
+                    }
+                ],
+                "Disposed On": "2018-05-01",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "13CR058",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2013-09-06T00:01:00",
+            "Arrest Date": "2013-09-06"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    }
+                ],
+                "Disposed On": "2013-09-25",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "13CR705",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2013-05-13T08:08:00",
+            "Arrest Date": "2013-05-13"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "DWLR",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-28(A)"
+                    }
+                ],
+                "Disposed On": "2018-05-01",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FICT/ALT TITLE/REG CARD/TAG",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-111(2)"
+                    }
+                ],
+                "Disposed On": "2018-05-01",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "14CR054",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2014-05-01T00:00:00",
+            "Arrest Date": "2014-05-01"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "POSSESSION  OF SCHEDULE     II CONTROLLED",
+                        "Severity": "FELONY",
+                        "Law": "3523"
+                    }
+                ],
+                "Disposed On": "2015-01-08",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "POSSESSION OF SCHEDULE II CONTROLLED SUBSTANC",
+                        "Severity": "FELONY",
+                        "Law": "3523"
+                    }
+                ],
+                "Disposed On": "2015-01-08",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "14CR057",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2014-07-19T00:01:00",
+            "Arrest Date": "2014-12-04"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FAIL TO RETURN RENTAL PROPERTY",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-167"
+                    }
+                ],
+                "Disposed On": "2015-01-06",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "14CR061",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2014-11-30T00:01:00",
+            "Arrest Date": "2014-12-04"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "OBTAIN PROPERTY FALSE PRETENSE",
+                        "Severity": "FELONY",
+                        "Law": "G.S. 14-100"
+                    }
+                ],
+                "Disposed On": "2015-05-06",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "15CR001",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2015-05-05T14:02:00",
+            "Arrest Date": "2015-05-05"
+        },
+        "Defendant": {
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "DWLR NOT IMPAIRED REV",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-28(A)"
+                    }
+                ],
+                "Disposed On": "2018-05-01",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "16CR060",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "UNSERVED",
+            "Offense Date": "2016-11-26T00:01:00"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "FAIL RETN PROP RENTD PUR OPT",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-168.4"
+                    }
+                ],
+                "Disposition Method": "-"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "DURHAM",
+            "File No": "19CR054",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "UNSERVED",
+            "Offense Date": "2019-06-24T00:01:00"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE ASSAULT",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(A)"
+                    }
+                ],
+                "Disposition Method": "-"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ASSAULT ON A CHILD UNDER 12",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-33(C)(3)"
+                    }
+                ],
+                "Disposition Method": "-"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "WAKE",
+            "File No": "04CR0610",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2004-08-04T13:00:00",
+            "Arrest Date": "2004-08-04"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "RESISTING PUBLIC OFFICER",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-223"
+                    }
+                ],
+                "Disposed On": "2005-04-05",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "WAKE",
+            "File No": "04CR0610",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Offense Date": "2004-08-04T01:00:00",
+            "Arrest Date": "2004-08-04"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "ALLOW UNLICENSED TO DRIVE",
+                        "Severity": "TRAFFIC",
+                        "Law": "G.S. 20-34"
+                    }
+                ],
+                "Disposed On": "2005-04-05",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            },
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "MISDEMEANOR LARCENY",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-72(A)"
+                    }
+                ],
+                "Disposed On": "2005-04-05",
+                "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    },
+    {
+        "General": {
+            "County": "WAKE",
+            "File No": "05CR0927",
+            "District": "Yes"
+        },
+        "Case Information": {
+            "Case Status": "DISPOSED",
+            "Arrest Date": "2005-12-03"
+        },
+        "Defendant": {
+            "Name": "JO",
+            "Race": "BLACK",
+            "Sex": "F",
+            "Date of Birth/Estimated Age": "1981-12-31"
+        },
+        "District Court Offense Information": [
+            {
+                "Records": [
+                    {
+                        "Action": "CHARGED",
+                        "Description": "SIMPLE WORTHLESS CHECK($228.47)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    },
+                    {
+                        "Action": "CONVICTED",
+                        "Description": "SIMPLE WORTHLESS CHECK($228.47)",
+                        "Severity": "MISDEMEANOR",
+                        "Law": "G.S. 14-107(D)(1)"
+                    }
+                ],
+                "Disposed On": "2006-02-16",
+                "Plea": "GUILTY",
+                "Verdict": "GUILTY",
+                "Disposition Method": "DISPOSED BY JUDGE"
+            }
+        ],
+        "Superior Court Offense Information": [],
+        "_meta": {}
+    }
+]

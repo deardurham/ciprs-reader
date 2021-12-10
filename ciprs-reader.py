@@ -1,6 +1,7 @@
 import argparse
 import logging
 import sys
+import json
 
 from ciprs_reader import VERSION
 from ciprs_reader.reader import PDFToTextReader
@@ -34,3 +35,6 @@ if __name__ == "__main__":
     reader = PDFToTextReader(args.input, mode=args.mode)
     reader.parse(save_source=args.source)
     print(reader.json())
+    if args.source:
+        for document in json.loads(reader.json()):
+            print(document['_meta']['source'])

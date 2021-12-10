@@ -23,7 +23,8 @@ class Parser:
     def __init__(self, report, state, multiline=False):
         mode = 0
         if multiline:
-            mode = re.MULTILINE | re.DOTALL
+            mode = re.MULTILINE
+            self.re_method = "finditer"
         self.re = re.compile(self.pattern, mode)
         self.report = report
         self.matches = None
@@ -38,6 +39,16 @@ class Parser:
         self.document = document
         if self.re_method == "match":
             matches = self.re.match(str(document))
+        elif self.re_method == "finditer":
+            matches = re.finditer(self.re, str(document))
+            self.matches = []
+            for match in matches:
+                match = match.groupdict()
+                # strip whitespace on any values
+                for key, val in match.items():
+                    match[key] = val.strip()
+                self.matches.append(self.clean(match))
+            return self.matches
         else:
             matches = self.re.search(str(document))
         if matches:
