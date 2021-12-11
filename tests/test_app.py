@@ -13,7 +13,7 @@ def test_redacted_forms_v1(is_v1_parsable, testname):
     reader = PDFToTextReader(f"tests/test_records/{testname}.pdf", mode=ParserMode.V1)
     reader.parse()
     output_json = json.loads(reader.json())
-    with open(f"tests/test_records/expected_output/{testname}.json", 'r') as file:
+    with open(f"tests/test_records/expected_output/{testname}.json", 'r', encoding='utf8') as file:
         expected_output = json.load(file)
 
     assert output_json, "Unable to parse expected output"
@@ -38,7 +38,7 @@ def test_redacted_forms_v2(testname):
     reader.parse()
     output_json = json.loads(reader.json())
 
-    with open(f"tests/test_records/expected_output/{testname}.json", 'r') as file:
+    with open(f"tests/test_records/expected_output/{testname}.json", 'r', encoding='utf8') as file:
         expected_output = json.load(file)
 
     assert output_json, "Unable to parse expected output"
