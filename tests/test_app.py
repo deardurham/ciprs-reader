@@ -47,3 +47,14 @@ def test_redacted_forms_v2(testname):
     for index, document in enumerate(output_json):
         for section, value in document.items():
             assert value == expected_output[index][section], f"Section '{section}' does not match expected output"
+
+
+@pytest.mark.parametrize(
+    "mode",
+    [ParserMode.V1, ParserMode.V2],
+)
+def test_save_source(mode):
+    reader = PDFToTextReader("tests/test_records/test_redacted_1.pdf", mode=mode)
+    reader.parse(save_source=True)
+    output_json = json.loads(reader.json())
+    assert len(output_json) == 1 and output_json[0]['_meta']['source']

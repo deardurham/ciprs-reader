@@ -31,7 +31,7 @@ class Offense(collections.UserDict):
         self.current_index = -1
 
     def current_record(self):
-        if self.current_index >= -1:
+        if self.current_index >= 0:
             return self.data["Records"][self.current_index]
         else:
             return None
