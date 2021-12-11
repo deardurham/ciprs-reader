@@ -10,6 +10,7 @@ class ParserState:
 
     section: str = Section.HEADER
     offense_num: int = 0
+    is_desc_ext_possible: bool = False
 
 
 class RecordSection(Parser):

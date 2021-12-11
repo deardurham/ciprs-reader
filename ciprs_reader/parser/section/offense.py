@@ -4,89 +4,119 @@ import re
 from ciprs_reader.const import Section
 from ciprs_reader.parser.base import Parser
 
-NUM = r"\d+"
 ACTION = r"(?:ARRAIGNED|CHARGED|CONVICTED)"
 SEVERITY = r"(?:MISDEMEANOR|TRAFFIC|INFRACTION|FELONY)"
-DESC = r"(?:[\S ])+?"
-LAW = r"[\w. \-\(\)]+"
-DESC_EXT = r"(?:(?!\s+({}|{}|Plea))\s+\S+)*".format(ACTION, SEVERITY)
+GARBAGE_TEXT =r"(?:Printed\s+on )"
 
-class OffenseRecordRowWithNumber(Parser):
+
+class OffenseSectionParser(Parser):
+    """Only enabled when in offense-related sections."""
+
+    def is_enabled(self):
+        return self.state.section in (
+            Section.DISTRICT_OFFENSE,
+            Section.SUPERIOR_OFFENSE,
+        )
+
+
+class OffenseRecordRowWithNumber(OffenseSectionParser):
     """
     Extract offense row like:
         54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
     """
 
-    pattern = r"^\s+(?P<num>{})\s+(?P<action>{})\s+(?P<desc>{})\s+(?P<severity>{})\s+(?P<law>{})(?P<desc_ext>{})".format(NUM, ACTION, DESC, SEVERITY, LAW, DESC_EXT)
+    # pylint: disable=line-too-long
+    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>{action})\s+(?P<desc>.+)[ ]{{2,}}(?P<severity>\w+)[ ]{{2,}}(?P<law>[\w. \-\(\)]+)".format(action=ACTION)
 
     def set_state(self, state):
         """
         Set offense_num so other parsers, like OffenseRecordRow,
         can use it.
         """
-        state.offense_num = self.matches[0]["num"]
+        state.offense_num = self.matches["num"]
+        state.is_desc_ext_possible = True
 
-    def get_record(self, matches):
-        description_strings = [
-            re.sub(r' +', ' ', matches["desc"].strip()),
-        ]
-        if matches["desc_ext"]:
-            description_strings.append(re.sub(r' +', ' ', matches["desc_ext"].strip()))
-
-        return {
-            "Action": matches["action"],
-            "Description": " ".join(description_strings),
-            "Severity": matches["severity"],
-            "Law": re.sub(r' +', ' ', matches["law"].strip()),
-        }
+    def clean(self, matches):
+        matches['desc'] = re.sub(r' +', ' ', matches['desc'].strip())
+        matches['law'] = re.sub(r' +', ' ', matches['law'].strip())
+        return matches
 
     def extract(self, matches, report):
+        record = {
+            "Action": matches["action"],
+            "Description": matches["desc"],
+            "Severity": matches["severity"],
+            "Law": matches["law"],
+        }
         offenses = report[self.state.section]
         # Whenever a row with number is encountered, it indicates a new
         # offense record, so we always add a NEW offense below.
-        for match in matches:
-            record = self.get_record(match)
-            offenses.new().add_record(record)
+        offenses.new().add_record(record)
 
 
-class OffenseRecordRow(Parser):
+class OffenseRecordRow(OffenseSectionParser):
     """
     Extract offense row like:
         CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
     """
 
-    #pattern = r"^\s+(?P<action>(?:ARRAIGNED|CHARGED|CONVICTED))\s+(?P<desc>[\S ]+)\s+(?P<severity>(MISDEMEANOR|TRAFFIC|INFRACTION|FELONY))\s+(?P<law>[\w. \-\(\)]+)(?P<desc_ext>(?:(?!\s+Plea)\s*.+?)*)"
-    pattern = r"^\s+(?P<action>{})\s+(?P<desc>{})\s+(?P<severity>{})\s+(?P<law>{})(?P<desc_ext>{})".format(ACTION, DESC, SEVERITY, LAW, DESC_EXT)
+    # pylint: disable=line-too-long
+    pattern = r"\s*(?P<action>{action})\s+(?P<desc>.+)[ ]{{2,}}(?P<severity>\w+)[ ]{{2,}}(?P<law>[\w. \-\(\)]+)".format(action=ACTION)
+
+    def clean(self, matches):
+        matches['desc'] = re.sub(r' +', ' ', matches['desc'].strip())
+        matches['law'] = re.sub(r' +', ' ', matches['law'].strip())
+        return matches
 
     def is_enabled(self):
         in_offense_section = super().is_enabled()
         return in_offense_section and self.state.offense_num
 
-    def get_record(self, matches):
-        description_strings = [
-            re.sub(r' +', ' ', matches["desc"].strip()),
-        ]
-        if matches["desc_ext"]:
-            description_strings.append(re.sub(r' +', ' ', matches["desc_ext"].strip()))
+    def set_state(self, state):
+        state.is_desc_ext_possible = True
 
-        return {
+    def extract(self, matches, report):
+        record = {
             "Action": matches["action"],
-            "Description": " ".join(description_strings),
+            "Description": matches["desc"],
             "Severity": matches["severity"],
-            "Law": re.sub(r' +', ' ', matches["law"].strip()),
+            "Law": matches["law"],
         }
+        offenses = report[self.state.section]
+        offenses.current.add_record(record)
+
+
+class OffenseRecordDescriptionExtended(OffenseSectionParser):
+    """
+    Extract offense row like:
+        CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
+                   EXTRA INFO ON NEXT LINE
+    """
+
+    # pylint: disable=line-too-long
+    pattern = r"^\s*(?P<desc_ext>(?:(?!\s+(?:{}|{}|Plea|{}|Disposition\s+Method))\s+\S+)+)".format(ACTION, SEVERITY, GARBAGE_TEXT)
+
+    def is_enabled(self):
+        in_offense_section = super().is_enabled()
+        return in_offense_section and self.state.is_desc_ext_possible
+
+    def clean(self, matches):
+        matches["desc_ext"] = re.sub(r' +', ' ', matches["desc_ext"].strip())
+        return matches
 
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        for match in matches:
-            record = self.get_record(match)
-            offenses.current.add_record(record)
+        record = offenses.current.current_record()
+        record['Description'] =  f"{record['Description']} {matches['desc_ext']}"
 
 
-class OffenseDisposedDate(Parser):
+class OffenseDisposedDate(OffenseSectionParser):
 
-    pattern = r"^.*Disposed\s*on:\s*(?P<value>[\d/:]+)"
+    pattern = r".*Disposed\s+on:\s*(?P<value>[\d/:]+)"
     section = ("Offense Record", "Disposed On")
+
+    def set_state(self, state):
+        state.is_desc_ext_possible = False
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
@@ -96,47 +126,55 @@ class OffenseDisposedDate(Parser):
 
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Disposed On"] = matches[0]["value"]
+        offenses.current["Disposed On"] = matches["value"]
 
 
-class OffenseDispositionMethod(Parser):
+class OffenseDispositionMethod(OffenseSectionParser):
 
-    pattern = r"^.*?Disposition\s+Method:\s*(?P<value>[\w\- ]+)\s*$"
+    pattern = r"\s*Disposition Method:\s*(?P<value>[\w\- ]+)"
     section = ("Offense Record", "Disposition Method")
+
+    def clean(self, matches):
+        matches['value'] = re.sub(r' +', ' ', matches['value'].strip())
+        return matches
 
     def set_state(self, state):
         """Since Disposition is the last field in an offense, reset offense_num."""
         state.offense_num = 0
+        state.is_desc_ext_possible = False
 
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Disposition Method"] = re.sub(r" +", " ", matches[0]["value"].strip())
+        offenses.current["Disposition Method"] = matches["value"]
 
 
-class OffensePlea(Parser):
-    pattern = r"^.*?Plea:\s*(?P<value>[\w ]+?)\s*Verdict:"
+class OffensePlea(OffenseSectionParser):
+    pattern = r"\s*Plea:\s*(?P<value>[\w ]+)Verdict:"
     section = ("Offense Record", "Plea")
 
+    def clean(self, matches):
+        matches['value'] = re.sub(r' +', ' ', matches['value'].strip())
+        return matches
+
+    def set_state(self, state):
+        state.is_desc_ext_possible = False
+
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Plea"] = matches[0]["value"]
+        offenses.current["Plea"] = matches["value"]
 
 
-class OffenseVerdict(Parser):
-    pattern = r"^.*Verdict:\s*(?P<value>[\w ]+?)\s*Disposed"
+class OffenseVerdict(OffenseSectionParser):
+    pattern = r"\s*.*Verdict:\s*(?P<value>[\w ]+)Disposed\s*on:"
     section = ("Offense Record", "Verdict")
 
+    def clean(self, matches):
+        matches['value'] = re.sub(r' +', ' ', matches['value'].strip())
+        return matches
+
+    def set_state(self, state):
+        state.is_desc_ext_possible = False
+
     def extract(self, matches, report):
         offenses = report[self.state.section]
-        offenses.current["Verdict"] = re.sub(r" +", " ", matches[0]["value"].strip())
-
-
-OFFENSE_SECTION_PARSERS = (
-    # Section: Offenses (District & Superior)
-    OffenseRecordRowWithNumber,
-    OffenseRecordRow,
-    OffenseDisposedDate,
-    OffenseDispositionMethod,
-    OffensePlea,
-    OffenseVerdict,
-)
+        offenses.current["Verdict"] = matches["value"]

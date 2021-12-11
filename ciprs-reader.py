@@ -22,6 +22,7 @@ if __name__ == "__main__":
     parser.add_argument("--source", help="Include full source in JSON output", action="store_true")
     parser.add_argument("--mode", help="Parse mode", type=int, default=ParserMode.V1)
     parser.add_argument("--version", action="version", version="%(prog)s " + VERSION)
+    parser.add_argument("--print-source", help="Include full source in JSON output and print it", action="store_true")
 
     args = parser.parse_args()
     formatter = logging.Formatter("%(levelname)s %(asctime)s %(name)s %(message)s")
@@ -33,8 +34,9 @@ if __name__ == "__main__":
 
     logger.info("Running ciprs-reader on %s", args.input)
     reader = PDFToTextReader(args.input, mode=args.mode)
-    reader.parse(save_source=args.source)
+    save_source = args.source or args.print_source
+    reader.parse(save_source=save_source)
     print(reader.json())
-    if args.source:
+    if args.print_source:
         for document in json.loads(reader.json()):
             print(document['_meta']['source'])
