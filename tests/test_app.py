@@ -6,47 +6,36 @@ from ciprs_reader.reader import PDFToTextReader
 
 
 @pytest.mark.parametrize(
-    "is_v1_parsable,testname",
-    [(True, "test_redacted_1"), (False, "test_redacted_2")],
+    "mode",
+    [ParserMode.V1, ParserMode.V2],
 )
-def test_redacted_forms_v1(is_v1_parsable, testname):
-    reader = PDFToTextReader(f"tests/test_records/{testname}.pdf", mode=ParserMode.V1)
-    reader.parse()
-    output_json = json.loads(reader.json())
-    with open(f"tests/test_records/expected_output/{testname}.json", 'r', encoding='utf8') as file:
-        expected_output = json.load(file)
+def test_redacted_forms(mode):
 
-    assert output_json, "Unable to parse expected output"
-    assert expected_output, "Unable to parse expected output"
+    for testname in ["test_redacted_1", "test_redacted_2"]:
+        reader = PDFToTextReader(f"tests/test_records/{testname}.pdf", mode=mode)
+        reader.parse()
+        output_json = json.loads(reader.json())
 
-    # test contains multiline text and is not verifiable through expected_output
-    # note: we still want to run the above code to make sure ciprs-reader doesn't crash while parsing in V1 mode
-    if not is_v1_parsable:
-        return
+        with open(f"tests/test_records/expected_output/{testname}.json", 'r', encoding='utf8') as file:
+            expected_output = json.load(file)
 
-    for index, document in enumerate(output_json):
-        for section, value in document.items():
-            assert value == expected_output[index][section], f"Section '{section}' does not match expected output"
+        assert output_json, "Unable to parse expected output"
+        assert expected_output, "Unable to parse expected output"
 
+        for index, document in enumerate(output_json):
+            for section, value in document.items():
+                if section not in ['District Court Offense Information', 'Superior Court Offense Information']:
+                    assert value == expected_output[index][section], "Section does not match expected output"
+                    continue
 
-@pytest.mark.parametrize(
-    "testname",
-    ["test_redacted_1", "test_redacted_2"],
-)
-def test_redacted_forms_v2(testname):
-    reader = PDFToTextReader(f"tests/test_records/{testname}.pdf", mode=ParserMode.V2)
-    reader.parse()
-    output_json = json.loads(reader.json())
-
-    with open(f"tests/test_records/expected_output/{testname}.json", 'r', encoding='utf8') as file:
-        expected_output = json.load(file)
-
-    assert output_json, "Unable to parse expected output"
-    assert expected_output, "Unable to parse expected output"
-
-    for index, document in enumerate(output_json):
-        for section, value in document.items():
-            assert value == expected_output[index][section], f"Section '{section}' does not match expected output"
+                # ParserMode.V1 does not handle multiline offense descriptions. Ensure that's the case.
+                for offense_index, offense in enumerate(value):
+                    expected_offense = expected_output[index][section][offense_index]
+                    is_multiline = expected_offense.pop('_multiline', False)
+                    if mode == ParserMode.V1 and is_multiline:
+                        assert offense != expected_offense
+                    else:
+                        assert offense == expected_offense
 
 
 @pytest.mark.parametrize(

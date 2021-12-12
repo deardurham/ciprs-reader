@@ -1142,6 +1142,7 @@
                 "Disposition Method": "DISMISSAL WITHOUT LEAVE BY DA"
             },
             {
+                "_multiline": true,
                 "Records": [
                     {
                         "Action": "CHARGED",
