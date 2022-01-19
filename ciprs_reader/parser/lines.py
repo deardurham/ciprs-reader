@@ -17,7 +17,10 @@ class DefendentDOB(Parser):
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        try:
+            date = dt.datetime.strptime(matches["value"], "%m/%d/%Y").date()
+        except ValueError:
+            return None
         matches["value"] = date.isoformat()
         return matches
 

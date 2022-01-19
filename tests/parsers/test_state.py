@@ -13,10 +13,6 @@ from ciprs_reader.parser.section import case_information, defendant, header, off
         case_information.CaseWasServedOnDate,
         defendant.DefendantRace,
         defendant.DefendantSex,
-        offense.OffenseRecordRowWithNumber,
-        offense.OffenseRecordRow,
-        offense.OffenseDisposedDate,
-        offense.OffenseDispositionMethod,
     ],
 )
 def test_parser__disabled_by_default(Parser, report, state):
@@ -96,3 +92,10 @@ def test_offense_record_row__enabled(section, report, state):
     state.offense_num = 1
     state.section = section
     assert offense.OffenseRecordRow(report, state).is_enabled()
+
+
+def test_find__not_enabled(report, state):
+    report = {"Defendant": {"Sex": None}}
+    state.section = Section.HEADER
+    defendant.DefendantSex(report, state).find("Sex: FEMALE")
+    assert report["Defendant"]["Sex"] is None

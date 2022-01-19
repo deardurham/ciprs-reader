@@ -24,6 +24,7 @@ LINE_PARSERS = (
     defendant.DefendantRace,
     defendant.DefendantSex,
     # Section: Offenses (District & Superior)
+    offense.OffenseRecordDescriptionExtended,
     offense.OffenseRecordRow,
     offense.OffenseRecordRowWithNumber,
     offense.OffenseDisposedDate,

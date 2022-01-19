@@ -9,9 +9,15 @@ MODE_MAP = {
 }
 
 
+BINARY_MAP = {
+    ParserMode.V1: "pdftotext",
+    ParserMode.V2: "pdftotext-4.03",
+}
+
+
 def convert_to_text(path, mode=ParserMode.V1):
     """Convert PDF to text using pdftotext library."""
-    cmd = ["pdftotext", "-enc", "UTF-8"]
+    cmd = [BINARY_MAP[mode], "-enc", "UTF-8"]
     cmd.append(MODE_MAP[mode])
     cmd.extend([path, "-"])
     run = subprocess.run(
@@ -31,11 +37,11 @@ def multi_summary_record_reader(path, mode=ParserMode.V1):
     method splits records up for individual processing.
     """
     text = convert_to_text(path, mode)
-    records = text.split("Case Summary for Court Case")
+    records = text.split("Case Summary for Court")
     # trim any short records (probably just header text)
     records = [x for x in records if len(x) > 1000]
     # re-add text that was used to split to each record
-    records = ["Case Summary for Court Case" + x for x in records]
+    records = ["Case Summary for Court" + x for x in records]
     for record in records:
         yield record
 
