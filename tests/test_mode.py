@@ -16,9 +16,12 @@ def test_pdftotext_args_v1(mock_subprocess):
     PDFToTextReader("dummy.pdf", mode=ParserMode.V1).parse()
     cmd = mock_subprocess.call_args[0][0]
     assert "-layout" in cmd
+    assert "pdftotext" in cmd
+    assert "pdftotext-4.03" not in cmd
 
 
 def test_pdftotext_args_v2(mock_subprocess):
     PDFToTextReader("dummy.pdf", mode=ParserMode.V2).parse()
     cmd = mock_subprocess.call_args[0][0]
     assert "-table" in cmd
+    assert "pdftotext-4.03" in cmd
