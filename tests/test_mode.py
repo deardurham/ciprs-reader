@@ -8,7 +8,7 @@ from ciprs_reader.reader import PDFToTextReader
 @pytest.fixture(name="mock_subprocess")
 def fixture_mock_subprocess():
     with patch("ciprs_reader.reader.util.subprocess.run") as mock:
-        mock.stdout.decode.return_value = ""
+        mock().stdout.decode.return_value = ""
         yield mock
 
 
