@@ -1,3 +1,4 @@
+import re
 import subprocess
 
 from ciprs_reader.const import ParserMode
@@ -37,11 +38,11 @@ def multi_summary_record_reader(path, mode=ParserMode.V1):
     method splits records up for individual processing.
     """
     text = convert_to_text(path, mode)
-    records = text.split("Case Summary for Court")
+    records = re.split(r'Case\s+Summary', text)
     # trim any short records (probably just header text)
     records = [x for x in records if len(x) > 1000]
     # re-add text that was used to split to each record
-    records = ["Case Summary for Court" + x for x in records]
+    records = ["Case Summary" + x for x in records]
     for record in records:
         yield record
 
