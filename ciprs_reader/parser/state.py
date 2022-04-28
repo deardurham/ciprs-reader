@@ -49,7 +49,7 @@ class DefendantSection(RecordSection):
 
 class DistrictCourtOffenseSection(RecordSection):
 
-    pattern = r"^\s*District Court Offense Information\s*$"
+    pattern = r"^\s*District\s+Court\s+Offense\s+Information\s*$"
 
     def clean(self, matches):
         return Section.DISTRICT_OFFENSE
@@ -57,7 +57,7 @@ class DistrictCourtOffenseSection(RecordSection):
 
 class SuperiorCourtOffenseSection(RecordSection):
 
-    pattern = r"^\s*Superior Court Offense Information\s*$"
+    pattern = r"^\s*Superior\s+Court\s+Offense\s+Information\s*$"
 
     def clean(self, matches):
         return Section.SUPERIOR_OFFENSE

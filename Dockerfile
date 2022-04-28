@@ -38,12 +38,10 @@ RUN set -ex \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
-# Install pdftotext 4.03 (the new version)
 RUN set -ex \
-    && wget --no-check-certificate https://dl.xpdfreader.com/xpdf-tools-linux-4.03.tar.gz \
-    && tar -xvf xpdf-tools-linux-4.03.tar.gz \
-    && cp xpdf-tools-linux-4.03/bin64/pdftotext /usr/local/bin/pdftotext-4.03 \
-    && rm -rf xpdf-tools-linux-4.03*
+    && wget --no-check-certificate https://dl.xpdfreader.com/xpdf-tools-linux-4.04.tar.gz \
+    && tar -xvf xpdf-tools-linux-4.04.tar.gz \
+    && cp xpdf-tools-linux-4.04/bin64/pdftotext /usr/local/bin/pdftotext-4
 
 COPY ./requirements.txt /requirements.txt
 

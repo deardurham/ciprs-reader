@@ -12,7 +12,7 @@ MODE_MAP = {
 
 BINARY_MAP = {
     ParserMode.V1: "pdftotext",
-    ParserMode.V2: "pdftotext-4.03",
+    ParserMode.V2: "pdftotext-4",
 }
 
 
