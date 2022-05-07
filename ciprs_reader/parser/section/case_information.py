@@ -13,13 +13,13 @@ class CaseInformationParser(Parser):
 
 class CaseStatus(CaseInformationParser):
 
-    pattern = r"\s*Case Status:\s*(?P<value>\w+)"
+    pattern = [r"\s*Case", "Status:", r"(?P<value>\w+)"]
     section = ("Case Information", "Case Status")
 
 
 class OffenseDate(CaseInformationParser):
 
-    pattern = r".*Offense Date:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    pattern = [r"\s*Offense", r"Date:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"]
     section = ("Case Information", "Offense Date")
 
     def clean(self, matches):
@@ -31,7 +31,7 @@ class OffenseDate(CaseInformationParser):
 
 class OffenseDateTime(CaseInformationParser):
 
-    pattern = r".*Offense Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"
+    pattern = [r"\s*Offense", r"Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"]
     section = ("Case Information", "Offense Date")
 
     def clean(self, matches):
@@ -43,7 +43,8 @@ class OffenseDateTime(CaseInformationParser):
 
 class CaseWasServedOnDate(CaseInformationParser):
 
-    pattern = r".*Case Was Served on:\s*(?P<value>[\d/:]+)"
+    pattern = ["Case", "Was", "Served", r"on:\s*(?P<value>[\d/:]+)"]
+    re_method = "search"
     section = ("Case Information", "Arrest Date")
 
     def clean(self, matches):

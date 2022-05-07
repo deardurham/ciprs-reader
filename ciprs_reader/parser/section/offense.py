@@ -25,8 +25,15 @@ class OffenseRecordRowWithNumber(OffenseSectionParser):
         54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
     """
 
-    # pylint: disable=line-too-long
-    pattern = r"\s*(?P<num>[\d]+)\s*(?P<action>{action})\s+(?P<desc>.+)[ ]{{2,}}(?P<severity>\w+)[ ]{{2,}}(?P<law>[\w. \-\(\)]+)".format(action=ACTION)
+    # convert into a string so we don't automatically join with r"\s+"
+    pattern = [
+        r"(?P<num>[\d]+)",
+        r"\s+(?P<action>{action})".format(action=ACTION),
+        r"\s+(?P<desc>.+)[ ]{2,}",
+        r"(?P<severity>\w+)[ ]{2,}",
+        r"(?P<law>((?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
+    ]
+    re_method = "search"
 
     def set_state(self, state):
         """
@@ -60,8 +67,13 @@ class OffenseRecordRow(OffenseSectionParser):
         CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
     """
 
-    # pylint: disable=line-too-long
-    pattern = r"\s*(?P<action>{action})\s+(?P<desc>.+)[ ]{{2,}}(?P<severity>\w+)[ ]{{2,}}(?P<law>[\w. \-\(\)]+)".format(action=ACTION)
+    pattern = [
+        r"(?P<action>{action})".format(action=ACTION),
+        r"\s+(?P<desc>.+)[ ]{2,}",
+        r"(?P<severity>\w+)[ ]{2,}",
+        r"(?P<law>((?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
+    ]
+    re_method = "search"
 
     def clean(self, matches):
         matches['desc'] = re.sub(r' +', ' ', matches['desc'].strip())
@@ -112,7 +124,8 @@ class OffenseRecordDescriptionExtended(OffenseSectionParser):
 
 class OffenseDisposedDate(OffenseSectionParser):
 
-    pattern = r".*Disposed\s+on:\s*(?P<value>[\d/:]+)"
+    pattern = ["Disposed", r"on:\s*(?P<value>[\d/:]+)"]
+    re_method = "search"
     section = ("Offense Record", "Disposed On")
 
     def set_state(self, state):
@@ -131,7 +144,8 @@ class OffenseDisposedDate(OffenseSectionParser):
 
 class OffenseDispositionMethod(OffenseSectionParser):
 
-    pattern = r"\s*Disposition Method:\s*(?P<value>[\w\- ]+)"
+    pattern = ["Disposition", "Method:", r"(?P<value>[\w\- ]+)"]
+    re_method = "search"
     section = ("Offense Record", "Disposition Method")
 
     def clean(self, matches):
@@ -149,7 +163,7 @@ class OffenseDispositionMethod(OffenseSectionParser):
 
 
 class OffensePlea(OffenseSectionParser):
-    pattern = r"\s*Plea:\s*(?P<value>[\w ]+)Verdict:"
+    pattern = [r"\s*Plea:", r"(?P<value>[\w ]+)Verdict:"]
     section = ("Offense Record", "Plea")
 
     def clean(self, matches):
@@ -165,7 +179,8 @@ class OffensePlea(OffenseSectionParser):
 
 
 class OffenseVerdict(OffenseSectionParser):
-    pattern = r"\s*.*Verdict:\s*(?P<value>[\w ]+)Disposed\s*on:"
+    pattern = [r"Verdict:\s*(?P<value>[\w ]+)", "Disposed", "on:"]
+    re_method = "search"
     section = ("Offense Record", "Verdict")
 
     def clean(self, matches):
