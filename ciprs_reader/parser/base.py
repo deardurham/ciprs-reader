@@ -21,7 +21,13 @@ class Parser:
     is_line_parser = True
 
     def __init__(self, report, state):
-        self.re = re.compile(self.pattern)
+        if isinstance(self.pattern, list):
+            pattern = r"\s*".join(self.pattern)
+        elif isinstance(self.pattern, str):
+            pattern = self.pattern
+        else:
+            raise TypeError('Pattern must be string or array')
+        self.re = re.compile(pattern)
         self.report = report
         self.matches = None
         self.document = None

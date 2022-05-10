@@ -10,10 +10,9 @@ logger = logging.getLogger(__name__)
 
 class DefendentDOB(Parser):
 
-    pattern = r"\s*Date of Birth/Estimated Age:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"
+    pattern = ["Date", 'of', 'Birth/Estimated', r"Age:[\sa-zA-Z]*(?P<value>[\d/]+)[ ]{2,}"]
     re_method = "search"
     section = ("Defendant", "Date of Birth/Estimated Age")
-    is_line_parser = False
 
     def clean(self, matches):
         """Parse and convert the date to ISO 8601 format"""

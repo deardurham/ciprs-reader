@@ -11,13 +11,13 @@ class DefendantParser(Parser):
 
 class DefendantRace(DefendantParser):
 
-    pattern = r"\s*Race: \s*(?P<value>\w+)"
+    pattern = [r"\s*Race:", r"(?P<value>\w+)"]
     section = ("Defendant", "Race")
 
 
 class DefendantSex(DefendantParser):
 
-    pattern = r"\s*Sex: \s*(?P<value>\w+)"
+    pattern = [r"\s*Sex:", r"(?P<value>\w+)"]
     section = ("Defendant", "Sex")
 
     def clean(self, matches):

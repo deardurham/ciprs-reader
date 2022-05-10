@@ -33,7 +33,7 @@ class RecordSection(Parser):
 
 class CaseInformation(RecordSection):
 
-    pattern = r"^\s*Case Information\s*$"
+    pattern = [r"\s*Case", r"Information$"]
 
     def clean(self, matches):
         return Section.CASE_INFORMATION
@@ -41,7 +41,7 @@ class CaseInformation(RecordSection):
 
 class DefendantSection(RecordSection):
 
-    pattern = r"^\s*Defendant\s*$"
+    pattern = r"\s*Defendant$"
 
     def clean(self, matches):
         return Section.DEFENDANT
@@ -49,7 +49,7 @@ class DefendantSection(RecordSection):
 
 class DistrictCourtOffenseSection(RecordSection):
 
-    pattern = r"^\s*District\s+Court\s+Offense\s+Information\s*$"
+    pattern = [r"\s*District", "Court", "Offense", r"Information$"]
 
     def clean(self, matches):
         return Section.DISTRICT_OFFENSE
@@ -57,7 +57,7 @@ class DistrictCourtOffenseSection(RecordSection):
 
 class SuperiorCourtOffenseSection(RecordSection):
 
-    pattern = r"^\s*Superior\s+Court\s+Offense\s+Information\s*$"
+    pattern = [r"\s*Superior", "Court", "Offense", r"Information$"]
 
     def clean(self, matches):
         return Section.SUPERIOR_OFFENSE
