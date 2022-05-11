@@ -26,13 +26,13 @@ class OffenseRecordRowWithNumber(OffenseSectionParser):
     """
 
     # convert into a string so we don't automatically join with r"\s+"
-    pattern = [
+    pattern = r''.join([
         r"(?P<num>[\d]+)",
         r"\s+(?P<action>{action})".format(action=ACTION),
         r"\s+(?P<desc>.+)[ ]{2,}",
         r"(?P<severity>\w+)[ ]{2,}",
-        r"(?P<law>((?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
-    ]
+        r"(?P<law>(?:(?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
+    ])
     re_method = "search"
 
     def set_state(self, state):
@@ -67,12 +67,13 @@ class OffenseRecordRow(OffenseSectionParser):
         CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
     """
 
-    pattern = [
+    # convert into a string so we don't automatically join with r"\s+"
+    pattern = r''.join([
         r"(?P<action>{action})".format(action=ACTION),
         r"\s+(?P<desc>.+)[ ]{2,}",
         r"(?P<severity>\w+)[ ]{2,}",
-        r"(?P<law>((?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
-    ]
+        r"(?P<law>(?:(?!\-$)[\w. \-\(\)])+)" # found a case where pdftotext grabs an extra "-" at the end
+    ])
     re_method = "search"
 
     def clean(self, matches):
@@ -106,7 +107,7 @@ class OffenseRecordDescriptionExtended(OffenseSectionParser):
     """
 
     # pylint: disable=line-too-long
-    pattern = r"^\s*(?P<desc_ext>(?:(?!\s+(?:{}|{}|Plea|{}|Disposition\s+Method))\s+\S+)+)".format(ACTION, SEVERITY, GARBAGE_TEXT)
+    pattern = r"\s*(?P<desc_ext>(?:(?!\s+(?:{}|{}|Plea|{}|Disposition\s+Method))\s+\S+)+)".format(ACTION, SEVERITY, GARBAGE_TEXT)
 
     def is_enabled(self):
         in_offense_section = super().is_enabled()
