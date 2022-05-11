@@ -25,7 +25,7 @@ class OffenseRecordRowWithNumber(OffenseSectionParser):
         54  CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)
     """
 
-    # convert into a string so we don't automatically join with r"\s+"
+    # convert into a string so we don't automatically join with r"\s*"
     pattern = r''.join([
         r"(?P<num>[\d]+)",
         r"\s+(?P<action>{action})".format(action=ACTION),
@@ -67,7 +67,7 @@ class OffenseRecordRow(OffenseSectionParser):
         CHARGED  SPEEDING  INFRACTION  G.S. 20-141(B)  4450
     """
 
-    # convert into a string so we don't automatically join with r"\s+"
+    # convert into a string so we don't automatically join with r"\s*"
     pattern = r''.join([
         r"(?P<action>{action})".format(action=ACTION),
         r"\s+(?P<desc>.+)[ ]{2,}",
