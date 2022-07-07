@@ -17,6 +17,13 @@ def test_offense_date_time(report, state):
     assert matches["value"] == "2015-05-17T21:59:00"
 
 
+def test_offense_date_time_midnight(report, state):
+    string = "    Offense Date/Time: 05/17/2015 00:00   "
+    matches = case_information.OffenseDateTime(report, state).match(string)
+    assert matches is not None, "Regex match failed"
+    assert matches["value"] == "2015-05-17T00:00:00"
+
+
 @pytest.mark.parametrize(
     "expected,val",
     (

@@ -31,12 +31,16 @@ class OffenseDate(CaseInformationParser):
 
 class OffenseDateTime(CaseInformationParser):
 
-    pattern = [r"\s*Offense", r"Date/Time:\s*(?P<value>[\w/ :]+[AaPp][Mm])"]
+    pattern = [r"\s*Offense", r"Date\/Time:\s*(?P<value>[\w/ :]+([AaPp][Mm])?)"]
     section = ("Case Information", "Offense Date")
 
     def clean(self, matches):
         """Parse and convert to the date and time in ISO 8601 format"""
-        date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
+        try:
+            date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %I:%M %p")
+        except ValueError:
+            # fallback to parsing time like midnight, e.g. 05/17/2015 00:00
+            date = dt.datetime.strptime(matches["value"], "%m/%d/%Y %H:%M")
         matches["value"] = date.isoformat()
         return matches
 
