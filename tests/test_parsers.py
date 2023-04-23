@@ -11,7 +11,7 @@ def test_defendent_dob(report, state):
 
 
 def test_court_type_other(report, state):
-    report = {"General": {"File No": "11IF777777"}}
+    report = {"General": {"File No": "11XX777777"}}
     matches = parsers.DistrictSuperiorCourt(report, state).match("")
     assert matches is not None, "Regex match failed"
     assert matches == {}
@@ -19,6 +19,15 @@ def test_court_type_other(report, state):
 
 def test_court_type_cr(report, state):
     report = {"General": {"File No": "11CR777777"}}
+    parser = parsers.DistrictSuperiorCourt(report, state)
+    parser.find("")
+    assert parser.matches is not None, "Regex match failed"
+    assert parser.matches == {"District": "Yes"}
+    assert report["General"]["District"] == "Yes"
+
+
+def test_court_type_if(report, state):
+    report = {"General": {"File No": "11IF777777"}}
     parser = parsers.DistrictSuperiorCourt(report, state)
     parser.find("")
     assert parser.matches is not None, "Regex match failed"

@@ -39,11 +39,10 @@ class DistrictSuperiorCourt(Parser):
         data = {}
         fileno = self.report["General"].get("File No", "")
         if fileno:
-            if "CR" in fileno:
-                if "CRS" in fileno:
-                    data["Superior"] = "Yes"
-                else:
-                    data["District"] = "Yes"
+            if "CRS" in fileno:
+                data["Superior"] = "Yes"
+            elif "CR" in fileno or "IF" in fileno:
+                data["District"] = "Yes"
         return data
 
     def extract(self, matches, report):
