@@ -52,8 +52,20 @@ Example output:
 
 Pre-requisites:
 
+Mac
 ```
 brew cask install pdftotext
+```
+
+Ubuntu
+```
+sudo apt-get install -y poppler-utils
+```
+
+```
+wget --no-check-certificate https://dl.xpdfreader.com/xpdf-tools-linux-4.04.tar.gz \
+    && tar -xvf xpdf-tools-linux-4.04.tar.gz \
+    && cp xpdf-tools-linux-4.04/bin64/pdftotext /usr/local/bin/pdftotext-4
 ```
 
 Setup:
