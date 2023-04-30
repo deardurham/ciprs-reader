@@ -50,6 +50,7 @@ class OffenseRecordRowWithNumber(OffenseSectionParser):
 
     def extract(self, matches, report):
         record = {
+            "Count": matches["num"],
             "Action": matches["action"],
             "Description": matches["desc"],
             "Severity": matches["severity"],

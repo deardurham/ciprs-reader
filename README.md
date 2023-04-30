@@ -66,7 +66,7 @@ pip install -e .
 Read CIPRS PDF:
 
 ```
-python ciprs_-eader.py ./cypress-example.pdf
+python ciprs_reader.py ./cypress-example.pdf
 ```
 
 Run Jupyter:

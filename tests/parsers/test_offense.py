@@ -21,6 +21,7 @@ def test_offense_record_charged_with_number(report, state):
     """
     matches = offense.OffenseRecordRowWithNumber(report, state).match(string)
     assert matches is not None, "Regex match failed"
+    assert matches["count"] == "54"
     assert matches["action"] == "CHARGED"
     assert matches["desc"] == "SPEEDING(80 mph in a 65 mph zone)"
     assert matches["severity"] == "INFRACTION"
