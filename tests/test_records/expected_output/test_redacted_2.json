@@ -19,6 +19,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "PWISD CRACK COCAINE",
                         "Severity": "FELONY",
@@ -60,6 +61,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "ASSAULT ON A CHILD UNDER 12",
                         "Severity": "MISDEMEANOR",
@@ -93,6 +95,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "ASSAULT ON A CHILD UNDER 12",
                         "Severity": "MISDEMEANOR",
@@ -134,6 +137,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "COMMUNICATING THREATS",
                         "Severity": "MISDEMEANOR",
@@ -175,6 +179,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "PWIMSD SCH II CS",
                         "Severity": "FELONY",
@@ -189,6 +194,7 @@
             {
                 "Records": [
                     {
+                        "Count": "51",
                         "Action": "CHARGED",
                         "Description": "PWIMSD SCH II CS",
                         "Severity": "FELONY",
@@ -229,6 +235,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "FELONY POSSESSION SCH II CS",
                         "Severity": "FELONY",
@@ -243,6 +250,7 @@
             {
                 "Records": [
                     {
+                        "Count": "51",
                         "Action": "CHARGED",
                         "Description": "FELONY POSSESSION SCH II CS",
                         "Severity": "FELONY",
@@ -255,6 +263,7 @@
             {
                 "Records": [
                     {
+                        "Count": "52",
                         "Action": "CHARGED",
                         "Description": "COMMUNICATING THREATS",
                         "Severity": "MISDEMEANOR",
@@ -287,6 +296,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "ASSAULT WITH A DEADLY WEAPON",
                         "Severity": "MISDEMEANOR",
@@ -320,6 +330,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "COMMUNICATING THREATS",
                         "Severity": "MISDEMEANOR",
@@ -353,6 +364,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE ASSAULT",
                         "Severity": "MISDEMEANOR",
@@ -386,6 +398,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "ASSAULT ON A CHILD UNDER 12",
                         "Severity": "MISDEMEANOR",
@@ -419,6 +432,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE WORTHLESS CHECK($198.35)",
                         "Severity": "MISDEMEANOR",
@@ -460,6 +474,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE WORTHLESS CHECK($93.47)",
                         "Severity": "MISDEMEANOR",
@@ -501,6 +516,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "RESISTING PUBLIC OFFICER",
                         "Severity": "MISDEMEANOR",
@@ -521,6 +537,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "FICTITIOUS INFO TO OFFICER",
                         "Severity": "TRAFFIC",
@@ -554,6 +571,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE POSSESS SCH VI CS (M)",
                         "Severity": "MISDEMEANOR",
@@ -587,6 +605,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "MAINTN VEH/DWELL/PLACE CS (F)",
                         "Severity": "FELONY",
@@ -628,6 +647,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "OBSTRUCTING JUSTICE",
                         "Severity": "MISDEMEANOR",
@@ -640,6 +660,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "FELONY CONSPIRACY",
                         "Severity": "FELONY",
@@ -652,6 +673,7 @@
             {
                 "Records": [
                     {
+                        "Count": "03",
                         "Action": "CHARGED",
                         "Description": "INTIMIDATING WITNESS",
                         "Severity": "FELONY",
@@ -666,6 +688,7 @@
             {
                 "Records": [
                     {
+                        "Count": "51",
                         "Action": "CHARGED",
                         "Description": "ATTEMPTED CONSPIRACY TO COMMIT MURDER",
                         "Severity": "FELONY",
@@ -678,6 +701,7 @@
             {
                 "Records": [
                     {
+                        "Count": "52",
                         "Action": "CHARGED",
                         "Description": "SOLICITATION TO COMMIT AWDWISI",
                         "Severity": "FELONY",
@@ -698,6 +722,7 @@
             {
                 "Records": [
                     {
+                        "Count": "53",
                         "Action": "CHARGED",
                         "Description": "INTIMIDATING WITNESS",
                         "Severity": "FELONY",
@@ -730,6 +755,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SPEEDING(52 mph in a 35 mph zone)",
                         "Severity": "TRAFFIC",
@@ -771,6 +797,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "POSSESSION OF FIREARM BY FELON",
                         "Severity": "FELONY",
@@ -804,6 +831,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "FAIL TO RETURN RENTAL PROPERTY",
                         "Severity": "MISDEMEANOR",
@@ -824,6 +852,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "MISDEMEANOR PROBATION VIOL",
                         "Severity": "MISDEMEANOR",
@@ -838,6 +867,7 @@
             {
                 "Records": [
                     {
+                        "Count": "51",
                         "Action": "CHARGED",
                         "Description": "MISDEMEANOR PROBATION VIOL",
                         "Severity": "MISDEMEANOR",
@@ -850,6 +880,7 @@
             {
                 "Records": [
                     {
+                        "Count": "52",
                         "Action": "CHARGED",
                         "Description": "MISDEMEANOR PROBATION VIOL",
                         "Severity": "R",
@@ -882,6 +913,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "HARASSING PHONE CALL",
                         "Severity": "MISDEMEANOR",
@@ -915,6 +947,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "DRIVE/ALLOW MV NO REGISTRATION",
                         "Severity": "TRAFFIC",
@@ -927,6 +960,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "DWLR",
                         "Severity": "TRAFFIC",
@@ -968,6 +1002,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "FICTITIOUS INFO TO OFFICER",
                         "Severity": "TRAFFIC",
@@ -980,6 +1015,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "RESISTING PUBLIC OFFICER",
                         "Severity": "MISDEMEANOR",
@@ -1021,6 +1057,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "DWLR",
                         "Severity": "TRAFFIC",
@@ -1054,6 +1091,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "RESISTING PUBLIC OFFICER",
                         "Severity": "MISDEMEANOR",
@@ -1087,6 +1125,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "DWLR",
                         "Severity": "TRAFFIC",
@@ -1099,6 +1138,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "FICT/ALT TITLE/REG CARD/TAG",
                         "Severity": "TRAFFIC",
@@ -1132,6 +1172,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "POSSESSION OF SCHEDULE II CONTROLLED SUBSTANC",
                         "Severity": "FELONY",
@@ -1145,6 +1186,7 @@
                 "_multiline": true,
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "POSSESSION OF SCHEDULE II CONTROLLED SUBSTANC",
                         "Severity": "FELONY",
@@ -1179,6 +1221,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "FAIL TO RETURN RENTAL PROPERTY",
                         "Severity": "MISDEMEANOR",
@@ -1213,6 +1256,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "OBTAIN PROPERTY FALSE PRETENSE",
                         "Severity": "FELONY",
@@ -1246,6 +1290,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "DWLR NOT IMPAIRED REV",
                         "Severity": "TRAFFIC",
@@ -1279,6 +1324,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "FAIL RETN PROP RENTD PUR OPT",
                         "Severity": "MISDEMEANOR",
@@ -1311,6 +1357,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE ASSAULT",
                         "Severity": "MISDEMEANOR",
@@ -1322,6 +1369,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "ASSAULT ON A CHILD UNDER 12",
                         "Severity": "MISDEMEANOR",
@@ -1355,6 +1403,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "RESISTING PUBLIC OFFICER",
                         "Severity": "MISDEMEANOR",
@@ -1397,6 +1446,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "ALLOW UNLICENSED TO DRIVE",
                         "Severity": "TRAFFIC",
@@ -1409,6 +1459,7 @@
             {
                 "Records": [
                     {
+                        "Count": "02",
                         "Action": "CHARGED",
                         "Description": "MISDEMEANOR LARCENY",
                         "Severity": "MISDEMEANOR",
@@ -1443,6 +1494,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "SIMPLE WORTHLESS CHECK($228.47)",
                         "Severity": "MISDEMEANOR",

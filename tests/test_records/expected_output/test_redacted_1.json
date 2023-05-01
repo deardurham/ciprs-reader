@@ -19,6 +19,7 @@
             {
                 "Records": [
                     {
+                        "Count": "01",
                         "Action": "CHARGED",
                         "Description": "POSSESS MARIJUANA UP TO 1/2 OZ",
                         "Severity": "MISDEMEANOR",
