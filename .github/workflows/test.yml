@@ -31,6 +31,8 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Configure git
         run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: git test
+        run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader git status
       - name: Run Pre-commit
         run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader pre-commit
       - name: Run Tests
