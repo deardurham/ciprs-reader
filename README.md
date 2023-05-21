@@ -65,7 +65,7 @@ pip install -e .
 
 Read CIPRS PDF:
 
-```
+```bash
 python ciprs_-eader.py ./cypress-example.pdf
 ```
 
