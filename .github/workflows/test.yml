@@ -31,9 +31,7 @@ jobs:
           tags: ciprs-reader
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-      - name: git test
-        run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader git status
       - name: Run Pre-commit
-        run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pre-commit
+        run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader PRE_COMMIT_HOME=/usr/src/app pre-commit
       - name: Run Tests
         run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pytest
