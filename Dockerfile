@@ -56,3 +56,6 @@ RUN set -ex \
     && pip install --no-cache-dir -r /requirements.txt
 
 WORKDIR /usr/src/app
+
+RUN mkdir pre-commit-cache
+ENV PRE_COMMIT_HOME=/usr/src/app/pre-commit-cache

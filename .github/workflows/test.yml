@@ -33,7 +33,5 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Run Pre-commit
         run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pre-commit
-        env:
-          PRE_COMMIT_HOME: /usr/src/app
       - name: Run Tests
         run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pytest
