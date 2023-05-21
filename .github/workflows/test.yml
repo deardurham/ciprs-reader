@@ -29,6 +29,10 @@ jobs:
           tags: ciprs-reader
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: docker ls
+        run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader ls
+      - name: Run git
+        run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader git status
       - name: Run Pre-commit
         run: docker run --rm -t -v /$(pwd):/usr/src/app ciprs-reader pre-commit
       - name: Run Tests
