@@ -20,7 +20,7 @@ if __name__ == "__main__":
         help="increases log verbosity for each occurence.",
     )
     parser.add_argument("--source", help="Include full source in JSON output", action="store_true")
-    parser.add_argument("--mode", help="Parse mode", type=int, default=ParserMode.V1)
+    parser.add_argument("--mode", help="Parse mode", type=int, default=ParserMode.V2)
     parser.add_argument("--version", action="version", version="%(prog)s " + VERSION)
     parser.add_argument("--print-source", help="Include full source in JSON output and print it", action="store_true")
 

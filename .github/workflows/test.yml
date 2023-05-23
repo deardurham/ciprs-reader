@@ -10,7 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          set-safe-directory: '/usr/src/app'
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Cache Docker build
@@ -30,6 +32,6 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Run Pre-commit
-        run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pre-commit
+        run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pre-commit
       - name: Run Tests
-        run: docker run --rm -t -v "${PWD}:/usr/src/app" ciprs-reader pytest
+        run: docker run --user="$(id --user):$(id --group)" --rm -t -v /$(pwd):/usr/src/app ciprs-reader pytest
