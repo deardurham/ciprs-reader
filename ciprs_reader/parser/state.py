@@ -22,7 +22,10 @@ class RecordSection(Parser):
     def match(self, document):
         self.matches = None
         self.document = document
-        matches = self.re.match(str(document))
+        if self.re_method == "match":
+            matches = self.re.match(str(document))
+        else:
+            matches = self.re.search(str(document))
         if matches:
             self.matches = self.clean(matches)
         return self.matches
@@ -49,6 +52,7 @@ class DefendantSection(RecordSection):
 
 class DistrictCourtOffenseSection(RecordSection):
 
+    re_method = "search"
     pattern = [r"\s*District", "Court", "Offense", r"Information$"]
 
     def clean(self, matches):
@@ -57,6 +61,7 @@ class DistrictCourtOffenseSection(RecordSection):
 
 class SuperiorCourtOffenseSection(RecordSection):
 
+    re_method = "search"
     pattern = [r"\s*Superior", "Court", "Offense", r"Information$"]
 
     def clean(self, matches):
